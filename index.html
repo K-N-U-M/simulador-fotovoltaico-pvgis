@@ -333,7 +333,7 @@ input[type=range] {
         </div>
         <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
       </div>
-      <canvas id="chartN" role="img" aria-label="Producción mensual orientación norte" class="w-full h-[245px] block"></canvas>
+      <canvas id="chartN" role="img" aria-label="Producción mensual orientación norte" width="600" height="245" class="w-full h-[245px] block"></canvas>
       <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsN"></div>
     </article>
 
@@ -349,7 +349,7 @@ input[type=range] {
         </div>
         <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
       </div>
-      <canvas id="chartE" role="img" aria-label="Producción mensual orientación este" class="w-full h-[245px] block"></canvas>
+      <canvas id="chartE" role="img" aria-label="Producción mensual orientación este" width="600" height="245" class="w-full h-[245px] block"></canvas>
       <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsE"></div>
     </article>
 
@@ -365,7 +365,7 @@ input[type=range] {
         </div>
         <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
       </div>
-      <canvas id="chartS" role="img" aria-label="Producción mensual orientación sur" class="w-full h-[245px] block"></canvas>
+      <canvas id="chartS" role="img" aria-label="Producción mensual orientación sur" width="600" height="245" class="w-full h-[245px] block"></canvas>
       <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsS"></div>
     </article>
 
@@ -381,7 +381,7 @@ input[type=range] {
         </div>
         <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
       </div>
-      <canvas id="chartO" role="img" aria-label="Producción mensual orientación oeste" class="w-full h-[245px] block"></canvas>
+      <canvas id="chartO" role="img" aria-label="Producción mensual orientación oeste" width="600" height="245" class="w-full h-[245px] block"></canvas>
       <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsO"></div>
     </article>
   </section>
@@ -687,26 +687,21 @@ async function loadPVGIS(){
 function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
  const canvas=$("chart"+dirId);
  if(!canvas)return;
- const rect=canvas.getBoundingClientRect();
- const dpr=window.devicePixelRatio||1;
- // Asegurar dimensiones válidas incluso si el layout aún se está calculando
- const computedW = rect.width > 20 ? rect.width : (canvas.parentElement?.clientWidth ? canvas.parentElement.clientWidth - 40 : 450);
- const w=Math.max(300, Math.round(computedW));
- const h=245;
-
- const targetW=Math.round(w*dpr),targetH=Math.round(h*dpr);
- if(canvas.width!==targetW||canvas.height!==targetH){
-  canvas.width=targetW;
-  canvas.height=targetH;
+ 
+ const w = canvas.clientWidth || canvas.offsetWidth || 550;
+ const h = 245;
+ 
+ if(canvas.width !== w || canvas.height !== h){
+  canvas.width = w;
+  canvas.height = h;
  }
  const ctx=canvas.getContext("2d");
- ctx.setTransform(dpr,0,0,dpr,0,0);
  ctx.clearRect(0,0,w,h);
 
  const rawMax = globalMax ?? Math.max(...values, ...realValues);
  const max = Math.max(1, rawMax) * 1.14;
  const step = max / 4;
- ctx.font="10px ui-sans-serif, system-ui, sans-serif";
+ ctx.font="10px system-ui, sans-serif";
  const left=Math.max(48, Math.ceil(ctx.measureText(fmt(max)).width) + 16);
  const right=12,top=14,bottom=33;
  const plotW=Math.max(100, w-left-right);
@@ -723,42 +718,32 @@ function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
   ctx.moveTo(left,y);
   ctx.lineTo(w-right,y);
   ctx.stroke();
-  ctx.fillStyle="#64748b";
+  ctx.fillStyle="#94a3b8";
   ctx.fillText(fmt(step*i),left-8,y);
  }
 
  const group=plotW/12;
- const bw=Math.max(6, Math.min(14, group*0.32));
+ const bw=Math.max(5, Math.min(14, group*0.32));
  for(let i=0;i<12;i++){
   const cx=left+group*(i+0.5);
   const v1=values[i] || 0;
   const v2=realValues[i] || 0;
-  const barH1=Math.max(0, (v1/max)*plotH);
-  const barH2=Math.max(0, (v2/max)*plotH);
+  const barH1=Math.max(2, (v1/max)*plotH);
+  const barH2=Math.max(2, (v2/max)*plotH);
   const y1=top+plotH-barH1;
   const y2=top+plotH-barH2;
   
   if(i===hoverIdx){
-   // Hover column light
-   const hoverGrad=ctx.createLinearGradient(0,top,0,top+plotH);
-   hoverGrad.addColorStop(0,"rgba(245, 158, 11, 0.16)");
-   hoverGrad.addColorStop(1,"rgba(245, 158, 11, 0.02)");
-   ctx.fillStyle=hoverGrad;
+   ctx.fillStyle="rgba(245, 158, 11, 0.16)";
    ctx.fillRect(left+group*i,top,group,plotH);
   }
 
-  // Bar 1: PVGIS Base (Golden Amber gradient)
-  const g1=ctx.createLinearGradient(0,y1,0,top+plotH);
-  g1.addColorStop(0,"#fbbf24");
-  g1.addColorStop(1,"#d97706");
-  ctx.fillStyle=g1;
+  // Bar 1: PVGIS Base (Golden Amber)
+  ctx.fillStyle="#f59e0b";
   ctx.fillRect(cx-bw-1.5, y1, bw, barH1);
 
-  // Bar 2: Estimated (Vibrant Orange / Amber gradient)
-  const g2=ctx.createLinearGradient(0,y2,0,top+plotH);
-  g2.addColorStop(0,"#fb923c");
-  g2.addColorStop(1,"#ea580c");
-  ctx.fillStyle=g2;
+  // Bar 2: Estimated (Orange)
+  ctx.fillStyle="#ea580c";
   ctx.fillRect(cx+1.5, y2, bw, barH2);
 
   // Month label
