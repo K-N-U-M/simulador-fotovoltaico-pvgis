@@ -1,172 +1,413 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RA | Simulador de producción fotovoltaica</title>
+<title>RA | Comparador de producción fotovoltaica</title>
+<!-- Tailwind CSS via CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        darkBg: '#0b0f14',
+        cardBg: '#131922',
+        cardBorder: '#232d3b',
+        solarYellow: '#f59e0b',
+        solarAmber: '#d97706',
+        solarOrange: '#f97316',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+      }
+    }
+  }
+}
+</script>
 <style>
-:root{--bg:#111315;--panel:#1b1e21;--line:#363c41;--text:#f1f3f4;--muted:#9ba3aa;--yellow:#f3c744;--orange:#ed873d;--green:#7dbb9b;--red:#df8b7e}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-header{position:sticky;top:0;z-index:5;background:#151719ee;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:16px clamp(16px,4vw,54px)}
-.head{max-width:1500px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:12px}
-.mark{width:38px;height:38px;display:grid;place-items:center;background:linear-gradient(145deg,var(--yellow),var(--orange));color:#171717;font-weight:900;font-size:20px;clip-path:polygon(50% 0,100% 100%,0 100%)}
-.brand strong{letter-spacing:.13em;font-size:14px}
-.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.16em;margin-top:2px}
-.controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.field{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);padding:7px 11px}
-.field label{font-size:11px;color:var(--muted);letter-spacing:.06em;white-space:nowrap}
-input,select{background:transparent;color:var(--text);border:0;outline:0;font:inherit}
-input[type=number]{width:72px;font-weight:700;font-size:16px;text-align:right;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
-input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
-.field:focus-within,.param-input:focus-within{border-color:var(--yellow)}
-select{min-width:135px;cursor:pointer;font-size:13px}
-select option{background:#202428}
-.unit-inline{font-size:12px;color:var(--muted);font-weight:600}
-main{max-width:1500px;margin:0 auto;padding:28px clamp(16px,4vw,54px) 60px}
-.intro{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px;flex-wrap:wrap}
-.eyebrow{color:var(--yellow);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
-h1{font-size:clamp(25px,3vw,38px);letter-spacing:-.04em;margin:7px 0 4px}
-.sub{color:var(--muted);max-width:740px;margin:0}
-.status{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--yellow)}
-.dot.ok{background:var(--green)}
-.dot.err{background:var(--red)}
-.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:24px 0}
-.kpi{background:var(--panel);border:1px solid var(--line);padding:17px 18px;min-height:105px}
-.kpi .label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.12em}
-.kpi .value{font-size:clamp(23px,2.5vw,31px);font-weight:750;letter-spacing:-.04em;margin-top:8px;font-variant-numeric:tabular-nums}
-.kpi .unit{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:0}
-.kpi .hint{font-size:11px;color:var(--muted);margin-top:2px}
-.section-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin:30px 0 13px}
-.section-head h2{font-size:16px;margin:0;letter-spacing:.01em}
-.section-tools{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.legend{display:flex;gap:16px;color:var(--muted);font-size:12px}
-.key{display:inline-flex;align-items:center;gap:7px}
-.swatch{width:10px;height:10px;display:inline-block}
-.swatch.theory{background:var(--yellow)}
-.swatch.real{background:var(--orange)}
-.toggle{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);cursor:pointer;user-select:none}
-.toggle input{accent-color:var(--yellow);cursor:pointer}
-.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.card{background:var(--panel);border:1px solid var(--line);padding:17px 18px 12px;min-width:0;transition:border-color .2s,background .2s;cursor:pointer;position:relative}
-.card:hover{border-color:#535c64}
-.card.active{border-color:var(--yellow);background:#202124;box-shadow:inset 3px 0 var(--yellow)}
-.cardtop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:7px}
-.card h3{font-size:15px;margin:0}
-.card .meta{font-size:11px;color:var(--muted)}
-.focus{font-size:10px;color:#191919;background:var(--yellow);padding:4px 7px;font-weight:800;letter-spacing:.08em;display:none}
-.card.active .focus{display:inline-block}
-canvas{width:100%;height:245px;display:block;cursor:crosshair}
-.totals{display:flex;gap:22px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:10px;margin-top:2px;font-size:12px;color:var(--muted)}
-.totals b{color:var(--text);font-variant-numeric:tabular-nums}
-.note{background:var(--panel);border:1px solid var(--line);padding:16px 18px;margin-top:20px;color:var(--muted);font-size:12px}
-.note strong{color:var(--text)}
-.note p{margin:5px 0}
-.foot{color:#778088;font-size:11px;margin-top:20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.foot a{color:var(--yellow);text-decoration:none}
-button{background:var(--yellow);color:#171717;border:0;padding:10px 15px;font-weight:750;cursor:pointer;font:inherit;font-size:12px}
-button:disabled{opacity:.5;cursor:wait}
-#error{display:none;background:#321f1d;border:1px solid #75433c;color:#ffd7d1;padding:13px 16px;margin:14px 0;font-size:13px}
-#tooltip{position:fixed;pointer-events:none;z-index:20;display:none;background:#111315f2;border:1px solid var(--line);padding:9px 11px;font-size:12px;color:var(--text);box-shadow:0 8px 24px #00000080;min-width:170px}
-#tooltip .tt-head{font-weight:700;margin-bottom:5px;color:var(--yellow)}
-#tooltip .tt-row{display:flex;justify-content:space-between;gap:14px;font-variant-numeric:tabular-nums;color:var(--muted)}
-#tooltip .tt-row b{color:var(--text)}
-.params-card{background:var(--panel);border:1px solid var(--line);padding:17px 18px;margin:0 0 24px}
-.params-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.params-head h2{font-size:15px;margin:0}
-.params-sub{font-size:12px;color:var(--muted);margin-top:2px}
-.params-sub b{color:var(--yellow);font-variant-numeric:tabular-nums}
-.params-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
-.param-item{background:var(--bg);border:1px solid var(--line);padding:11px 12px;display:flex;flex-direction:column;gap:7px}
-.param-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.param-top label{font-size:11px;color:var(--muted);line-height:1.25}
-.param-input{display:flex;align-items:center;gap:3px;background:var(--panel);border:1px solid var(--line);padding:3px 6px}
-.param-input input[type=number]{width:52px;font-size:13px;font-weight:700;text-align:right}
-.param-item input[type=range]{width:100%;accent-color:var(--yellow);cursor:pointer;margin:0}
-.btn-ghost{background:transparent;color:var(--yellow);border:1px solid var(--yellow);padding:7px 12px;font-size:11px;font-weight:700;letter-spacing:.04em;cursor:pointer}
-.btn-ghost:hover{background:var(--yellow);color:#171717}
-@media(max-width:1100px){.params-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:850px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.cards{grid-template-columns:1fr}.params-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){header{position:static}.kpis{gap:8px}.kpi{padding:13px}.kpi .value{font-size:22px}.field{flex:1;justify-content:space-between}select{min-width:120px}.params-grid{grid-template-columns:1fr}}
+/* Hiding native spin arrows */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Custom glow & glass backgrounds */
+.glass-panel {
+  background: rgba(19, 25, 34, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-panel-hover:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(245, 158, 11, 0.15);
+}
+.gradient-border-active {
+  border-color: rgba(245, 158, 11, 0.8) !important;
+  box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.3), inset 0 0 15px -3px rgba(245, 158, 11, 0.1) !important;
+}
+/* Range sliders modern styling */
+input[type=range] {
+  accent-color: #f59e0b;
+}
 </style>
 </head>
-<body>
-<header><div class="head">
-  <div class="brand"><div class="mark">A</div><div><strong>RA / RENEWAL ARCHITECTURE</strong><small>PV PERFORMANCE SIMULATOR</small></div></div>
-  <div class="controls">
-    <div class="field"><label for="power">POTENCIA</label><input id="power" type="number" min="0.1" max="10000" step="0.1" value="1"><span class="unit-inline">kWp</span></div>
-    <div class="field"><label for="angle">INCLINACIÓN</label><input id="angle" type="number" min="0" max="90" step="1" value="37"><span class="unit-inline">°</span></div>
-    <div class="field"><label for="orientation">DESTACAR</label><select id="orientation"><option value="all">Todas las orientaciones</option><option value="N">Norte</option><option value="E">Este</option><option value="S" selected>Sur</option><option value="O">Oeste</option></select></div>
-    <button id="refresh">ACTUALIZAR PVGIS</button>
-  </div>
-</div></header>
-<main>
-  <div class="intro">
-    <div><div class="eyebrow">Simulación energética · Barcelona</div><h1>Producción fotovoltaica mensual</h1><p class="sub" id="subtitle">Comparativa de energía mensual para una instalación fija de la potencia indicada, con cuatro orientaciones y 37° de inclinación.</p></div>
-    <div class="status"><span class="dot" id="statusDot"></span><span id="statusText">Esperando consulta a PVGIS…</span></div>
-  </div>
-  <div id="error" role="alert"></div>
-  <section class="kpis">
-    <div class="kpi"><div class="label">Producción anual PVGIS</div><div class="value" id="kpiTheory">— <span class="unit">kWh/año</span></div><div class="hint" id="kpiTheoryHint">Orientación sur</div></div>
-    <div class="kpi"><div class="label">Producción anual estimada</div><div class="value" id="kpiReal">— <span class="unit">kWh/año</span></div><div class="hint" id="kpiRealHint">Aplicando rendimiento global del 79,44 %</div></div>
-    <div class="kpi"><div class="label">Rendimiento específico PVGIS</div><div class="value" id="kpiSpecific">— <span class="unit">kWh/kWp</span></div><div class="hint" id="kpiSpecificHint">Normalizado · orientación sur</div></div>
-    <div class="kpi"><div class="label">Factor aplicado</div><div class="value" id="kpiFactor">79,44<span class="unit"> %</span></div><div class="hint" id="kpiLossHint">Pérdidas globales adicionales: 20,56 %</div></div>
-  </section>
-  <section class="params-card" aria-label="Parámetros de cálculo de producción estimada">
-    <div class="params-head">
+<body class="bg-[#0b0f14] text-slate-100 font-sans min-h-screen antialiased selection:bg-amber-500 selection:text-black relative overflow-x-hidden">
+
+<!-- Ambient Background Glows -->
+<div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+<div class="fixed top-1/3 right-10 w-[450px] h-[450px] bg-orange-600/10 rounded-full blur-[130px] pointer-events-none -z-10"></div>
+<div class="fixed bottom-10 left-1/3 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+
+<!-- Top Sticky Navbar -->
+<header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 transition-all">
+  <div class="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+    <!-- Brand -->
+    <div class="flex items-center gap-3.5">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-orange-500 to-amber-600 p-[1.5px] shadow-lg shadow-amber-500/20">
+        <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+          <svg class="w-5 h-5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2"/><path d="M12 20v2"/>
+            <path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/>
+            <path d="M2 12h2"/><path d="M20 12h2"/>
+            <path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+          </svg>
+        </div>
+      </div>
       <div>
-        <h2>Parámetros de producción estimada</h2>
-        <div class="params-sub">Factor global calculado: <b id="paramsGlobal">79,44 %</b> · Pérdidas combinadas: <b id="paramsLoss">20,56 %</b></div>
+        <div class="flex items-center gap-2">
+          <span class="font-black text-sm tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-orange-400">RA / RENEWAL ARCHITECTURE</span>
+          <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">PVGIS 5.3</span>
+        </div>
+        <div class="text-xs font-semibold text-slate-400 tracking-wide">Comparador de producción fotovoltaica</div>
       </div>
-      <button type="button" class="btn-ghost" id="presetTypical">PRESET: VALORES TÍPICOS</button>
     </div>
-    <div class="params-grid">
-      <div class="param-item">
-        <div class="param-top"><label for="pInverter">Eficiencia inversor</label><div class="param-input"><input id="pInverter" type="number" min="80" max="100" step="0.1" value="96.0"><span class="unit-inline">%</span></div></div>
-        <input id="rInverter" type="range" min="80" max="100" step="0.1" value="96.0" aria-label="Eficiencia inversor">
+
+    <!-- Quick Controls -->
+    <div class="flex items-center gap-3 flex-wrap">
+      <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-1.5 focus-within:border-amber-400 focus-within:ring-1 focus-within:ring-amber-400/50 transition">
+        <label for="power" class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Potencia</label>
+        <input id="power" type="number" min="0.1" max="10000" step="0.1" value="1" class="w-16 bg-transparent text-right font-bold text-slate-100 text-sm focus:outline-none">
+        <span class="text-xs font-semibold text-amber-400/90">kWp</span>
       </div>
-      <div class="param-item">
-        <div class="param-top"><label for="pWiring">Pérdidas cableado DC/AC</label><div class="param-input"><input id="pWiring" type="number" min="0" max="20" step="0.1" value="2.0"><span class="unit-inline">%</span></div></div>
-        <input id="rWiring" type="range" min="0" max="20" step="0.1" value="2.0" aria-label="Pérdidas cableado DC/AC">
+
+      <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-1.5 focus-within:border-amber-400 focus-within:ring-1 focus-within:ring-amber-400/50 transition">
+        <label for="angle" class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Inclinación</label>
+        <input id="angle" type="number" min="0" max="90" step="1" value="37" class="w-12 bg-transparent text-right font-bold text-slate-100 text-sm focus:outline-none">
+        <span class="text-xs font-semibold text-amber-400/90">°</span>
       </div>
-      <div class="param-item">
-        <div class="param-top"><label for="pSoiling">Suciedad / polvo</label><div class="param-input"><input id="pSoiling" type="number" min="0" max="30" step="0.1" value="3.0"><span class="unit-inline">%</span></div></div>
-        <input id="rSoiling" type="range" min="0" max="30" step="0.1" value="3.0" aria-label="Suciedad y polvo">
+
+      <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-1.5 focus-within:border-amber-400 focus-within:ring-1 focus-within:ring-amber-400/50 transition">
+        <label for="orientation" class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Destacar</label>
+        <select id="orientation" class="bg-transparent text-slate-100 text-xs font-medium cursor-pointer focus:outline-none pr-1">
+          <option value="all" class="bg-slate-900 text-slate-200">Todas las orientaciones</option>
+          <option value="N" class="bg-slate-900 text-slate-200">Norte (180°)</option>
+          <option value="E" class="bg-slate-900 text-slate-200">Este (-90°)</option>
+          <option value="S" selected class="bg-slate-900 text-slate-200">Sur (0°)</option>
+          <option value="O" class="bg-slate-900 text-slate-200">Oeste (+90°)</option>
+        </select>
       </div>
-      <div class="param-item">
-        <div class="param-top"><label for="pShading">Sombras locales</label><div class="param-input"><input id="pShading" type="number" min="0" max="50" step="0.1" value="7.0"><span class="unit-inline">%</span></div></div>
-        <input id="rShading" type="range" min="0" max="50" step="0.1" value="7.0" aria-label="Sombras locales">
+
+      <button id="refresh" class="relative group overflow-hidden rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 p-px font-bold text-slate-950 text-xs tracking-wider transition active:scale-95 disabled:opacity-50">
+        <span class="block px-4 py-2 rounded-[11px] bg-gradient-to-r from-amber-400 via-amber-300 to-orange-400 group-hover:from-amber-300 group-hover:to-orange-300 transition font-bold shadow-md shadow-amber-500/20">
+          ACTUALIZAR PVGIS
+        </span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-7">
+
+  <!-- Hero Header & Status -->
+  <div class="flex flex-wrap items-end justify-between gap-4 pb-2">
+    <div>
+      <div class="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-amber-400 mb-1.5">
+        <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+        <span>Simulación energética solar · Barcelona</span>
       </div>
-      <div class="param-item">
-        <div class="param-top"><label for="pMisc">Mismatch / degradación</label><div class="param-input"><input id="pMisc" type="number" min="0" max="30" step="0.1" value="6.4"><span class="unit-inline">%</span></div></div>
-        <input id="rMisc" type="range" min="0" max="30" step="0.1" value="6.4" aria-label="Mismatch y degradación">
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">
+        Comparador de producción fotovoltaica
+      </h1>
+      <p id="subtitle" class="text-sm text-slate-400 mt-1 max-w-3xl leading-relaxed">
+        Comparativa de energía mensual para una instalación fija de la potencia indicada, con cuatro orientaciones y 37° de inclinación.
+      </p>
+    </div>
+
+    <!-- Live Status Pill -->
+    <div class="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-800 text-xs text-slate-300 shadow-inner">
+      <span class="relative flex h-2.5 w-2.5">
+        <span id="statusPing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+        <span id="statusDot" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-400"></span>
+      </span>
+      <span id="statusText" class="font-medium text-slate-300">Esperando consulta a PVGIS…</span>
+    </div>
+  </div>
+
+  <!-- Error banner -->
+  <div id="error" role="alert" class="hidden rounded-2xl bg-red-950/40 border border-red-800/80 text-red-200 px-5 py-3.5 text-xs sm:text-sm backdrop-blur-md shadow-lg shadow-red-950/20"></div>
+
+  <!-- KPI Cards Grid (Tailwind gradients + modern stats) -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- KPI 1 -->
+    <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-amber-500/40 transition">
+      <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
+      <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
+        <span>Producción anual PVGIS</span>
+        <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      </div>
+      <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-300 tabular-nums" id="kpiTheory">— <span class="text-xs font-semibold text-slate-400">kWh/año</span></div>
+      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiTheoryHint">Orientación sur</div>
+    </div>
+
+    <!-- KPI 2 -->
+    <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-orange-500/40 transition">
+      <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition"></div>
+      <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
+        <span>Producción anual estimada</span>
+        <svg class="w-4 h-4 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      </div>
+      <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-200 via-orange-400 to-amber-300 tabular-nums" id="kpiReal">— <span class="text-xs font-semibold text-slate-400">kWh/año</span></div>
+      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiRealHint">Aplicando rendimiento global del 79,44 %</div>
+    </div>
+
+    <!-- KPI 3 -->
+    <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-emerald-500/40 transition">
+      <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition"></div>
+      <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
+        <span>Rendimiento específico</span>
+        <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-emerald-400 to-teal-300 tabular-nums" id="kpiSpecific">— <span class="text-xs font-semibold text-slate-400">kWh/kWp</span></div>
+      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiSpecificHint">Normalizado · orientación sur</div>
+    </div>
+
+    <!-- KPI 4 -->
+    <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-amber-500/40 transition">
+      <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
+      <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
+        <span>Factor de rendimiento</span>
+        <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      </div>
+      <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-orange-400 tabular-nums" id="kpiFactor">79,44 <span class="text-xs font-semibold text-slate-400">%</span></div>
+      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiLossHint">Pérdidas globales: 20,56 %</div>
+    </div>
+  </section>
+
+  <!-- Parameters Card (Gradient Header + Glass Sliders) -->
+  <section class="rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800/90 p-5 sm:p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+    <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80 mb-5">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 shadow-sm shadow-amber-500/50"></span>
+          <h2 class="text-base font-bold text-slate-100">Parámetros que influyen en la producción estimada</h2>
+        </div>
+        <p class="text-xs text-slate-400 mt-1">
+          Ajuste fino de pérdidas y componentes · Factor global resultante: 
+          <b id="paramsGlobal" class="text-amber-400 font-semibold tabular-nums">79,44 %</b> 
+          (Pérdidas combinadas: <b id="paramsLoss" class="text-orange-400 font-semibold tabular-nums">20,56 %</b>)
+        </p>
+      </div>
+
+      <button type="button" id="presetTypical" class="group flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-amber-500/10 border border-slate-700 hover:border-amber-400/50 text-amber-400 hover:text-amber-300 text-xs font-bold tracking-wider transition shadow-sm active:scale-95">
+        <svg class="w-3.5 h-3.5 transition group-hover:rotate-180 duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        PRESET: VALORES TÍPICOS
+      </button>
+    </div>
+
+    <!-- Parameter Sliders Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+      <!-- Param 1 -->
+      <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <label for="pInverter" class="text-xs font-semibold text-slate-300 leading-tight">Eficiencia inversor</label>
+          <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
+            <input id="pInverter" type="number" min="80" max="100" step="0.1" value="96.0" class="w-12 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
+            <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+          </div>
+        </div>
+        <input id="rInverter" type="range" min="80" max="100" step="0.1" value="96.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+      </div>
+
+      <!-- Param 2 -->
+      <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <label for="pWiring" class="text-xs font-semibold text-slate-300 leading-tight">Pérdidas cableado</label>
+          <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
+            <input id="pWiring" type="number" min="0" max="20" step="0.1" value="2.0" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
+            <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+          </div>
+        </div>
+        <input id="rWiring" type="range" min="0" max="20" step="0.1" value="2.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+      </div>
+
+      <!-- Param 3 -->
+      <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <label for="pSoiling" class="text-xs font-semibold text-slate-300 leading-tight">Suciedad y polvo</label>
+          <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
+            <input id="pSoiling" type="number" min="0" max="30" step="0.1" value="3.0" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
+            <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+          </div>
+        </div>
+        <input id="rSoiling" type="range" min="0" max="30" step="0.1" value="3.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+      </div>
+
+      <!-- Param 4 -->
+      <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <label for="pShading" class="text-xs font-semibold text-slate-300 leading-tight">Sombras locales</label>
+          <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
+            <input id="pShading" type="number" min="0" max="50" step="0.1" value="7.0" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
+            <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+          </div>
+        </div>
+        <input id="rShading" type="range" min="0" max="50" step="0.1" value="7.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+      </div>
+
+      <!-- Param 5 -->
+      <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <label for="pMisc" class="text-xs font-semibold text-slate-300 leading-tight">Degradación / mismatch</label>
+          <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
+            <input id="pMisc" type="number" min="0" max="30" step="0.1" value="6.4" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
+            <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+          </div>
+        </div>
+        <input id="rMisc" type="range" min="0" max="30" step="0.1" value="6.4" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
       </div>
     </div>
   </section>
-  <div class="section-head">
-    <h2>Producción mensual por orientación</h2>
-    <div class="section-tools">
-      <label class="toggle"><input type="checkbox" id="sharedScale" checked>Escala Y común</label>
-      <div class="legend"><span class="key"><i class="swatch theory"></i>PVGIS · base</span><span class="key"><i class="swatch real"></i><span id="legendReal">Estimada · 79,44 %</span></span></div>
+
+  <!-- Section Title & Chart Controls -->
+  <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+    <div>
+      <h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
+        <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
+        Producción mensual comparada por orientación
+      </h2>
+      <p class="text-xs text-slate-400 mt-0.5">Haz clic en cualquier tarjeta para destacarla y sincronizar el análisis</p>
+    </div>
+
+    <div class="flex items-center gap-5 flex-wrap">
+      <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-300 cursor-pointer select-none bg-slate-900/80 border border-slate-800 px-3 py-1.5 rounded-xl hover:border-slate-700 transition">
+        <input type="checkbox" id="sharedScale" checked class="w-4 h-4 rounded text-amber-500 accent-amber-500 focus:ring-0 cursor-pointer">
+        <span>Escala Y común</span>
+      </label>
+
+      <div class="flex items-center gap-4 text-xs font-medium text-slate-400 bg-slate-900/80 border border-slate-800 px-3.5 py-1.5 rounded-xl">
+        <span class="inline-flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-sm bg-gradient-to-r from-amber-300 to-amber-400 shadow-sm shadow-amber-400/50"></span>
+          <span>PVGIS base</span>
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-sm bg-gradient-to-r from-orange-400 to-amber-500 shadow-sm shadow-orange-500/50"></span>
+          <span id="legendReal">Estimada · 79,44 %</span>
+        </span>
+      </div>
     </div>
   </div>
-  <section class="cards" id="charts">
-    <article class="card" data-dir="N" tabindex="0"><div class="cardtop"><div><h3>Norte</h3><div class="meta" data-meta="N">Azimut PVGIS: 180° · Inclinación: 37°</div></div><span class="focus">DESTACADA</span></div><canvas id="chartN" role="img" aria-label="Producción mensual orientación norte"></canvas><div class="totals" id="totalsN"></div></article>
-    <article class="card" data-dir="E" tabindex="0"><div class="cardtop"><div><h3>Este</h3><div class="meta" data-meta="E">Azimut PVGIS: −90° · Inclinación: 37°</div></div><span class="focus">DESTACADA</span></div><canvas id="chartE" role="img" aria-label="Producción mensual orientación este"></canvas><div class="totals" id="totalsE"></div></article>
-    <article class="card" data-dir="S" tabindex="0"><div class="cardtop"><div><h3>Sur</h3><div class="meta" data-meta="S">Azimut PVGIS: 0° · Inclinación: 37°</div></div><span class="focus">DESTACADA</span></div><canvas id="chartS" role="img" aria-label="Producción mensual orientación sur"></canvas><div class="totals" id="totalsS"></div></article>
-    <article class="card" data-dir="O" tabindex="0"><div class="cardtop"><div><h3>Oeste</h3><div class="meta" data-meta="O">Azimut PVGIS: +90° · Inclinación: 37°</div></div><span class="focus">DESTACADA</span></div><canvas id="chartO" role="img" aria-label="Producción mensual orientación oeste"></canvas><div class="totals" id="totalsO"></div></article>
+
+  <!-- Charts Cards Grid -->
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-5" id="charts">
+    <!-- North -->
+    <article class="card rounded-2xl glass-panel glass-panel-hover p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="N" tabindex="0">
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-slate-800/90 border border-slate-700/80 flex items-center justify-center font-black text-xs text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition">N</div>
+          <div>
+            <h3 class="font-bold text-base text-slate-100 group-hover:text-amber-300 transition">Orientación Norte</h3>
+            <div class="text-[11px] text-slate-400" data-meta="N">Azimut PVGIS: 180° · Inclinación: 37°</div>
+          </div>
+        </div>
+        <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
+      </div>
+      <canvas id="chartN" role="img" aria-label="Producción mensual orientación norte" class="w-full h-[245px] block"></canvas>
+      <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsN"></div>
+    </article>
+
+    <!-- East -->
+    <article class="card rounded-2xl glass-panel glass-panel-hover p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="E" tabindex="0">
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-slate-800/90 border border-slate-700/80 flex items-center justify-center font-black text-xs text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition">E</div>
+          <div>
+            <h3 class="font-bold text-base text-slate-100 group-hover:text-amber-300 transition">Orientación Este</h3>
+            <div class="text-[11px] text-slate-400" data-meta="E">Azimut PVGIS: −90° · Inclinación: 37°</div>
+          </div>
+        </div>
+        <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
+      </div>
+      <canvas id="chartE" role="img" aria-label="Producción mensual orientación este" class="w-full h-[245px] block"></canvas>
+      <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsE"></div>
+    </article>
+
+    <!-- South -->
+    <article class="card rounded-2xl glass-panel glass-panel-hover p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="S" tabindex="0">
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-slate-800/90 border border-slate-700/80 flex items-center justify-center font-black text-xs text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition">S</div>
+          <div>
+            <h3 class="font-bold text-base text-slate-100 group-hover:text-amber-300 transition">Orientación Sur (Óptima)</h3>
+            <div class="text-[11px] text-slate-400" data-meta="S">Azimut PVGIS: 0° · Inclinación: 37°</div>
+          </div>
+        </div>
+        <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
+      </div>
+      <canvas id="chartS" role="img" aria-label="Producción mensual orientación sur" class="w-full h-[245px] block"></canvas>
+      <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsS"></div>
+    </article>
+
+    <!-- West -->
+    <article class="card rounded-2xl glass-panel glass-panel-hover p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="O" tabindex="0">
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-slate-800/90 border border-slate-700/80 flex items-center justify-center font-black text-xs text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition">O</div>
+          <div>
+            <h3 class="font-bold text-base text-slate-100 group-hover:text-amber-300 transition">Orientación Oeste</h3>
+            <div class="text-[11px] text-slate-400" data-meta="O">Azimut PVGIS: +90° · Inclinación: 37°</div>
+          </div>
+        </div>
+        <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
+      </div>
+      <canvas id="chartO" role="img" aria-label="Producción mensual orientación oeste" class="w-full h-[245px] block"></canvas>
+      <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsO"></div>
+    </article>
   </section>
-  <div class="note">
-    <strong>Cómo se calculan los valores</strong>
-    <p><strong>PVGIS · base:</strong> energía mensual estimada por PVGIS para 1 kWp, multiplicada por la potencia introducida. La consulta usa PVGIS 5.3, tecnología cristalina, montaje en edificio, inclinación seleccionada, pérdidas de sistema en PVGIS = 0 % y la base SARAH-3 (2005–2023). Las consultas pasan por el servidor local para respetar la política CORS oficial.</p>
-    <p><strong>Estimada:</strong> producción PVGIS × <span id="noteFactor">0,7944</span>. Es un factor global simplificado elegido para esta simulación; no sustituye un cálculo horario de temperatura, inversor, cableado, sombras ni disponibilidad. PVGIS ya modela efectos físicos del módulo, como temperatura y radiación.</p>
-    <p><strong>Importante:</strong> “PVGIS · base” no significa conversión ideal sin ninguna pérdida física. Es la estimación energética del modelo PVGIS sin añadir el porcentaje global externo seleccionado. Los resultados mensuales son promedios del periodo meteorológico consultado, no una previsión de un año concreto.</p>
+
+  <!-- Explanation Card -->
+  <div class="rounded-2xl bg-slate-900/70 border border-slate-800/80 p-5 sm:p-6 text-xs text-slate-400 leading-relaxed space-y-2 backdrop-blur-md">
+    <div class="text-sm font-bold text-slate-200 flex items-center gap-2">
+      <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      Metodología de cálculo fotovoltaico
+    </div>
+    <p><strong class="text-slate-200">PVGIS · base:</strong> energía mensual estimada por el modelo europeo PVGIS para 1 kWp multiplicada por la potencia elegida. Consulta basada en PVGIS 5.3, tecnología de silicio cristalino, montaje integrado/sobre edificio, ángulo seleccionado y base de radiación satelital SARAH-3 (periodo promedio 2005–2023).</p>
+    <p><strong class="text-slate-200">Estimada:</strong> producción PVGIS multiplicada por el factor de rendimiento calculado (<span id="noteFactor" class="font-bold text-amber-400">0,7944</span>). Este factor agrupa el rendimiento del inversor, pérdidas en cableado, suciedad, sombras y mismatch.</p>
   </div>
-  <div class="foot"><span>Ubicación: 41,3851° N · 2,1734° E · Barcelona · España</span><span>Fuente: <a href="https://re.jrc.ec.europa.eu/pvg_tools/en/" target="_blank" rel="noopener">PVGIS · Comisión Europea / JRC</a> · <a href="https://joint-research-centre.ec.europa.eu/photovoltaic-geographical-information-system-pvgis/using-pvgis-5/api-non-interactive-service_en" target="_blank" rel="noopener">Documentación API</a></span></div>
+
+  <!-- Footer -->
+  <footer class="pt-2 text-xs text-slate-500 flex flex-wrap justify-between items-center gap-3 border-t border-slate-800/60">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-slate-600"></span>
+      <span>Ubicación: 41,3851° N · 2,1734° E · Barcelona · España</span>
+    </div>
+    <div>
+      Fuente: <a href="https://re.jrc.ec.europa.eu/pvg_tools/en/" target="_blank" rel="noopener" class="text-amber-400 hover:text-amber-300 underline underline-offset-2">PVGIS · Comisión Europea / JRC</a> · <a href="https://joint-research-centre.ec.europa.eu/photovoltaic-geographical-information-system-pvgis/using-pvgis-5/api-non-interactive-service_en" target="_blank" rel="noopener" class="text-amber-400 hover:text-amber-300 underline underline-offset-2">Documentación API</a>
+    </div>
+  </footer>
 </main>
-<div id="tooltip" role="tooltip"></div>
+
+<!-- Floating Glass Tooltip -->
+<div id="tooltip" role="tooltip" class="fixed pointer-events-none z-50 hidden glass-panel rounded-xl px-3.5 py-2.5 text-xs text-slate-100 shadow-2xl border border-amber-500/30 min-w-[190px]"></div>
+
 <script>
 const CFG={lat:41.3851,lon:2.1734,loss:0,periodStart:2005,periodEnd:2023,timeoutMs:15000};
 const DIRS=[{id:"N",name:"Norte",aspect:180,aspectLabel:"180°"},{id:"E",name:"Este",aspect:-90,aspectLabel:"−90°"},{id:"S",name:"Sur",aspect:0,aspectLabel:"0°"},{id:"O",name:"Oeste",aspect:90,aspectLabel:"+90°"}];
@@ -204,10 +445,20 @@ function getPerformance(){
 
 function setStatus(msg,state="loading"){
  $("statusText").textContent=msg;
- $("statusDot").className="dot"+(state==="ok"?" ok":state==="err"?" err":"");
+ const dot=$("statusDot"), ping=$("statusPing");
+ if(state==="ok"){
+  dot.className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400";
+  ping.className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75";
+ }else if(state==="err"){
+  dot.className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-400";
+  ping.className="hidden";
+ }else{
+  dot.className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-400";
+  ping.className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75";
+ }
 }
-function showError(msg){$("error").style.display="block";$("error").textContent=msg;}
-function clearError(){$("error").style.display="none";$("error").textContent="";}
+function showError(msg){$("error").classList.remove("hidden");$("error").textContent=msg;}
+function clearError(){$("error").classList.add("hidden");$("error").textContent="";}
 
 function apiUrl(dir,angle){
  const p=new URLSearchParams({
@@ -238,7 +489,7 @@ async function loadPVGIS(){
  const angle=getAngle();
  clearError();
  $("refresh").disabled=true;
- setStatus(`Consultando PVGIS 5.3 (${angle}°) a través del servidor local…`);
+ setStatus(`Consultando PVGIS 5.3 (${angle}°)…`);
  try{
   const responses=await Promise.all(DIRS.map(async d=>{
    const res=await fetchWithTimeout(apiUrl(d,angle),activeController.signal);
@@ -253,7 +504,7 @@ async function loadPVGIS(){
   baseData=Object.fromEntries(responses);
   loadedAngle=angle;
   render();
-  setStatus(`Datos PVGIS cargados · ${angle}° · promedio ${CFG.periodStart}–${CFG.periodEnd}`,"ok");
+  setStatus(`Datos PVGIS cargados · ${angle}° · SARAH-3`,"ok");
  }catch(e){
   if(e.name==="AbortError"&&!e.message.includes("Tiempo de espera"))return;
   if(!baseData||angle===37){
@@ -261,11 +512,11 @@ async function loadPVGIS(){
    loadedAngle=37;
    $("angle").value="37";
    render();
-   setStatus(`Datos PVGIS 5.3 precargados · 37° · promedio ${CFG.periodStart}–${CFG.periodEnd}`,"ok");
-   if(angle!==37)showError("Sin servidor proxy local (/api/pvgis) solo están disponibles los datos reales precargados de PVGIS 5.3 para 37°. Para consultar otros ángulos en vivo, ejecuta `python3 iniciar_simulador.py`.");
+   setStatus(`Datos PVGIS 5.3 precargados · 37°`,"ok");
+   if(angle!==37)showError("Sin servidor proxy local (/api/pvgis) se usan los datos precargados oficiales de PVGIS 5.3 para Barcelona a 37°. Para otros ángulos ejecuta python3 iniciar_simulador.py.");
   }else{
    setStatus("No se pudo consultar el nuevo ángulo","err");
-   showError("No se ha podido consultar PVGIS para "+angle+"° sin el servidor local (`python3 iniciar_simulador.py`). Se mantienen los datos anteriores.");
+   showError("No se ha podido consultar PVGIS para "+angle+"° sin proxy. Se mantienen los datos anteriores.");
   }
  }finally{
   $("refresh").disabled=false;
@@ -287,29 +538,55 @@ function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
 
  const max=Math.max(1,globalMax??Math.max(...values,...realValues))*1.14;
  const step=max/4;
- ctx.font="10px ui-sans-serif,system-ui,sans-serif";
- const left=Math.max(44,Math.ceil(ctx.measureText(fmt(max)).width)+14);
- const right=8,top=13,bottom=33,plotW=w-left-right,plotH=h-top-bottom;
+ ctx.font="10px Inter, system-ui, sans-serif";
+ const left=Math.max(46,Math.ceil(ctx.measureText(fmt(max)).width)+16);
+ const right=10,top=14,bottom=33,plotW=w-left-right,plotH=h-top-bottom;
 
+ // Grid lines & Y axis labels
  ctx.textAlign="right";ctx.textBaseline="middle";
  for(let i=0;i<=4;i++){
   const y=top+plotH-(i/4)*plotH;
-  ctx.strokeStyle="#353b40";ctx.lineWidth=1;
+  ctx.strokeStyle="rgba(51, 65, 85, 0.45)";
+  ctx.lineWidth=1;
   ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();
-  ctx.fillStyle="#8d969e";ctx.fillText(fmt(step*i),left-7,y);
+  ctx.fillStyle="#64748b";
+  ctx.fillText(fmt(step*i),left-8,y);
  }
 
- const group=plotW/12,bw=Math.min(13,group*0.31);
+ const group=plotW/12,bw=Math.min(13,group*0.32);
  for(let i=0;i<12;i++){
   const cx=left+group*(i+0.5),v1=values[i],v2=realValues[i];
   const y1=top+plotH-(v1/max)*plotH,y2=top+plotH-(v2/max)*plotH;
+  
   if(i===hoverIdx){
-   ctx.fillStyle="rgba(243,199,68,0.10)";
+   // Hover column light
+   const hoverGrad=ctx.createLinearGradient(0,top,0,top+plotH);
+   hoverGrad.addColorStop(0,"rgba(245, 158, 11, 0.16)");
+   hoverGrad.addColorStop(1,"rgba(245, 158, 11, 0.02)");
+   ctx.fillStyle=hoverGrad;
    ctx.fillRect(left+group*i,top,group,plotH);
   }
-  ctx.fillStyle="#f3c744";ctx.fillRect(cx-bw-1,y1,bw,top+plotH-y1);
-  ctx.fillStyle="#ed873d";ctx.fillRect(cx+1,y2,bw,top+plotH-y2);
-  ctx.fillStyle=i===hoverIdx?"#f1f3f4":"#aab1b7";
+
+  // Bar 1: PVGIS Base (Golden Amber gradient)
+  const g1=ctx.createLinearGradient(0,y1,0,top+plotH);
+  g1.addColorStop(0,"#fbbf24");
+  g1.addColorStop(1,"#d97706");
+  ctx.fillStyle=g1;
+  ctx.beginPath();
+  ctx.roundRect ? ctx.roundRect(cx-bw-1.5, y1, bw, top+plotH-y1, [3, 3, 0, 0]) : ctx.fillRect(cx-bw-1.5, y1, bw, top+plotH-y1);
+  ctx.fill();
+
+  // Bar 2: Estimated (Vibrant Orange / Amber gradient)
+  const g2=ctx.createLinearGradient(0,y2,0,top+plotH);
+  g2.addColorStop(0,"#fb923c");
+  g2.addColorStop(1,"#ea580c");
+  ctx.fillStyle=g2;
+  ctx.beginPath();
+  ctx.roundRect ? ctx.roundRect(cx+1.5, y2, bw, top+plotH-y2, [3, 3, 0, 0]) : ctx.fillRect(cx+1.5, y2, bw, top+plotH-y2);
+  ctx.fill();
+
+  // Month label
+  ctx.fillStyle=i===hoverIdx?"#f8fafc":"#94a3b8";
   ctx.textAlign="center";ctx.textBaseline="top";
   ctx.fillText(MONTHS[i],cx,h-bottom+9);
  }
@@ -318,9 +595,9 @@ function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
 
 function syncLabels(perf){
  const pct=fmtDec(perf*100,2),lossPct=fmtDec((1-perf)*100,2);
- $("kpiFactor").innerHTML=`${pct}<span class="unit"> %</span>`;
+ $("kpiFactor").innerHTML=`${pct} <span class="text-xs font-semibold text-slate-400">%</span>`;
  $("kpiRealHint").textContent=`Aplicando rendimiento global del ${pct} %`;
- $("kpiLossHint").textContent=`Pérdidas globales adicionales: ${lossPct} %`;
+ $("kpiLossHint").textContent=`Pérdidas globales: ${lossPct} %`;
  $("paramsGlobal").textContent=`${pct} %`;
  $("paramsLoss").textContent=`${lossPct} %`;
  $("legendReal").textContent=`Estimada · ${pct} %`;
@@ -336,7 +613,13 @@ function render(){
  if(!baseData)return;
  const power=getPower(),perf=getPerformance(),selected=$("orientation").value,shared=$("sharedScale").checked;
  syncLabels(perf);
- document.querySelectorAll(".card").forEach(card=>card.classList.toggle("active",selected!=="all"&&card.dataset.dir===selected));
+
+ document.querySelectorAll(".card").forEach(card=>{
+  const isActive = selected!=="all" && card.dataset.dir===selected;
+  card.classList.toggle("gradient-border-active", isActive);
+  const badge=card.querySelector(".focus");
+  if(badge) badge.classList.toggle("hidden", !isActive);
+ });
 
  const series=Object.fromEntries(DIRS.map(d=>{
   const theory=baseData[d.id].map(v=>v*power);
@@ -349,20 +632,23 @@ function render(){
   const {theory,real}=series[d.id];
   drawChart(d.id,theory,real,globalMax);
   const t=theory.reduce((a,b)=>a+b,0),r=real.reduce((a,b)=>a+b,0);
-  $("totals"+d.id).innerHTML=`<span>PVGIS anual: <b>${fmt(t)} kWh</b></span><span>Estimada anual: <b>${fmt(r)} kWh</b></span>`;
+  $("totals"+d.id).innerHTML=`
+    <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>PVGIS anual: <b class="text-slate-100 font-bold ml-0.5">${fmt(t)} kWh</b></span>
+    <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>Estimada anual: <b class="text-slate-100 font-bold ml-0.5">${fmt(r)} kWh</b></span>
+  `;
  });
 
  const chosen=selected==="all"?"S":selected;
  const chosenName=DIRS.find(d=>d.id===chosen).name.toLowerCase();
  const sum=series[chosen].theory.reduce((a,b)=>a+b,0);
- $("kpiTheory").innerHTML=`${fmt(sum)} <span class="unit">kWh/año</span>`;
- $("kpiReal").innerHTML=`${fmt(sum*perf)} <span class="unit">kWh/año</span>`;
- $("kpiSpecific").innerHTML=`${fmt(sum/power)} <span class="unit">kWh/kWp</span>`;
+ $("kpiTheory").innerHTML=`${fmt(sum)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
+ $("kpiReal").innerHTML=`${fmt(sum*perf)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
+ $("kpiSpecific").innerHTML=`${fmt(sum/power)} <span class="text-xs font-semibold text-slate-400">kWh/kWp</span>`;
  $("kpiTheoryHint").textContent=selected==="all"?`Referencia: orientación ${chosenName}`:`Orientación ${chosenName}`;
  $("kpiSpecificHint").textContent=`Normalizado · orientación ${chosenName}`;
 }
 
-function hideTooltip(){$("tooltip").style.display="none";}
+function hideTooltip(){$("tooltip").classList.add("hidden");}
 
 DIRS.forEach(d=>{
  const canvas=$("chart"+d.id);
@@ -375,10 +661,24 @@ DIRS.forEach(d=>{
   if(idx<0||idx>11){hideTooltip();drawChart(d.id,g.values,g.realValues,g.globalMax,-1);return;}
   drawChart(d.id,g.values,g.realValues,g.globalMax,idx);
   const tt=$("tooltip");
-  tt.innerHTML=`<div class="tt-head">${d.name} · ${MONTHS[idx]}</div><div class="tt-row"><span>PVGIS base</span><b>${fmt(g.values[idx])} kWh</b></div><div class="tt-row"><span>Estimada</span><b>${fmt(g.realValues[idx])} kWh</b></div>`;
-  tt.style.display="block";
-  const tx=Math.min(window.innerWidth-tt.offsetWidth-12,e.clientX+14);
-  const ty=Math.max(12,e.clientY-tt.offsetHeight-12);
+  tt.innerHTML=`
+    <div class="font-extrabold text-amber-400 mb-1 flex items-center justify-between border-b border-slate-700/80 pb-1">
+      <span>${d.name} · ${MONTHS[idx]}</span>
+    </div>
+    <div class="space-y-1 mt-1 text-slate-300">
+      <div class="flex items-center justify-between gap-4">
+        <span class="flex items-center gap-1.5 text-slate-400"><span class="w-2 h-2 rounded-sm bg-amber-400"></span>PVGIS base</span>
+        <b class="text-slate-100 tabular-nums">${fmt(g.values[idx])} kWh</b>
+      </div>
+      <div class="flex items-center justify-between gap-4">
+        <span class="flex items-center gap-1.5 text-slate-400"><span class="w-2 h-2 rounded-sm bg-orange-500"></span>Estimada</span>
+        <b class="text-slate-100 tabular-nums">${fmt(g.realValues[idx])} kWh</b>
+      </div>
+    </div>
+  `;
+  tt.classList.remove("hidden");
+  const tx=Math.min(window.innerWidth-tt.offsetWidth-14,e.clientX+14);
+  const ty=Math.max(14,e.clientY-tt.offsetHeight-14);
   tt.style.left=tx+"px";tt.style.top=ty+"px";
  });
  canvas.addEventListener("mouseleave",()=>{
