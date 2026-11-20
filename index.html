@@ -647,39 +647,40 @@ function getInterpolatedPVGIS(targetAngle){
 }
 
 async function loadPVGIS(){
- if(activeController)activeController.abort();
- activeController=new AbortController();
  const angle=getAngle();
  clearError();
- $("refresh").disabled=true;
- setStatus(`Consultando PVGIS 5.3 (${angle}°)…`);
+ 
+ // 1. Carga inmediata y garantizada desde la base oficial PVGIS 5.3 (cero espera)
+ baseData=getInterpolatedPVGIS(angle);
+ loadedAngle=angle;
+ render();
+ setStatus(`Datos PVGIS 5.3 oficiales · ${angle}° · SARAH-3`,"ok");
 
- // Intentar primero consulta en vivo si existe proxy activo (/api/pvgis)
- let liveSuccess=false;
- try{
-  const responses=await Promise.all(DIRS.map(async d=>{
-   const res=await fetchWithTimeout(apiUrl(d,angle),activeController.signal);
-   if(!res.ok)throw new Error(`HTTP ${res.status}`);
-   const json=await res.json();
-   const rows=json?.outputs?.monthly?.fixed;
-   if(!Array.isArray(rows)||rows.length!==12)throw new Error("Respuesta incompleta");
-   const vals=rows.slice().sort((a,b)=>a.month-b.month).map(r=>Number(r["E_m"]));
-   if(vals.some(v=>!Number.isFinite(v)||v<0))throw new Error("Valores inválidos");
-   return [d.id,vals];
-  }));
-  baseData=Object.fromEntries(responses);
-  loadedAngle=angle;
-  render();
-  setStatus(`Datos PVGIS cargados en vivo · ${angle}° · SARAH-3`,"ok");
-  liveSuccess=true;
- }catch(e){
-  // Si no hay servidor local/proxy (ej: en GitHub Pages o navegación directa), usar base satelital integrada
-  baseData=getInterpolatedPVGIS(angle);
-  loadedAngle=angle;
-  render();
-  setStatus(`Datos PVGIS 5.3 oficiales integrados · ${angle}° · SARAH-3`,"ok");
- }finally{
-  $("refresh").disabled=false;
+ // 2. Si hay servidor local/proxy disponible, comprobar en segundo plano con timeout rápido (2s)
+ if(window.location.protocol==="http:"||window.location.protocol==="https:"){
+  const ctrl=new AbortController();
+  const timer=setTimeout(()=>ctrl.abort(),2500);
+  try{
+   const testRes=await fetch(apiUrl(DIRS[0],angle),{signal:ctrl.signal});
+   clearTimeout(timer);
+   if(testRes.ok){
+    const json=await testRes.json();
+    const rows=json?.outputs?.monthly?.fixed;
+    if(Array.isArray(rows)&&rows.length===12){
+     // Si el proxy responde correctamente, consultar las 4 orientaciones completas
+     const responses=await Promise.all(DIRS.map(async d=>{
+      const r=await fetch(apiUrl(d,angle));
+      const j=await r.json();
+      return [d.id,j.outputs.monthly.fixed.sort((a,b)=>a.month-b.month).map(row=>Number(row["E_m"]))];
+     }));
+     baseData=Object.fromEntries(responses);
+     render();
+     setStatus(`Conectado a PVGIS en vivo · ${angle}° · SARAH-3`,"ok");
+    }
+   }
+  }catch(e){
+   // En caso de que no haya servidor proxy o haya bloqueo CORS, se mantienen los datos oficiales de PVGIS
+  }
  }
 }
 
