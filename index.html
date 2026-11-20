@@ -386,15 +386,161 @@ input[type=range] {
     </article>
   </section>
 
-  <!-- Explanation Card -->
-  <div class="rounded-2xl bg-slate-900/70 border border-slate-800/80 p-5 sm:p-6 text-xs text-slate-400 leading-relaxed space-y-2 backdrop-blur-md">
-    <div class="text-sm font-bold text-slate-200 flex items-center gap-2">
-      <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      Metodología de cálculo fotovoltaico
+  <!-- Formulas & Pedagogical Explanation Section (Interactive) -->
+  <section class="rounded-2xl bg-gradient-to-b from-slate-900/95 via-slate-900/80 to-slate-950/95 border border-slate-800/90 p-5 sm:p-7 shadow-2xl relative overflow-hidden backdrop-blur-xl space-y-6" id="pedagogy">
+    <!-- Section Header -->
+    <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400/20 to-orange-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+            Fórmulas de cálculo y desglose pedagógico
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Interactivo en vivo</span>
+          </h2>
+          <p class="text-xs text-slate-400">Comprende paso a paso cómo se traduce la radiación solar en los kWh finales calculados arriba</p>
+        </div>
+      </div>
+      <div class="text-xs text-slate-400 bg-slate-950/80 border border-slate-800 px-3.5 py-1.5 rounded-xl">
+        Orientación analizada: <b id="formulaTargetDir" class="text-amber-400">Sur (0°)</b>
+      </div>
     </div>
-    <p><strong class="text-slate-200">PVGIS · base:</strong> energía mensual estimada por el modelo europeo PVGIS para 1 kWp multiplicada por la potencia elegida. Consulta basada en PVGIS 5.3, tecnología de silicio cristalino, montaje integrado/sobre edificio, ángulo seleccionado y base de radiación satelital SARAH-3 (periodo promedio 2005–2023).</p>
-    <p><strong class="text-slate-200">Estimada:</strong> producción PVGIS multiplicada por el factor de rendimiento calculado (<span id="noteFactor" class="font-bold text-amber-400">0,7944</span>). Este factor agrupa el rendimiento del inversor, pérdidas en cableado, suciedad, sombras y mismatch.</p>
-  </div>
+
+    <!-- 3 Core Equation Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Equation 1 -->
+      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-amber-500/30 transition">
+        <div class="flex items-center justify-between text-xs font-bold text-amber-400 uppercase tracking-wider">
+          <span>1. Producción Base PVGIS</span>
+          <span class="text-[10px] bg-amber-500/10 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/20">Física solar</span>
+        </div>
+        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-xs text-amber-200 text-center font-bold">
+          E_teorica = P_inst × E_m(1 kWp)
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          PVGIS calcula la irradiación sobre el plano inclinado considerando temperatura, ángulo horario, pérdidas térmicas de celda y reflexión angular para <strong class="text-slate-200">1 kWp</strong>. Se escala linealmente por la potencia instalada en ese tejado.
+        </p>
+        <div class="pt-2 border-t border-slate-900 text-xs text-slate-300 flex justify-between">
+          <span>Resultado anual (<span id="calcDirLabel1">Sur</span>):</span>
+          <b id="calcTheoryVal" class="text-amber-400 tabular-nums">0 kWh</b>
+        </div>
+      </div>
+
+      <!-- Equation 2 -->
+      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-orange-500/30 transition">
+        <div class="flex items-center justify-between text-xs font-bold text-orange-400 uppercase tracking-wider">
+          <span>2. Factor de Rendimiento (PR)</span>
+          <span class="text-[10px] bg-orange-500/10 text-orange-300 px-1.5 py-0.5 rounded border border-orange-500/20">Pérdidas reales</span>
+        </div>
+        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-[11px] text-orange-200 text-center font-bold">
+          PR = η_inv × (1-L_cab) × (1-L_suc) × (1-L_som) × (1-L_deg)
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          Las pérdidas son <strong class="text-slate-200">multiplicativas</strong> (en cascada): lo que no absorbe el inversor ya no puede perderse en el cableado. Este factor traduce la energía bruta en energía neta inyectable.
+        </p>
+        <div class="pt-2 border-t border-slate-900 text-xs text-slate-300 flex justify-between">
+          <span>PR resultante:</span>
+          <b id="calcPRVal" class="text-orange-400 tabular-nums">79,44 %</b>
+        </div>
+      </div>
+
+      <!-- Equation 3 -->
+      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-emerald-500/30 transition">
+        <div class="flex items-center justify-between text-xs font-bold text-emerald-400 uppercase tracking-wider">
+          <span>3. Producción Neta Estimada</span>
+          <span class="text-[10px] bg-emerald-500/10 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/20">Inyección red</span>
+        </div>
+        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-xs text-emerald-200 text-center font-bold">
+          E_estimada = E_teorica × PR
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          La energía real esperada en bornes de conexión. Equivale a la estimación más certera para calcular ahorros en factura, autoconsumo o amortización de la instalación fotovoltaica.
+        </p>
+        <div class="pt-2 border-t border-slate-900 text-xs text-slate-300 flex justify-between">
+          <span>Producción neta (<span id="calcDirLabel2">Sur</span>):</span>
+          <b id="calcRealVal" class="text-emerald-400 tabular-nums">0 kWh</b>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Step-by-Step Calculation Flow -->
+    <div class="rounded-xl bg-slate-950/80 border border-slate-800 p-4 sm:p-5">
+      <div class="text-xs font-bold text-slate-200 mb-3 flex items-center justify-between">
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+          Desglose dinámico con los valores actuales de tu simulación:
+        </span>
+        <span class="text-slate-400 font-normal text-[11px]">Se actualiza en tiempo real al mover controles</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
+        <div class="bg-slate-900/90 border border-slate-800/90 rounded-lg p-3">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Potencia en tejado</span>
+          <span id="mathPower" class="text-base font-bold text-slate-100 tabular-nums">1.0 kWp</span>
+          <span class="text-[10px] text-slate-500 block mt-1">Por orientación evaluada</span>
+        </div>
+        <div class="bg-slate-900/90 border border-slate-800/90 rounded-lg p-3">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">PVGIS unitario (<span id="mathDirName">Sur</span>)</span>
+          <span id="mathUnitary" class="text-base font-bold text-amber-400 tabular-nums">0 kWh/kWp</span>
+          <span class="text-[10px] text-slate-500 block mt-1">Base SARAH-3 a 37°</span>
+        </div>
+        <div class="bg-slate-900/90 border border-slate-800/90 rounded-lg p-3">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Multiplicador pérdidas</span>
+          <span id="mathMultipliers" class="text-base font-bold text-orange-400 tabular-nums leading-tight block">× 0.7944</span>
+          <span id="mathLossDetail" class="text-[10px] text-slate-500 block mt-1">5 parámetros activos</span>
+        </div>
+        <div class="bg-slate-900/90 border border-slate-800/90 rounded-lg p-3">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Producción Bruta</span>
+          <span id="mathGross" class="text-base font-bold text-amber-300 tabular-nums">0 kWh</span>
+          <span class="text-[10px] text-slate-500 block mt-1">1.0 × Unitario</span>
+        </div>
+        <div class="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-lg p-3">
+          <span class="text-amber-400 block text-[10px] uppercase font-bold">Producción Neta Anual</span>
+          <span id="mathNet" class="text-base font-extrabold text-white tabular-nums">0 kWh</span>
+          <span class="text-[10px] text-amber-300/80 block mt-1">Inyectable / Utilizable</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Educational Accordion / Details -->
+    <div class="space-y-3 pt-1">
+      <div class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+        <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        Guía pedagógica de conceptos clave
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-400">
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
+          <strong class="text-slate-200 text-xs block">¿Por qué el Sur genera el doble que el Norte en invierno?</strong>
+          <p class="leading-relaxed">
+            En el hemisferio norte, la trayectoria solar discurre siempre inclinada hacia el sur. En los meses fríos (noviembre a febrero), el sol se eleva muy poco sobre el horizonte (~25° a mediodía en Barcelona). La radiación directa incide casi de frente sobre paneles orientados al sur con 37° de inclinación, mientras que el tejado norte queda completamente en la umbría de la propia cubierta y solo recibe radiación difusa del cielo.
+          </p>
+        </div>
+
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
+          <strong class="text-slate-200 text-xs block">¿Por qué Este y Oeste producen casi igual?</strong>
+          <p class="leading-relaxed">
+            Las orientaciones Este (−90°) y Oeste (+90°) son casi simétricas respecto al mediodía solar. El Este capta los rayos matutinos con menor temperatura ambiente (lo que favorece el coeficiente de temperatura de las células de silicio), mientras que el Oeste capta la tarde con ambiente más caluroso y turbidez acumulada, mostrando ligeras diferencias según la microclima costera de Barcelona.
+          </p>
+        </div>
+
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
+          <strong class="text-slate-200 text-xs block">¿Por qué las pérdidas no se suman como porcentajes simples?</strong>
+          <p class="leading-relaxed">
+            Si sumaras 4% de inversor + 2% de cables + 3% de polvo + 7% de sombras + 6.4% de degradación daría 22.4% (dejando 77.6%). Sin embargo, la energía pasa de forma secuencial: la potencia que el inversor no transforma (eficiencia 96%) ya no circula por los cables, y la luz bloqueada por la suciedad ya no genera fotones en la célula. El cálculo en producto <code class="text-amber-300 font-mono">∏(1 - L_i)</code> es el único físicamente riguroso.
+          </p>
+        </div>
+
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
+          <strong class="text-slate-200 text-xs block">Diferencia entre kWh y kWp</strong>
+          <p class="leading-relaxed">
+            <strong class="text-slate-200">kWp (kilovatio pico):</strong> es la potencia nominal de tus paneles en condiciones estándar de laboratorio (1000 W/m² de radiación y 25 °C de célula). <strong class="text-slate-200">kWh (kilovatio-hora):</strong> es la energía acumulada generada a lo largo del tiempo. 1 kWp en Barcelona produce entre 1.000 y 1.700 kWh al año según la orientación.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="pt-2 text-xs text-slate-500 flex flex-wrap justify-between items-center gap-3 border-t border-slate-800/60">
@@ -642,13 +788,32 @@ function render(){
  });
 
  const chosen=selected==="all"?"S":selected;
- const chosenName=DIRS.find(d=>d.id===chosen).name.toLowerCase();
+ const chosenObj=DIRS.find(d=>d.id===chosen);
+ const chosenName=chosenObj.name;
  const sum=series[chosen].theory.reduce((a,b)=>a+b,0);
+ const netSum=sum*perf;
+ const unitary=sum/power;
+
  $("kpiTheory").innerHTML=`${fmt(sum)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
- $("kpiReal").innerHTML=`${fmt(sum*perf)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
- $("kpiSpecific").innerHTML=`${fmt(sum/power)} <span class="text-xs font-semibold text-slate-400">kWh/kWp</span>`;
- $("kpiTheoryHint").textContent=selected==="all"?`Referencia: orientación ${chosenName}`:`Orientación ${chosenName}`;
- $("kpiSpecificHint").textContent=`Normalizado · orientación ${chosenName}`;
+ $("kpiReal").innerHTML=`${fmt(netSum)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
+ $("kpiSpecific").innerHTML=`${fmt(unitary)} <span class="text-xs font-semibold text-slate-400">kWh/kWp</span>`;
+ $("kpiTheoryHint").textContent=selected==="all"?`Referencia: orientación ${chosenName.toLowerCase()}`:`Orientación ${chosenName.toLowerCase()}`;
+ $("kpiSpecificHint").textContent=`Normalizado · orientación ${chosenName.toLowerCase()}`;
+
+ // Actualizar fórmulas y desglose pedagógico interactivo
+ $("formulaTargetDir").textContent=`${chosenName} (${chosenObj.aspectLabel})`;
+ $("calcDirLabel1").textContent=chosenName;
+ $("calcDirLabel2").textContent=chosenName;
+ $("calcTheoryVal").textContent=`${fmt(sum)} kWh`;
+ $("calcPRVal").textContent=`${fmtDec(perf*100,2)} %`;
+ $("calcRealVal").textContent=`${fmt(netSum)} kWh`;
+
+ $("mathPower").textContent=`${fmtDec(power,1)} kWp`;
+ $("mathDirName").textContent=chosenName;
+ $("mathUnitary").textContent=`${fmt(unitary)} kWh/kWp`;
+ $("mathMultipliers").textContent=`× ${fmtDec(perf,4)}`;
+ $("mathGross").textContent=`${fmt(sum)} kWh`;
+ $("mathNet").textContent=`${fmt(netSum)} kWh`;
 }
 
 function hideTooltip(){$("tooltip").classList.add("hidden");}
