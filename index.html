@@ -333,12 +333,14 @@ input[type=range] {
         </div>
         <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
       </div>
-      <canvas id="chartN" role="img" aria-label="Producción mensual orientación norte" width="600" height="245" class="w-full h-[245px] block"></canvas>
+      <div class="w-full overflow-x-auto pb-1 -mx-1 px-1">
+        <canvas id="chartN" role="img" aria-label="Producción mensual orientación norte" class="w-full min-w-[320px] h-[245px] block"></canvas>
+      </div>
       <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsN"></div>
     </article>
 
     <!-- East -->
-    <article class="card rounded-2xl glass-panel glass-panel-hover p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="E" tabindex="0">
+    <article class="card rounded-2xl glass-panel glass-panel-hover p-4 sm:p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="E" tabindex="0">
       <div class="flex items-center justify-between gap-3 mb-3">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-lg bg-slate-800/90 border border-slate-700/80 flex items-center justify-center font-black text-xs text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition">E</div>
@@ -349,12 +351,14 @@ input[type=range] {
         </div>
         <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
       </div>
-      <canvas id="chartE" role="img" aria-label="Producción mensual orientación este" width="600" height="245" class="w-full h-[245px] block"></canvas>
+      <div class="w-full overflow-x-auto pb-1 -mx-1 px-1">
+        <canvas id="chartE" role="img" aria-label="Producción mensual orientación este" class="w-full min-w-[320px] h-[245px] block"></canvas>
+      </div>
       <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsE"></div>
     </article>
 
     <!-- South -->
-    <article class="card rounded-2xl glass-panel glass-panel-hover p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="S" tabindex="0">
+    <article class="card rounded-2xl glass-panel glass-panel-hover p-4 sm:p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="S" tabindex="0">
       <div class="flex items-center justify-between gap-3 mb-3">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-lg bg-slate-800/90 border border-slate-700/80 flex items-center justify-center font-black text-xs text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition">S</div>
@@ -365,12 +369,14 @@ input[type=range] {
         </div>
         <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
       </div>
-      <canvas id="chartS" role="img" aria-label="Producción mensual orientación sur" width="600" height="245" class="w-full h-[245px] block"></canvas>
+      <div class="w-full overflow-x-auto pb-1 -mx-1 px-1">
+        <canvas id="chartS" role="img" aria-label="Producción mensual orientación sur" class="w-full min-w-[320px] h-[245px] block"></canvas>
+      </div>
       <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsS"></div>
     </article>
 
     <!-- West -->
-    <article class="card rounded-2xl glass-panel glass-panel-hover p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="O" tabindex="0">
+    <article class="card rounded-2xl glass-panel glass-panel-hover p-4 sm:p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="O" tabindex="0">
       <div class="flex items-center justify-between gap-3 mb-3">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-lg bg-slate-800/90 border border-slate-700/80 flex items-center justify-center font-black text-xs text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition">O</div>
@@ -381,7 +387,9 @@ input[type=range] {
         </div>
         <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow-md shadow-amber-500/20 hidden">DESTACADA</span>
       </div>
-      <canvas id="chartO" role="img" aria-label="Producción mensual orientación oeste" width="600" height="245" class="w-full h-[245px] block"></canvas>
+      <div class="w-full overflow-x-auto pb-1 -mx-1 px-1">
+        <canvas id="chartO" role="img" aria-label="Producción mensual orientación oeste" class="w-full min-w-[320px] h-[245px] block"></canvas>
+      </div>
       <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsO"></div>
     </article>
   </section>
@@ -688,7 +696,7 @@ function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
  const canvas=$("chart"+dirId);
  if(!canvas)return;
  
- const w = canvas.clientWidth || canvas.offsetWidth || 550;
+ const w = Math.max(280, canvas.clientWidth || canvas.offsetWidth || canvas.parentElement?.clientWidth || 320);
  const h = 245;
  
  if(canvas.width !== w || canvas.height !== h){
@@ -702,10 +710,15 @@ function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
  const max = Math.max(1, rawMax) * 1.14;
  const step = max / 4;
  ctx.font="10px system-ui, sans-serif";
- const left=Math.max(48, Math.ceil(ctx.measureText(fmt(max)).width) + 16);
- const right=12,top=14,bottom=33;
- const plotW=Math.max(100, w-left-right);
- const plotH=Math.max(80, h-top-bottom);
+ 
+ // En pantallas estrechas de móvil, reducir el margen izquierdo para dejar más espacio a las barras
+ const isMobile = w < 400;
+ const textW = Math.ceil(ctx.measureText(fmt(max)).width);
+ const left = isMobile ? Math.max(38, textW + 8) : Math.max(48, textW + 16);
+ const right = isMobile ? 8 : 12;
+ const top = 14, bottom = 30;
+ const plotW = Math.max(80, w - left - right);
+ const plotH = Math.max(60, h - top - bottom);
 
  // Grid lines & Y axis labels
  ctx.textAlign="right";
@@ -719,11 +732,11 @@ function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
   ctx.lineTo(w-right,y);
   ctx.stroke();
   ctx.fillStyle="#94a3b8";
-  ctx.fillText(fmt(step*i),left-8,y);
+  ctx.fillText(fmt(step*i),left-6,y);
  }
 
  const group=plotW/12;
- const bw=Math.max(5, Math.min(14, group*0.32));
+ const bw=Math.max(3.5, Math.min(12, group*0.35));
  for(let i=0;i<12;i++){
   const cx=left+group*(i+0.5);
   const v1=values[i] || 0;
