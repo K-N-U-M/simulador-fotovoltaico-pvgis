@@ -18,8 +18,9 @@ header{position:sticky;top:0;z-index:5;background:#151719ee;backdrop-filter:blur
 .field{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);padding:7px 11px}
 .field label{font-size:11px;color:var(--muted);letter-spacing:.06em;white-space:nowrap}
 input,select{background:transparent;color:var(--text);border:0;outline:0;font:inherit}
-input[type=number]{width:72px;font-weight:700;font-size:16px;text-align:right;font-variant-numeric:tabular-nums}
-input::-webkit-inner-spin-button{opacity:1}
+input[type=number]{width:72px;font-weight:700;font-size:16px;text-align:right;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.field:focus-within,.param-input:focus-within{border-color:var(--yellow)}
 select{min-width:135px;cursor:pointer;font-size:13px}
 select option{background:#202428}
 .unit-inline{font-size:12px;color:var(--muted);font-weight:600}
