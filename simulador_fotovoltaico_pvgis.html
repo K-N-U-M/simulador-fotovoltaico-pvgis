@@ -776,7 +776,6 @@ function syncLabels(perf){
  $("paramsGlobal").textContent=`${pct} %`;
  $("paramsLoss").textContent=`${lossPct} %`;
  $("legendReal").textContent=`Estimada · ${pct} %`;
- $("noteFactor").textContent=fmtDec(perf,4);
  $("subtitle").textContent=`Comparativa de energía mensual para una instalación fija de la potencia indicada, con cuatro orientaciones y ${loadedAngle}° de inclinación.`;
  DIRS.forEach(d=>{
   const meta=document.querySelector(`[data-meta="${d.id}"]`);
