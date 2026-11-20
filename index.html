@@ -686,38 +686,57 @@ async function loadPVGIS(){
 
 function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
  const canvas=$("chart"+dirId);
+ if(!canvas)return;
  const rect=canvas.getBoundingClientRect();
  const dpr=window.devicePixelRatio||1;
- const w=Math.max(300,Math.round(rect.width)),h=245;
+ // Asegurar dimensiones válidas incluso si el layout aún se está calculando
+ const computedW = rect.width > 20 ? rect.width : (canvas.parentElement?.clientWidth ? canvas.parentElement.clientWidth - 40 : 450);
+ const w=Math.max(300, Math.round(computedW));
+ const h=245;
+
  const targetW=Math.round(w*dpr),targetH=Math.round(h*dpr);
  if(canvas.width!==targetW||canvas.height!==targetH){
-  canvas.width=targetW;canvas.height=targetH;
+  canvas.width=targetW;
+  canvas.height=targetH;
  }
  const ctx=canvas.getContext("2d");
  ctx.setTransform(dpr,0,0,dpr,0,0);
  ctx.clearRect(0,0,w,h);
 
- const max=Math.max(1,globalMax??Math.max(...values,...realValues))*1.14;
- const step=max/4;
- ctx.font="10px Inter, system-ui, sans-serif";
- const left=Math.max(46,Math.ceil(ctx.measureText(fmt(max)).width)+16);
- const right=10,top=14,bottom=33,plotW=w-left-right,plotH=h-top-bottom;
+ const rawMax = globalMax ?? Math.max(...values, ...realValues);
+ const max = Math.max(1, rawMax) * 1.14;
+ const step = max / 4;
+ ctx.font="10px ui-sans-serif, system-ui, sans-serif";
+ const left=Math.max(48, Math.ceil(ctx.measureText(fmt(max)).width) + 16);
+ const right=12,top=14,bottom=33;
+ const plotW=Math.max(100, w-left-right);
+ const plotH=Math.max(80, h-top-bottom);
 
  // Grid lines & Y axis labels
- ctx.textAlign="right";ctx.textBaseline="middle";
+ ctx.textAlign="right";
+ ctx.textBaseline="middle";
  for(let i=0;i<=4;i++){
   const y=top+plotH-(i/4)*plotH;
   ctx.strokeStyle="rgba(51, 65, 85, 0.45)";
   ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(left,y);
+  ctx.lineTo(w-right,y);
+  ctx.stroke();
   ctx.fillStyle="#64748b";
   ctx.fillText(fmt(step*i),left-8,y);
  }
 
- const group=plotW/12,bw=Math.min(13,group*0.32);
+ const group=plotW/12;
+ const bw=Math.max(6, Math.min(14, group*0.32));
  for(let i=0;i<12;i++){
-  const cx=left+group*(i+0.5),v1=values[i],v2=realValues[i];
-  const y1=top+plotH-(v1/max)*plotH,y2=top+plotH-(v2/max)*plotH;
+  const cx=left+group*(i+0.5);
+  const v1=values[i] || 0;
+  const v2=realValues[i] || 0;
+  const barH1=Math.max(0, (v1/max)*plotH);
+  const barH2=Math.max(0, (v2/max)*plotH);
+  const y1=top+plotH-barH1;
+  const y2=top+plotH-barH2;
   
   if(i===hoverIdx){
    // Hover column light
@@ -733,22 +752,19 @@ function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
   g1.addColorStop(0,"#fbbf24");
   g1.addColorStop(1,"#d97706");
   ctx.fillStyle=g1;
-  ctx.beginPath();
-  ctx.roundRect ? ctx.roundRect(cx-bw-1.5, y1, bw, top+plotH-y1, [3, 3, 0, 0]) : ctx.fillRect(cx-bw-1.5, y1, bw, top+plotH-y1);
-  ctx.fill();
+  ctx.fillRect(cx-bw-1.5, y1, bw, barH1);
 
   // Bar 2: Estimated (Vibrant Orange / Amber gradient)
   const g2=ctx.createLinearGradient(0,y2,0,top+plotH);
   g2.addColorStop(0,"#fb923c");
   g2.addColorStop(1,"#ea580c");
   ctx.fillStyle=g2;
-  ctx.beginPath();
-  ctx.roundRect ? ctx.roundRect(cx+1.5, y2, bw, top+plotH-y2, [3, 3, 0, 0]) : ctx.fillRect(cx+1.5, y2, bw, top+plotH-y2);
-  ctx.fill();
+  ctx.fillRect(cx+1.5, y2, bw, barH2);
 
   // Month label
   ctx.fillStyle=i===hoverIdx?"#f8fafc":"#94a3b8";
-  ctx.textAlign="center";ctx.textBaseline="top";
+  ctx.textAlign="center";
+  ctx.textBaseline="top";
   ctx.fillText(MONTHS[i],cx,h-bottom+9);
  }
  chartGeom[dirId]={left,right,top,bottom,plotW,plotH,values,realValues,globalMax};
@@ -903,7 +919,9 @@ $("angle").addEventListener("change",loadPVGIS);
 $("refresh").addEventListener("click",loadPVGIS);
 let resizeTimer;
 window.addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(render,120);});
+window.addEventListener("load",()=>{setTimeout(render,50);});
 loadPVGIS();
+setTimeout(render, 150);
 </script>
 </body>
 </html>
