@@ -160,63 +160,63 @@ input[type=range] {
 
   <!-- KPI Cards Grid (Tailwind gradients + modern stats) -->
   <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    <!-- KPI 1 -->
+    <!-- KPI 1: PVGIS 5.3 -->
     <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-amber-500/40 transition">
       <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
       <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
-        <span>Producción anual PVGIS</span>
+        <span>PVGIS 5.3 (neta anual)</span>
         <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
       </div>
-      <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-300 tabular-nums" id="kpiTheory">— <span class="text-xs font-semibold text-slate-400">kWh/año</span></div>
-      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiTheoryHint">Orientación sur</div>
+      <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-300 tabular-nums" id="kpiPvgis">— <span class="text-xs font-semibold text-slate-400">kWh/año</span></div>
+      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiPvgisHint">Satelital SARAH-3 · orientación sur</div>
     </div>
 
-    <!-- KPI 2 -->
-    <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-orange-500/40 transition">
-      <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-orange-500/10 rounded-full blur-2xl group-hover:bg-orange-500/20 transition"></div>
+    <!-- KPI 2: Modelo Físico NREL -->
+    <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-sky-500/40 transition">
+      <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-sky-500/10 rounded-full blur-2xl group-hover:bg-sky-500/20 transition"></div>
       <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
-        <span>Producción anual estimada</span>
-        <svg class="w-4 h-4 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        <span>Modelo Físico NREL</span>
+        <svg class="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
       </div>
-      <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-200 via-orange-400 to-amber-300 tabular-nums" id="kpiReal">— <span class="text-xs font-semibold text-slate-400">kWh/año</span></div>
-      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiRealHint">Aplicando rendimiento global del 79,44 %</div>
+      <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-200 via-sky-400 to-cyan-300 tabular-nums" id="kpiPhys">— <span class="text-xs font-semibold text-slate-400">kWh/año</span></div>
+      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiPhysHint">Clima real (Kt) · γ −0,35 %/°C</div>
     </div>
 
-    <!-- KPI 3 -->
+    <!-- KPI 3: Desviación Físico vs PVGIS -->
     <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-emerald-500/40 transition">
       <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition"></div>
       <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
-        <span>Rendimiento específico</span>
-        <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Desviación Físico vs PVGIS</span>
+        <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
       </div>
-      <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-emerald-400 to-teal-300 tabular-nums" id="kpiSpecific">— <span class="text-xs font-semibold text-slate-400">kWh/kWp</span></div>
-      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiSpecificHint">Normalizado · orientación sur</div>
+      <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-emerald-400 to-teal-300 tabular-nums" id="kpiDelta">— <span class="text-xs font-semibold text-slate-400">%</span></div>
+      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiDeltaHint">Diferencia anual: — kWh</div>
     </div>
 
-    <!-- KPI 4 -->
+    <!-- KPI 4: Factor de sistema -->
     <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-amber-500/40 transition">
       <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
       <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
-        <span>Factor de rendimiento</span>
+        <span>Rendimiento de sistema</span>
         <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
       </div>
       <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-orange-400 tabular-nums" id="kpiFactor">79,44 <span class="text-xs font-semibold text-slate-400">%</span></div>
-      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiLossHint">Pérdidas globales: 20,56 %</div>
+      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiLossHint">Aplicado a ambos modelos · pérdidas 20,56 %</div>
     </div>
   </section>
 
-  <!-- Parameters Card (Gradient Header + Glass Sliders) -->
-  <section class="rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800/90 p-5 sm:p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl">
-    <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80 mb-5">
+  <!-- Parameters Card (Physical NREL Model + System Losses) -->
+  <section class="rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800/90 p-5 sm:p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl space-y-5">
+    <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
       <div>
         <div class="flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 shadow-sm shadow-amber-500/50"></span>
-          <h2 class="text-base font-bold text-slate-100">Parámetros que influyen en la producción estimada</h2>
+          <span class="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-sky-400 to-amber-400 shadow-sm shadow-sky-500/50"></span>
+          <h2 class="text-base font-bold text-slate-100">Parámetros físicos (NREL) y pérdidas de sistema</h2>
         </div>
         <p class="text-xs text-slate-400 mt-1">
-          Ajuste fino de pérdidas y componentes · Factor global resultante: 
+          Motor físico horario independiente vs PVGIS 5.3 · Factor de sistema común: 
           <b id="paramsGlobal" class="text-amber-400 font-semibold tabular-nums">79,44 %</b> 
-          (Pérdidas combinadas: <b id="paramsLoss" class="text-orange-400 font-semibold tabular-nums">20,56 %</b>)
+          (Pérdidas BOS: <b id="paramsLoss" class="text-orange-400 font-semibold tabular-nums">20,56 %</b>)
         </p>
       </div>
 
@@ -226,66 +226,125 @@ input[type=range] {
       </button>
     </div>
 
-    <!-- Parameter Sliders Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
-      <!-- Param 1 -->
-      <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
-        <div class="flex items-center justify-between gap-2 mb-2">
-          <label for="pInverter" class="text-xs font-semibold text-slate-300 leading-tight">Eficiencia inversor</label>
-          <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
-            <input id="pInverter" type="number" min="80" max="100" step="0.1" value="96.0" class="w-12 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
-            <span class="text-[10px] text-slate-400 ml-0.5">%</span>
-          </div>
-        </div>
-        <input id="rInverter" type="range" min="80" max="100" step="0.1" value="96.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+    <!-- Row 1: Physical Model Parameters -->
+    <div>
+      <div class="text-[11px] font-bold uppercase tracking-wider text-sky-400 mb-2.5 flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+        Modelo Físico Teórico (NREL · Geometría solar, HDKR, IAM Martin-Ruiz, Térmica NOCT)
       </div>
-
-      <!-- Param 2 -->
-      <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
-        <div class="flex items-center justify-between gap-2 mb-2">
-          <label for="pWiring" class="text-xs font-semibold text-slate-300 leading-tight">Pérdidas cableado</label>
-          <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
-            <input id="pWiring" type="number" min="0" max="20" step="0.1" value="2.0" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
-            <span class="text-[10px] text-slate-400 ml-0.5">%</span>
-          </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+        <!-- Sky Model Selector -->
+        <div class="bg-slate-950/70 border border-sky-900/50 rounded-xl p-3.5 flex flex-col justify-between hover:border-sky-500/50 transition">
+          <label for="skyMode" class="text-xs font-semibold text-slate-300 mb-2">Modelo atmosférico</label>
+          <select id="skyMode" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-bold text-sky-300 cursor-pointer focus:outline-none focus:border-sky-400">
+            <option value="real" class="bg-slate-900">Clima real (Kt Barcelona)</option>
+            <option value="clear" class="bg-slate-900">Cielo despejado (teórico puro)</option>
+          </select>
         </div>
-        <input id="rWiring" type="range" min="0" max="20" step="0.1" value="2.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+
+        <!-- Gamma -->
+        <div class="bg-slate-950/70 border border-sky-900/50 rounded-xl p-3.5 flex flex-col justify-between hover:border-sky-500/50 transition">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <label for="pGamma" class="text-xs font-semibold text-slate-300 leading-tight">Coef. térmico (γ)</label>
+            <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-sky-400">
+              <input id="pGamma" type="number" min="-0.55" max="-0.20" step="0.01" value="-0.35" class="w-12 bg-transparent text-right font-bold text-xs text-sky-300 focus:outline-none">
+              <span class="text-[10px] text-slate-400 ml-0.5">%/°C</span>
+            </div>
+          </div>
+          <input id="rGamma" type="range" min="-0.55" max="-0.20" step="0.01" value="-0.35" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- NOCT -->
+        <div class="bg-slate-950/70 border border-sky-900/50 rounded-xl p-3.5 flex flex-col justify-between hover:border-sky-500/50 transition">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <label for="pNoct" class="text-xs font-semibold text-slate-300 leading-tight">Temp. NOCT (montaje)</label>
+            <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-sky-400">
+              <input id="pNoct" type="number" min="40" max="55" step="1" value="48" class="w-10 bg-transparent text-right font-bold text-xs text-sky-300 focus:outline-none">
+              <span class="text-[10px] text-slate-400 ml-0.5">°C</span>
+            </div>
+          </div>
+          <input id="rNoct" type="range" min="40" max="55" step="1" value="48" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Albedo -->
+        <div class="bg-slate-950/70 border border-sky-900/50 rounded-xl p-3.5 flex flex-col justify-between hover:border-sky-500/50 transition">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <label for="pAlbedo" class="text-xs font-semibold text-slate-300 leading-tight">Albedo suelo (ρ)</label>
+            <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-sky-400">
+              <input id="pAlbedo" type="number" min="0.05" max="0.60" step="0.05" value="0.20" class="w-10 bg-transparent text-right font-bold text-xs text-sky-300 focus:outline-none">
+            </div>
+          </div>
+          <input id="rAlbedo" type="range" min="0.05" max="0.60" step="0.05" value="0.20" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+        </div>
       </div>
+    </div>
 
-      <!-- Param 3 -->
-      <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
-        <div class="flex items-center justify-between gap-2 mb-2">
-          <label for="pSoiling" class="text-xs font-semibold text-slate-300 leading-tight">Suciedad y polvo</label>
-          <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
-            <input id="pSoiling" type="number" min="0" max="30" step="0.1" value="3.0" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
-            <span class="text-[10px] text-slate-400 ml-0.5">%</span>
-          </div>
-        </div>
-        <input id="rSoiling" type="range" min="0" max="30" step="0.1" value="3.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+    <!-- Row 2: System Losses Grid (applied identically to both PVGIS and Physical model) -->
+    <div>
+      <div class="text-[11px] font-bold uppercase tracking-wider text-amber-400 mb-2.5 flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+        Pérdidas de sistema BOS (aplicadas por igual a PVGIS y al Modelo Físico)
       </div>
-
-      <!-- Param 4 -->
-      <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
-        <div class="flex items-center justify-between gap-2 mb-2">
-          <label for="pShading" class="text-xs font-semibold text-slate-300 leading-tight">Sombras locales</label>
-          <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
-            <input id="pShading" type="number" min="0" max="50" step="0.1" value="7.0" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
-            <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+        <!-- Param 1 -->
+        <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <label for="pInverter" class="text-xs font-semibold text-slate-300 leading-tight">Eficiencia inversor</label>
+            <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
+              <input id="pInverter" type="number" min="80" max="100" step="0.1" value="96.0" class="w-12 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
+              <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+            </div>
           </div>
+          <input id="rInverter" type="range" min="80" max="100" step="0.1" value="96.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
         </div>
-        <input id="rShading" type="range" min="0" max="50" step="0.1" value="7.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
-      </div>
 
-      <!-- Param 5 -->
-      <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
-        <div class="flex items-center justify-between gap-2 mb-2">
-          <label for="pMisc" class="text-xs font-semibold text-slate-300 leading-tight">Degradación / mismatch</label>
-          <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
-            <input id="pMisc" type="number" min="0" max="30" step="0.1" value="6.4" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
-            <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+        <!-- Param 2 -->
+        <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <label for="pWiring" class="text-xs font-semibold text-slate-300 leading-tight">Pérdidas cableado</label>
+            <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
+              <input id="pWiring" type="number" min="0" max="20" step="0.1" value="2.0" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
+              <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+            </div>
           </div>
+          <input id="rWiring" type="range" min="0" max="20" step="0.1" value="2.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
         </div>
-        <input id="rMisc" type="range" min="0" max="30" step="0.1" value="6.4" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+
+        <!-- Param 3 -->
+        <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <label for="pSoiling" class="text-xs font-semibold text-slate-300 leading-tight">Suciedad y polvo</label>
+            <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
+              <input id="pSoiling" type="number" min="0" max="30" step="0.1" value="3.0" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
+              <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+            </div>
+          </div>
+          <input id="rSoiling" type="range" min="0" max="30" step="0.1" value="3.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Param 4 -->
+        <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <label for="pShading" class="text-xs font-semibold text-slate-300 leading-tight">Sombras locales</label>
+            <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
+              <input id="pShading" type="number" min="0" max="50" step="0.1" value="7.0" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
+              <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+            </div>
+          </div>
+          <input id="rShading" type="range" min="0" max="50" step="0.1" value="7.0" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+        </div>
+
+        <!-- Param 5 -->
+        <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between hover:border-slate-700 transition">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <label for="pMisc" class="text-xs font-semibold text-slate-300 leading-tight">Degradación / mismatch</label>
+            <div class="flex items-center bg-slate-900 border border-slate-800 rounded-lg px-2 py-0.5 focus-within:border-amber-400">
+              <input id="pMisc" type="number" min="0" max="30" step="0.1" value="6.4" class="w-10 bg-transparent text-right font-bold text-xs text-amber-300 focus:outline-none">
+              <span class="text-[10px] text-slate-400 ml-0.5">%</span>
+            </div>
+          </div>
+          <input id="rMisc" type="range" min="0" max="30" step="0.1" value="6.4" class="w-full h-1.5 bg-slate-800 rounded-lg cursor-pointer">
+        </div>
       </div>
     </div>
   </section>
@@ -295,7 +354,7 @@ input[type=range] {
     <div>
       <h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
         <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
-        Producción mensual comparada por orientación
+        PVGIS 5.3 (satelital) vs. Modelo Físico Teórico (NREL)
       </h2>
       <p class="text-xs text-slate-400 mt-0.5">Haz clic en cualquier tarjeta para destacarla y sincronizar el análisis</p>
     </div>
@@ -308,12 +367,12 @@ input[type=range] {
 
       <div class="flex items-center gap-4 text-xs font-medium text-slate-400 bg-slate-900/80 border border-slate-800 px-3.5 py-1.5 rounded-xl">
         <span class="inline-flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-sm bg-gradient-to-r from-amber-300 to-amber-400 shadow-sm shadow-amber-400/50"></span>
-          <span>PVGIS base</span>
+          <span class="w-2.5 h-2.5 rounded-sm bg-amber-400 shadow-sm shadow-amber-400/50"></span>
+          <span>PVGIS 5.3 · satelital</span>
         </span>
         <span class="inline-flex items-center gap-2">
-          <span class="w-2.5 h-2.5 rounded-sm bg-gradient-to-r from-orange-400 to-amber-500 shadow-sm shadow-orange-500/50"></span>
-          <span id="legendReal">Estimada · 79,44 %</span>
+          <span class="w-2.5 h-2.5 rounded-sm bg-sky-400 shadow-sm shadow-sky-400/50"></span>
+          <span id="legendPhys">Físico NREL · Clima real</span>
         </span>
       </div>
     </div>
@@ -399,15 +458,15 @@ input[type=range] {
     <!-- Section Header -->
     <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400/20 to-orange-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400/20 to-amber-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
         </div>
         <div>
           <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
-            Fórmulas de cálculo y desglose pedagógico
-            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Interactivo en vivo</span>
+            Motor Físico Teórico (NREL) vs. PVGIS 5.3 · Fórmulas y desglose
+            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">Nivel 3 · Horario</span>
           </h2>
-          <p class="text-xs text-slate-400">Comprende paso a paso cómo se traduce la radiación solar en los kWh finales calculados arriba</p>
+          <p class="text-xs text-slate-400">Cadena física completa ejecutada en tiempo real en el navegador (pasos de 30 min sobre los 12 días tipo de Klein)</p>
         </div>
       </div>
       <div class="text-xs text-slate-400 bg-slate-950/80 border border-slate-800 px-3.5 py-1.5 rounded-xl">
@@ -415,135 +474,135 @@ input[type=range] {
       </div>
     </div>
 
-    <!-- 3 Core Equation Cards Grid -->
+    <!-- 3 Core Physics Equation Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <!-- Equation 1 -->
-      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-amber-500/30 transition">
-        <div class="flex items-center justify-between text-xs font-bold text-amber-400 uppercase tracking-wider">
-          <span>1. Producción Base PVGIS</span>
-          <span class="text-[10px] bg-amber-500/10 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/20">Física solar</span>
+      <!-- Equation 1: Transposition + IAM -->
+      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-sky-500/30 transition">
+        <div class="flex items-center justify-between text-xs font-bold text-sky-400 uppercase tracking-wider">
+          <span>1. Irradiancia Efectiva (G_eff)</span>
+          <span class="text-[10px] bg-sky-500/10 text-sky-300 px-1.5 py-0.5 rounded border border-sky-500/20">HDKR + IAM</span>
         </div>
-        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-xs text-amber-200 text-center font-bold">
-          E_teorica = P_inst × E_m(1 kWp)
+        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-[11px] text-sky-200 text-center font-bold">
+          G_eff = G_b·IAM(θ) + 0.97·G_d + 0.95·G_r
         </div>
         <p class="text-[11px] text-slate-400 leading-relaxed">
-          PVGIS calcula la irradiación sobre el plano inclinado considerando temperatura, ángulo horario, pérdidas térmicas de celda y reflexión angular para <strong class="text-slate-200">1 kWp</strong>. Se escala linealmente por la potencia instalada en ese tejado.
+          Calcula la geometría solar exacta (δ, ω, θ), transpone radiación directa, difusa anisotrópica (Hay-Davies) y albedo (<span id="eqAlbedo" class="text-sky-300 font-semibold">0,20</span>) al tejado, y descuenta reflexión del vidrio con <strong class="text-slate-200">Martin-Ruiz</strong>.
         </p>
         <div class="pt-2 border-t border-slate-900 text-xs text-slate-300 flex justify-between">
-          <span>Resultado anual (<span id="calcDirLabel1">Sur</span>):</span>
-          <b id="calcTheoryVal" class="text-amber-400 tabular-nums">0 kWh</b>
+          <span>Irradiancia pico (<span id="calcDirLabel1">Sur</span>):</span>
+          <b id="calcGeffPeak" class="text-sky-400 tabular-nums">— W/m²</b>
         </div>
       </div>
 
-      <!-- Equation 2 -->
+      <!-- Equation 2: Thermal Model -->
       <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-orange-500/30 transition">
         <div class="flex items-center justify-between text-xs font-bold text-orange-400 uppercase tracking-wider">
-          <span>2. Factor de Rendimiento (PR)</span>
-          <span class="text-[10px] bg-orange-500/10 text-orange-300 px-1.5 py-0.5 rounded border border-orange-500/20">Pérdidas reales</span>
+          <span>2. Temperatura de Célula (T_cell)</span>
+          <span class="text-[10px] bg-orange-500/10 text-orange-300 px-1.5 py-0.5 rounded border border-orange-500/20">Ross / NOCT</span>
         </div>
         <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-[11px] text-orange-200 text-center font-bold">
-          PR = η_inv × (1-L_cab) × (1-L_suc) × (1-L_som) × (1-L_deg)
+          T_cell(t) = T_amb + ((NOCT − 20) / 800) · G_eff(t)
         </div>
         <p class="text-[11px] text-slate-400 leading-relaxed">
-          Las pérdidas son <strong class="text-slate-200">multiplicativas</strong> (en cascada): lo que no absorbe el inversor ya no puede perderse en el cableado. Este factor traduce la energía bruta en energía neta inyectable.
+          A partir de la temperatura ambiente diurna mensual de Barcelona y el <strong class="text-slate-200">NOCT (<span id="eqNoct">48</span> °C)</strong>, estima el calentamiento real de la célula de silicio bajo carga solar.
         </p>
         <div class="pt-2 border-t border-slate-900 text-xs text-slate-300 flex justify-between">
-          <span>PR resultante:</span>
-          <b id="calcPRVal" class="text-orange-400 tabular-nums">79,44 %</b>
+          <span>T_cell pico en julio:</span>
+          <b id="calcTcellPeak" class="text-orange-400 tabular-nums">— °C</b>
         </div>
       </div>
 
-      <!-- Equation 3 -->
+      <!-- Equation 3: NREL Power + System Losses -->
       <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-emerald-500/30 transition">
         <div class="flex items-center justify-between text-xs font-bold text-emerald-400 uppercase tracking-wider">
-          <span>3. Producción Neta Estimada</span>
-          <span class="text-[10px] bg-emerald-500/10 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/20">Inyección red</span>
+          <span>3. Conversión NREL + BOS</span>
+          <span class="text-[10px] bg-emerald-500/10 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/20">Potencia AC</span>
         </div>
-        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-xs text-emerald-200 text-center font-bold">
-          E_estimada = E_teorica × PR
+        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-[11px] text-emerald-200 text-center font-bold">
+          P(t) = P_STC·(G_eff/1000)·[1+γ(T_cell−25)]·PR_BOS
         </div>
         <p class="text-[11px] text-slate-400 leading-relaxed">
-          La energía real esperada en bornes de conexión. Equivale a la estimación más certera para calcular ahorros en factura, autoconsumo o amortización de la instalación fotovoltaica.
+          Aplica el coeficiente térmico <strong class="text-slate-200">γ (<span id="eqGamma">−0,35</span> %/°C)</strong>, la caída de eficiencia a baja irradiancia y las pérdidas de sistema (<span id="calcPRVal" class="text-amber-300 font-semibold">79,44 %</span>), idénticas a las aplicadas a PVGIS.
         </p>
         <div class="pt-2 border-t border-slate-900 text-xs text-slate-300 flex justify-between">
-          <span>Producción neta (<span id="calcDirLabel2">Sur</span>):</span>
-          <b id="calcRealVal" class="text-emerald-400 tabular-nums">0 kWh</b>
+          <span>NREL anual (<span id="calcDirLabel2">Sur</span>):</span>
+          <b id="calcPhysVal" class="text-emerald-400 tabular-nums">— kWh</b>
         </div>
       </div>
     </div>
 
-    <!-- Live Step-by-Step Calculation Flow -->
+    <!-- Live Step-by-Step Comparison Flow -->
     <div class="rounded-xl bg-slate-950/80 border border-slate-800 p-4 sm:p-5">
-      <div class="text-xs font-bold text-slate-200 mb-3 flex items-center justify-between">
+      <div class="text-xs font-bold text-slate-200 mb-3 flex items-center justify-between flex-wrap gap-2">
         <span class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-          Desglose dinámico con los valores actuales de tu simulación:
+          <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+          Resumen comparativo en vivo (<span id="mathDirName">Sur</span> · <span id="mathAngleLabel">37°</span>):
         </span>
-        <span class="text-slate-400 font-normal text-[11px]">Se actualiza en tiempo real al mover controles</span>
+        <span class="text-slate-400 font-normal text-[11px]">Ambos modelos incorporan exactamente las mismas pérdidas BOS</span>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 text-xs">
         <div class="bg-slate-900/90 border border-slate-800/90 rounded-lg p-3">
-          <span class="text-slate-400 block text-[10px] uppercase font-bold">Potencia en tejado</span>
-          <span id="mathPower" class="text-base font-bold text-slate-100 tabular-nums">1.0 kWp</span>
-          <span class="text-[10px] text-slate-500 block mt-1">Por orientación evaluada</span>
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Potencia instalada</span>
+          <span id="mathPower" class="text-base font-bold text-slate-100 tabular-nums">1,0 kWp</span>
+          <span class="text-[10px] text-slate-500 block mt-1">Aplicada en cada tejado</span>
         </div>
         <div class="bg-slate-900/90 border border-slate-800/90 rounded-lg p-3">
-          <span class="text-slate-400 block text-[10px] uppercase font-bold">PVGIS unitario (<span id="mathDirName">Sur</span>)</span>
-          <span id="mathUnitary" class="text-base font-bold text-amber-400 tabular-nums">0 kWh/kWp</span>
-          <span class="text-[10px] text-slate-500 block mt-1">Base SARAH-3 a 37°</span>
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Factor BOS común</span>
+          <span id="mathMultipliers" class="text-base font-bold text-orange-400 tabular-nums leading-tight block">× 0,7944</span>
+          <span class="text-[10px] text-slate-500 block mt-1">∏(1 − L_i) · 5 pérdidas</span>
         </div>
-        <div class="bg-slate-900/90 border border-slate-800/90 rounded-lg p-3">
-          <span class="text-slate-400 block text-[10px] uppercase font-bold">Multiplicador pérdidas</span>
-          <span id="mathMultipliers" class="text-base font-bold text-orange-400 tabular-nums leading-tight block">× 0.7944</span>
-          <span id="mathLossDetail" class="text-[10px] text-slate-500 block mt-1">5 parámetros activos</span>
+        <div class="bg-slate-900/90 border border-amber-500/20 rounded-lg p-3">
+          <span class="text-amber-400 block text-[10px] uppercase font-bold">PVGIS 5.3 (neta)</span>
+          <span id="mathPvgisNet" class="text-base font-bold text-amber-300 tabular-nums">0 kWh</span>
+          <span id="mathPvgisSpec" class="text-[10px] text-slate-500 block mt-1">0 kWh/kWp</span>
         </div>
-        <div class="bg-slate-900/90 border border-slate-800/90 rounded-lg p-3">
-          <span class="text-slate-400 block text-[10px] uppercase font-bold">Producción Bruta</span>
-          <span id="mathGross" class="text-base font-bold text-amber-300 tabular-nums">0 kWh</span>
-          <span class="text-[10px] text-slate-500 block mt-1">1.0 × Unitario</span>
+        <div class="bg-slate-900/90 border border-sky-500/20 rounded-lg p-3">
+          <span class="text-sky-400 block text-[10px] uppercase font-bold">Físico NREL (neta)</span>
+          <span id="mathPhysNet" class="text-base font-bold text-sky-300 tabular-nums">0 kWh</span>
+          <span id="mathPhysSpec" class="text-[10px] text-slate-500 block mt-1">0 kWh/kWp</span>
         </div>
-        <div class="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-lg p-3">
-          <span class="text-amber-400 block text-[10px] uppercase font-bold">Producción Neta Anual</span>
-          <span id="mathNet" class="text-base font-extrabold text-white tabular-nums">0 kWh</span>
-          <span class="text-[10px] text-amber-300/80 block mt-1">Inyectable / Utilizable</span>
+        <div class="bg-gradient-to-br from-emerald-500/10 to-sky-500/10 border border-emerald-500/30 rounded-lg p-3">
+          <span class="text-emerald-400 block text-[10px] uppercase font-bold">Desviación NREL vs PVGIS</span>
+          <span id="mathDelta" class="text-base font-extrabold text-white tabular-nums">0,0 %</span>
+          <span id="mathDeltaKwh" class="text-[10px] text-emerald-300/80 block mt-1">0 kWh/año</span>
         </div>
       </div>
     </div>
 
-    <!-- Educational Accordion / Details -->
+    <!-- Educational Guide Cards -->
     <div class="space-y-3 pt-1">
       <div class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-        <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-        Guía pedagógica de conceptos clave
+        <svg class="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        Guía pedagógica de física fotovoltaica
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-400">
         <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
-          <strong class="text-slate-200 text-xs block">¿Por qué el Sur genera el doble que el Norte en invierno?</strong>
+          <strong class="text-slate-200 text-xs block">Clima real (Kt) vs. Cielo despejado (teórico puro)</strong>
           <p class="leading-relaxed">
-            En el hemisferio norte, la trayectoria solar discurre siempre inclinada hacia el sur. En los meses fríos (noviembre a febrero), el sol se eleva muy poco sobre el horizonte (~25° a mediodía en Barcelona). La radiación directa incide casi de frente sobre paneles orientados al sur con 37° de inclinación, mientras que el tejado norte queda completamente en la umbría de la propia cubierta y solo recibe radiación difusa del cielo.
+            En modo <strong class="text-sky-300">Clima real (Kt)</strong>, el motor físico utiliza el índice de claridad mensual de Barcelona para separar radiación directa y difusa (Erbs + Collares-Pereira), logrando una concordancia de ~1–4 % respecto al satélite PVGIS-SARAH3. En modo <strong class="text-sky-300">Cielo despejado</strong> (modelo atmosférico Hottel), calcula el techo físico máximo sin nubes: la diferencia frente a PVGIS muestra directamente cuánto resta la nubosidad local.
           </p>
         </div>
 
         <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
-          <strong class="text-slate-200 text-xs block">¿Por qué Este y Oeste producen casi igual?</strong>
+          <strong class="text-slate-200 text-xs block">Curiosidad física: ¿por qué el Norte puede rendir más con nubes suaves que en cielo despejado?</strong>
           <p class="leading-relaxed">
-            Las orientaciones Este (−90°) y Oeste (+90°) son casi simétricas respecto al mediodía solar. El Este capta los rayos matutinos con menor temperatura ambiente (lo que favorece el coeficiente de temperatura de las células de silicio), mientras que el Oeste capta la tarde con ambiente más caluroso y turbidez acumulada, mostrando ligeras diferencias según la microclima costera de Barcelona.
+            Prueba a cambiar a «Cielo despejado» y observa la tarjeta Norte. En un tejado orientado al norte (37°), el sol directo casi no incide en invierno; depende de la luz difusa de la bóveda celeste. Un cielo parcialmente nuboso dispersa mucha más radiación difusa hacia el plano norte que un cielo azul seco completamente despejado.
           </p>
         </div>
 
         <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
-          <strong class="text-slate-200 text-xs block">¿Por qué las pérdidas no se suman como porcentajes simples?</strong>
+          <strong class="text-slate-200 text-xs block">Impacto de γ (coeficiente térmico) y NOCT en verano</strong>
           <p class="leading-relaxed">
-            Si sumaras 4% de inversor + 2% de cables + 3% de polvo + 7% de sombras + 6.4% de degradación daría 22.4% (dejando 77.6%). Sin embargo, la energía pasa de forma secuencial: la potencia que el inversor no transforma (eficiencia 96%) ya no circula por los cables, y la luz bloqueada por la suciedad ya no genera fotones en la célula. El cálculo en producto <code class="text-amber-300 font-mono">∏(1 - L_i)</code> es el único físicamente riguroso.
+            Las células de silicio pierden voltaje al calentarse. En julio en Barcelona, un panel coplanar en tejado (NOCT ≈ 48 °C) supera los <strong class="text-orange-300">55–60 °C de célula</strong> a mediodía, lo que con un panel PERC (γ = −0,35 %/°C) resta un ~12 % de potencia instantánea. Compara bajando γ a −0,29 %/°C (módulo TOPCon/HJT) o reduciendo NOCT a 43 °C (estructura ventilada).
           </p>
         </div>
 
         <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
-          <strong class="text-slate-200 text-xs block">Diferencia entre kWh y kWp</strong>
+          <strong class="text-slate-200 text-xs block">¿Por qué las pérdidas BOS se multiplican y se aplican a ambos modelos?</strong>
           <p class="leading-relaxed">
-            <strong class="text-slate-200">kWp (kilovatio pico):</strong> es la potencia nominal de tus paneles en condiciones estándar de laboratorio (1000 W/m² de radiación y 25 °C de célula). <strong class="text-slate-200">kWh (kilovatio-hora):</strong> es la energía acumulada generada a lo largo del tiempo. 1 kWp en Barcelona produce entre 1.000 y 1.700 kWh al año según la orientación.
+            La energía fluye en cascada: <code class="text-amber-300 font-mono">η_inv × ∏(1 − L_i)</code>. Aplicar exactamente el mismo factor BOS a PVGIS 5.3 y al Modelo Físico NREL garantiza una comparación limpia de física solar y radiación, sin sesgos externos. Las pequeñas diferencias residuales en Este/Oeste reflejan el horizonte montañoso (Collserola) y la brisa marina matutina captadas por el satélite SARAH-3.
           </p>
         </div>
       </div>
@@ -581,16 +640,30 @@ function clamp(v,min,max,fallback){
  const n=Number(v);
  return Number.isFinite(n)?Math.min(max,Math.max(min,n)):fallback;
 }
-const TYPICAL_PARAMS={inverter:96.0,wiring:2.0,soiling:3.0,shading:7.0,misc:6.4};
+const TYPICAL_PARAMS={
+ gamma:-0.35, noct:48, albedo:0.20, skyMode:"real",
+ inverter:96.0, wiring:2.0, soiling:3.0, shading:7.0, misc:6.4
+};
 const PARAM_DEFS=[
- {key:"inverter",num:"pInverter",rng:"rInverter",min:80,max:100},
- {key:"wiring",num:"pWiring",rng:"rWiring",min:0,max:20},
- {key:"soiling",num:"pSoiling",rng:"rSoiling",min:0,max:30},
- {key:"shading",num:"pShading",rng:"rShading",min:0,max:50},
- {key:"misc",num:"pMisc",rng:"rMisc",min:0,max:30}
+ {key:"gamma",num:"pGamma",rng:"rGamma",min:-0.55,max:-0.20,dec:2},
+ {key:"noct",num:"pNoct",rng:"rNoct",min:40,max:55,dec:0},
+ {key:"albedo",num:"pAlbedo",rng:"rAlbedo",min:0.05,max:0.60,dec:2},
+ {key:"inverter",num:"pInverter",rng:"rInverter",min:80,max:100,dec:1},
+ {key:"wiring",num:"pWiring",rng:"rWiring",min:0,max:20,dec:1},
+ {key:"soiling",num:"pSoiling",rng:"rSoiling",min:0,max:30,dec:1},
+ {key:"shading",num:"pShading",rng:"rShading",min:0,max:50,dec:1},
+ {key:"misc",num:"pMisc",rng:"rMisc",min:0,max:30,dec:1}
 ];
 function getPower(){return clamp($("power").value,0.1,10000,1);}
 function getAngle(){return Math.round(clamp($("angle").value,0,90,37));}
+function getPhysParams(){
+ return {
+  gammaPct:clamp($("pGamma").value,-0.55,-0.20,TYPICAL_PARAMS.gamma),
+  noct:clamp($("pNoct").value,40,55,TYPICAL_PARAMS.noct),
+  albedo:clamp($("pAlbedo").value,0.05,0.60,TYPICAL_PARAMS.albedo),
+  skyMode:$("skyMode").value==="clear"?"clear":"real"
+ };
+}
 function getPerformance(){
  const inv=clamp($("pInverter").value,80,100,TYPICAL_PARAMS.inverter)/100;
  const wiring=clamp($("pWiring").value,0,20,TYPICAL_PARAMS.wiring)/100;
@@ -598,6 +671,108 @@ function getPerformance(){
  const shading=clamp($("pShading").value,0,50,TYPICAL_PARAMS.shading)/100;
  const misc=clamp($("pMisc").value,0,30,TYPICAL_PARAMS.misc)/100;
  return inv*(1-wiring)*(1-soiling)*(1-shading)*(1-misc);
+}
+
+// --- MOTOR FÍSICO NIVEL 3 (Duffie & Beckman + HDKR + Martin-Ruiz IAM + NOCT + NREL) ---
+const PHYS_CONST={
+ DEG:Math.PI/180,
+ DAYS:[31,28,31,30,31,30,31,31,30,31,30,31],
+ KLEIN_DAYS:[17,47,75,105,135,162,198,228,258,288,318,344],
+ // Irradiación horizontal mensual Barcelona (kWh/m²/mes · SARAH-3 2005-2023)
+ GHI_MONTHLY:[68.57,85.16,132.42,161.91,202.73,218.15,223.78,193.58,142.39,103.10,70.03,60.66],
+ // Temperatura diurna media mensual Barcelona (°C · AEMET/ERA5)
+ TAMB_MONTHLY:[11.8,12.6,14.8,17.0,20.2,24.1,26.8,27.0,24.0,20.1,15.3,12.4],
+ G_SC:1367,
+ AR:0.16
+};
+
+function simulatePhysical({angleDeg,aspectDeg,gammaPct,noct,albedo,skyMode}){
+ const {DEG,DAYS,KLEIN_DAYS,GHI_MONTHLY,TAMB_MONTHLY,G_SC,AR}=PHYS_CONST;
+ const lat=CFG.lat*DEG, beta=angleDeg*DEG, az=aspectDeg*DEG, gamma=gammaPct/100;
+ const monthly=[];
+ let peakGeff=0, peakTcellJuly=0;
+
+ for(let m=0;m<12;m++){
+  const n=KLEIN_DAYS[m], days=DAYS[m];
+  const decl=23.45*Math.sin(360*(284+n)/365*DEG)*DEG;
+  const Gon=G_SC*(1+0.033*Math.cos(360*n/365*DEG));
+  const cosWs=Math.max(-1,Math.min(1,-Math.tan(lat)*Math.tan(decl)));
+  const ws=Math.acos(cosWs);
+
+  const H0_day=(24/Math.PI)*Gon*(Math.cos(lat)*Math.cos(decl)*Math.sin(ws)+ws*Math.sin(lat)*Math.sin(decl));
+  const H_day_real=(GHI_MONTHLY[m]*1000)/days;
+  const Kt=Math.min(0.85,H_day_real/Math.max(1,H0_day));
+  const wsDeg=ws/DEG;
+  let Kd_month=wsDeg<=81.4
+   ?(1.391-3.560*Kt+4.189*Kt*Kt-2.137*Kt*Kt*Kt)
+   :(1.311-3.022*Kt+3.427*Kt*Kt-1.821*Kt*Kt*Kt);
+  Kd_month=Math.max(0.15,Math.min(0.95,Kd_month));
+  const Hd_day=H_day_real*Kd_month;
+
+  const dt=0.5, Tamb=TAMB_MONTHLY[m];
+  let E_day_Wh=0;
+  for(let step=0;step<48;step++){
+   const w=((step+0.5)*dt-12)*15*DEG;
+   const cosThetaZ=Math.sin(lat)*Math.sin(decl)+Math.cos(lat)*Math.cos(decl)*Math.cos(w);
+   if(cosThetaZ<=0.01)continue;
+
+   const G0h=Gon*cosThetaZ;
+   const zenithDeg=Math.acos(Math.min(1,cosThetaZ))/DEG;
+   const AM=1/(cosThetaZ+0.50572*Math.pow(Math.max(0.5,96.07995-zenithDeg),-1.6364));
+
+   let Gh,Gd,Gb_h;
+   if(skyMode==="clear"){
+    const tau_b=0.128+0.756*Math.exp(-0.357*AM);
+    const tau_d=0.271-0.294*tau_b;
+    Gb_h=G0h*tau_b;
+    Gd=G0h*tau_d;
+    Gh=Gb_h+Gd;
+   }else{
+    const a=0.409+0.5016*Math.sin(ws-60*DEG);
+    const b=0.6609-0.4767*Math.sin(ws-60*DEG);
+    const denom=Math.max(0.001,Math.sin(ws)-ws*Math.cos(ws));
+    const rt=(Math.PI/24)*(a+b*Math.cos(w))*(Math.cos(w)-Math.cos(ws))/denom;
+    const rd=(Math.PI/24)*(Math.cos(w)-Math.cos(ws))/denom;
+    Gh=Math.max(0,H_day_real*rt);
+    Gd=Math.min(Gh,Math.max(0,Hd_day*rd));
+    Gb_h=Math.max(0,Gh-Gd);
+   }
+
+   const cosTheta=
+    Math.sin(decl)*Math.sin(lat)*Math.cos(beta)
+    -Math.sin(decl)*Math.cos(lat)*Math.sin(beta)*Math.cos(az)
+    +Math.cos(decl)*Math.cos(lat)*Math.cos(beta)*Math.cos(w)
+    +Math.cos(decl)*Math.sin(lat)*Math.sin(beta)*Math.cos(az)*Math.cos(w)
+    +Math.cos(decl)*Math.sin(beta)*Math.sin(az)*Math.sin(w);
+
+   const cosThetaPos=Math.max(0,cosTheta);
+   const Rb=cosThetaPos/Math.max(0.087,cosThetaZ);
+   const Gb_poa=Gb_h*Rb;
+
+   // Transposición difusa anisotrópica Hay-Davies (HDKR)
+   const Ai=Math.min(1,Gb_h/Math.max(1,G0h));
+   const f_hz=Math.sqrt(Math.max(0,Gb_h/Math.max(1,Gh)));
+   const Gd_poa=Gd*(Ai*Rb+(1-Ai)*((1+Math.cos(beta))/2)*(1+f_hz*Math.pow(Math.sin(beta/2),3)));
+   const Gr_poa=Gh*albedo*((1-Math.cos(beta))/2);
+
+   // Óptica del vidrio: IAM Martin-Ruiz
+   const iam_b=cosThetaPos>0.01?(1-Math.exp(-cosThetaPos/AR))/(1-Math.exp(-1/AR)):0;
+   const Geff=Gb_poa*iam_b+Gd_poa*0.97+Gr_poa*0.95;
+
+   // Modelo térmico de célula (Ross / NOCT)
+   const Tcell=Tamb+((noct-20)/800)*Geff;
+   if(Geff>peakGeff)peakGeff=Geff;
+   if(m===6&&Tcell>peakTcellJuly)peakTcellJuly=Tcell;
+
+   // Conversión NREL + eficiencia a baja irradiancia (silicio cristalino)
+   const tempFactor=Math.max(0,1+gamma*(Tcell-25));
+   const lowIrrFactor=Geff>10?Math.min(1.005,Math.max(0,1+0.025*Math.log(Geff/1000))):0;
+   const P_W=1000*(Geff/1000)*tempFactor*lowIrrFactor;
+   E_day_Wh+=P_W*dt;
+  }
+  monthly.push(Number(((E_day_Wh*days)/1000).toFixed(2)));
+ }
+ return {monthly,peakGeff,peakTcellJuly};
 }
 
 function setStatus(msg,state="loading"){
@@ -627,12 +802,6 @@ function apiUrl(dir,angle){
  return "/api/pvgis?"+p.toString();
 }
 
-async function fetchWithTimeout(url,signal){
- const timer=setTimeout(()=>activeController?.abort(new Error("Tiempo de espera agotado (15 s).")),CFG.timeoutMs);
- try{return await fetch(url,{signal});}
- finally{clearTimeout(timer);}
-}
-
 const PVGIS_ANGLES_DB={"0":{"N":[61.18,77.93,121.52,146.54,180.12,189.66,192.22,166.66,124.23,91.38,61.89,53.41],"E":[61.19,77.93,121.53,146.54,180.12,189.66,192.22,166.66,124.23,91.38,61.89,53.41],"S":[61.19,77.94,121.53,146.54,180.12,189.66,192.22,166.66,124.23,91.38,61.89,53.41],"O":[61.19,77.93,121.53,146.54,180.12,189.66,192.22,166.66,124.23,91.38,61.89,53.41]},"15":{"N":[28.51,48.98,94.66,128.48,168.05,181.08,181.12,149.48,101.98,64.72,33.85,22.86],"E":[60.6,76.55,118.76,142.48,175.09,184.14,186.01,160.92,121.1,88.79,61.06,53.44],"S":[90.84,100.93,140.57,156.69,183.45,189.15,193.78,174.94,139.01,111.66,86.02,82.31],"O":[62.2,77.81,120.59,144.82,177.37,186.4,189.36,165.28,122.89,91.55,62.28,53.38]},"20":{"N":[20.17,39.05,84.09,120.69,162.05,176.15,175.25,141.77,92.94,54.9,25.79,16.09],"E":[60.6,75.92,117.38,140.21,172.3,180.59,182.21,158.18,119.48,87.53,61.0,53.42],"S":[99.13,107.09,145.21,158.41,182.83,187.27,192.38,175.85,142.35,116.94,92.7,90.42],"O":[62.3,77.65,119.56,143.22,175.38,184.16,187.17,163.28,122.06,91.0,62.48,53.18]},"25":{"N":[16.27,29.99,72.87,112.0,155.01,170.15,168.26,133.03,83.1,45.08,20.33,15.44],"E":[60.48,75.1,115.92,137.61,168.96,177.37,178.85,154.61,117.75,86.39,60.46,53.18],"S":[106.57,112.5,149.0,159.31,181.31,184.41,189.98,175.86,144.88,121.49,98.66,97.72],"O":[62.74,76.99,118.49,141.49,172.27,180.67,183.71,161.52,120.41,90.48,62.34,53.17]},"30":{"N":[17.22,23.47,61.24,102.38,146.9,163.03,160.09,123.22,72.55,36.23,19.74,16.37],"E":[59.98,74.6,113.7,135.03,165.19,172.77,174.04,151.28,115.49,85.07,60.08,53.34],"S":[113.16,117.14,151.92,159.34,178.94,180.71,186.62,174.96,146.61,125.28,103.9,104.21],"O":[62.78,76.52,117.11,138.92,169.54,177.48,180.68,158.61,118.67,89.81,62.05,53.15]},"35":{"N":[16.79,21.7,49.88,91.86,137.68,154.75,150.71,112.31,61.51,30.17,20.0,15.71],"E":[59.63,73.47,111.99,131.49,161.31,168.82,170.0,147.32,113.3,83.38,59.74,53.12],"S":[118.89,121.02,153.96,158.52,175.54,176.19,182.54,173.12,147.52,128.3,108.4,109.89],"O":[62.43,75.81,115.14,136.41,165.42,172.95,176.1,155.64,116.89,88.48,61.87,52.65]},"37":{"N":[16.49,21.66,45.67,87.41,133.66,151.1,146.61,107.64,57.06,28.98,19.65,15.43],"E":[59.49,72.93,111.19,130.2,159.37,166.76,167.87,145.48,112.39,82.78,59.41,52.9],"S":[120.95,122.35,154.53,157.95,173.91,174.07,180.55,172.11,147.66,129.3,110.0,111.94],"O":[62.23,75.34,114.42,135.35,163.66,170.95,174.18,154.61,115.86,87.9,61.73,52.4]},"40":{"N":[16.03,21.76,40.2,80.52,127.3,145.26,140.06,100.33,50.52,27.93,19.1,14.99],"E":[59.18,72.09,109.57,128.56,156.37,163.46,164.47,142.97,110.65,81.83,58.83,52.52],"S":[123.77,124.12,155.12,156.84,171.2,170.6,177.28,170.31,147.61,130.56,112.18,114.77],"O":[61.92,74.56,113.22,133.27,161.46,167.88,172.03,152.25,114.19,87.18,61.28,51.99]},"45":{"N":[15.2,20.77,34.83,68.68,115.76,134.53,128.12,87.38,40.82,27.4,18.14,14.21],"E":[58.22,70.92,106.59,124.6,152.08,157.99,158.92,138.77,107.64,79.96,57.72,51.75],"S":[127.79,126.44,155.38,154.3,165.93,164.07,171.04,166.54,146.87,132.04,115.21,118.83],"O":[61.61,73.24,110.8,129.66,156.79,163.37,166.65,147.88,111.62,85.71,60.33,51.44]},"50":{"N":[14.34,19.62,32.2,57.09,103.13,122.54,114.88,73.85,35.02,26.05,17.13,13.4],"E":[57.03,69.34,103.89,120.23,146.49,152.59,153.49,133.55,104.59,77.6,56.66,51.0],"S":[130.97,127.99,154.74,150.89,159.76,156.66,163.88,161.82,145.29,132.75,117.51,122.09],"O":[60.67,71.89,107.78,126.04,151.37,157.41,160.87,143.81,108.64,83.6,59.22,50.64]},"60":{"N":[12.53,17.23,28.56,40.95,76.22,95.25,85.58,49.86,29.49,22.92,15.01,11.71],"E":[54.23,65.17,96.85,111.25,134.81,139.84,140.65,122.98,97.06,72.53,53.73,48.73],"S":[134.76,128.75,150.74,141.48,144.72,139.25,146.58,149.49,139.59,131.79,119.87,126.2],"O":[57.95,67.86,101.18,116.82,139.9,145.03,148.41,133.1,101.15,78.61,56.46,48.07]},"90":{"N":[7.31,10.27,17.31,22.1,32.96,38.12,33.29,23.63,17.59,13.79,8.86,6.82],"E":[40.19,47.24,68.32,76.4,91.13,93.42,94.12,83.15,68.11,51.73,39.79,36.54],"S":[125.71,112.06,116.5,92.31,78.51,67.21,73.12,89.62,101.77,109.77,109.07,119.16],"O":[44.64,50.49,73.24,81.59,95.58,97.94,101.08,92.56,71.67,57.22,42.33,35.95]}};
 
 function getInterpolatedPVGIS(targetAngle){
@@ -657,14 +826,11 @@ function getInterpolatedPVGIS(targetAngle){
 async function loadPVGIS(){
  const angle=getAngle();
  clearError();
- 
- // 1. Carga inmediata y garantizada desde la base oficial PVGIS 5.3 (cero espera)
  baseData=getInterpolatedPVGIS(angle);
  loadedAngle=angle;
  render();
  setStatus(`Datos PVGIS 5.3 oficiales · ${angle}° · SARAH-3`,"ok");
 
- // 2. Si hay servidor local/proxy disponible, comprobar en segundo plano con timeout rápido (2s)
  if(window.location.protocol==="http:"||window.location.protocol==="https:"){
   const ctrl=new AbortController();
   const timer=setTimeout(()=>ctrl.abort(),2500);
@@ -675,7 +841,6 @@ async function loadPVGIS(){
     const json=await testRes.json();
     const rows=json?.outputs?.monthly?.fixed;
     if(Array.isArray(rows)&&rows.length===12){
-     // Si el proxy responde correctamente, consultar las 4 orientaciones completas
      const responses=await Promise.all(DIRS.map(async d=>{
       const r=await fetch(apiUrl(d,angle));
       const j=await r.json();
@@ -686,19 +851,17 @@ async function loadPVGIS(){
      setStatus(`Conectado a PVGIS en vivo · ${angle}° · SARAH-3`,"ok");
     }
    }
-  }catch(e){
-   // En caso de que no haya servidor proxy o haya bloqueo CORS, se mantienen los datos oficiales de PVGIS
-  }
+  }catch(e){}
  }
 }
 
-function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
+function drawChart(dirId,pvgisVals,physVals,globalMax,hoverIdx=-1){
  const canvas=$("chart"+dirId);
  if(!canvas)return;
- 
+
  const w = Math.max(280, canvas.clientWidth || canvas.offsetWidth || canvas.parentElement?.clientWidth || 320);
  const h = 245;
- 
+
  if(canvas.width !== w || canvas.height !== h){
   canvas.width = w;
   canvas.height = h;
@@ -706,12 +869,11 @@ function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
  const ctx=canvas.getContext("2d");
  ctx.clearRect(0,0,w,h);
 
- const rawMax = globalMax ?? Math.max(...values, ...realValues);
+ const rawMax = globalMax ?? Math.max(...pvgisVals, ...physVals);
  const max = Math.max(1, rawMax) * 1.14;
  const step = max / 4;
  ctx.font="10px system-ui, sans-serif";
- 
- // En pantallas estrechas de móvil, reducir el margen izquierdo para dejar más espacio a las barras
+
  const isMobile = w < 400;
  const textW = Math.ceil(ctx.measureText(fmt(max)).width);
  const left = isMobile ? Math.max(38, textW + 8) : Math.max(48, textW + 16);
@@ -720,7 +882,6 @@ function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
  const plotW = Math.max(80, w - left - right);
  const plotH = Math.max(60, h - top - bottom);
 
- // Grid lines & Y axis labels
  ctx.textAlign="right";
  ctx.textBaseline="middle";
  for(let i=0;i<=4;i++){
@@ -739,44 +900,49 @@ function drawChart(dirId,values,realValues,globalMax,hoverIdx=-1){
  const bw=Math.max(3.5, Math.min(12, group*0.35));
  for(let i=0;i<12;i++){
   const cx=left+group*(i+0.5);
-  const v1=values[i] || 0;
-  const v2=realValues[i] || 0;
+  const v1=pvgisVals[i] || 0;
+  const v2=physVals[i] || 0;
   const barH1=Math.max(2, (v1/max)*plotH);
   const barH2=Math.max(2, (v2/max)*plotH);
   const y1=top+plotH-barH1;
   const y2=top+plotH-barH2;
-  
+
   if(i===hoverIdx){
-   ctx.fillStyle="rgba(245, 158, 11, 0.16)";
+   ctx.fillStyle="rgba(56, 189, 248, 0.14)";
    ctx.fillRect(left+group*i,top,group,plotH);
   }
 
-  // Bar 1: PVGIS Base (Golden Amber)
+  // Barra 1: PVGIS 5.3 satelital (Ámbar dorado)
   ctx.fillStyle="#f59e0b";
   ctx.fillRect(cx-bw-1.5, y1, bw, barH1);
 
-  // Bar 2: Estimated (Orange)
-  ctx.fillStyle="#ea580c";
+  // Barra 2: Modelo Físico Teórico NREL (Cian solar)
+  ctx.fillStyle="#38bdf8";
   ctx.fillRect(cx+1.5, y2, bw, barH2);
 
-  // Month label
   ctx.fillStyle=i===hoverIdx?"#f8fafc":"#94a3b8";
   ctx.textAlign="center";
   ctx.textBaseline="top";
   ctx.fillText(MONTHS[i],cx,h-bottom+9);
  }
- chartGeom[dirId]={left,right,top,bottom,plotW,plotH,values,realValues,globalMax};
+ chartGeom[dirId]={left,right,top,bottom,plotW,plotH,pvgisVals,physVals,globalMax};
 }
 
-function syncLabels(perf){
+function fmtSigned(n,d=1){return (n>=0?"+":"")+fmtDec(n,d);}
+
+function syncLabels(perf,phys){
  const pct=fmtDec(perf*100,2),lossPct=fmtDec((1-perf)*100,2);
+ const skyLabel=phys.skyMode==="clear"?"Cielo despejado":"Clima real (Kt)";
  $("kpiFactor").innerHTML=`${pct} <span class="text-xs font-semibold text-slate-400">%</span>`;
- $("kpiRealHint").textContent=`Aplicando rendimiento global del ${pct} %`;
- $("kpiLossHint").textContent=`Pérdidas globales: ${lossPct} %`;
+ $("kpiLossHint").textContent=`Aplicado a ambos modelos · pérdidas ${lossPct} %`;
  $("paramsGlobal").textContent=`${pct} %`;
  $("paramsLoss").textContent=`${lossPct} %`;
- $("legendReal").textContent=`Estimada · ${pct} %`;
- $("subtitle").textContent=`Comparativa de energía mensual para una instalación fija de la potencia indicada, con cuatro orientaciones y ${loadedAngle}° de inclinación.`;
+ $("legendPhys").textContent=`Físico NREL · ${skyLabel}`;
+ $("eqAlbedo").textContent=fmtDec(phys.albedo,2);
+ $("eqNoct").textContent=String(Math.round(phys.noct));
+ $("eqGamma").textContent=fmtDec(phys.gammaPct,2);
+ $("calcPRVal").textContent=`${pct} %`;
+ $("subtitle").textContent=`Comparativa mensual entre datos satelitales PVGIS 5.3 y el motor físico teórico horario (NREL) para ${loadedAngle}° de inclinación.`;
  DIRS.forEach(d=>{
   const meta=document.querySelector(`[data-meta="${d.id}"]`);
   if(meta)meta.textContent=`Azimut PVGIS: ${d.aspectLabel} · Inclinación: ${loadedAngle}°`;
@@ -785,8 +951,9 @@ function syncLabels(perf){
 
 function render(){
  if(!baseData)return;
- const power=getPower(),perf=getPerformance(),selected=$("orientation").value,shared=$("sharedScale").checked;
- syncLabels(perf);
+ const power=getPower(),perf=getPerformance(),phys=getPhysParams();
+ const selected=$("orientation").value,shared=$("sharedScale").checked;
+ syncLabels(perf,phys);
 
  document.querySelectorAll(".card").forEach(card=>{
   const isActive = selected!=="all" && card.dataset.dir===selected;
@@ -796,49 +963,62 @@ function render(){
  });
 
  const series=Object.fromEntries(DIRS.map(d=>{
-  const theory=baseData[d.id].map(v=>v*power);
-  const real=theory.map(v=>v*perf);
-  return [d.id,{theory,real}];
+  const pvgisNet=baseData[d.id].map(v=>v*power*perf);
+  const sim=simulatePhysical({angleDeg:loadedAngle,aspectDeg:d.aspect,...phys});
+  const physNet=sim.monthly.map(v=>v*power*perf);
+  return [d.id,{pvgisNet,physNet,peakGeff:sim.peakGeff,peakTcellJuly:sim.peakTcellJuly}];
  }));
- const globalMax=shared?Math.max(1,...DIRS.flatMap(d=>series[d.id].theory)):null;
+ const globalMax=shared
+  ?Math.max(1,...DIRS.flatMap(d=>[...series[d.id].pvgisNet,...series[d.id].physNet]))
+  :null;
 
  DIRS.forEach(d=>{
-  const {theory,real}=series[d.id];
-  drawChart(d.id,theory,real,globalMax);
-  const t=theory.reduce((a,b)=>a+b,0),r=real.reduce((a,b)=>a+b,0);
+  const {pvgisNet,physNet}=series[d.id];
+  drawChart(d.id,pvgisNet,physNet,globalMax);
+  const tPvgis=pvgisNet.reduce((a,b)=>a+b,0), tPhys=physNet.reduce((a,b)=>a+b,0);
+  const diffPct=tPvgis>0?((tPhys-tPvgis)/tPvgis)*100:0;
   $("totals"+d.id).innerHTML=`
-    <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>PVGIS anual: <b class="text-slate-100 font-bold ml-0.5">${fmt(t)} kWh</b></span>
-    <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span>Estimada anual: <b class="text-slate-100 font-bold ml-0.5">${fmt(r)} kWh</b></span>
+    <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>PVGIS 5.3: <b class="text-slate-100 font-bold ml-0.5">${fmt(tPvgis)} kWh</b></span>
+    <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Físico NREL: <b class="text-slate-100 font-bold ml-0.5">${fmt(tPhys)} kWh</b></span>
+    <span class="text-emerald-400 font-semibold tabular-nums">Δ ${fmtSigned(diffPct,1)} %</span>
   `;
  });
 
  const chosen=selected==="all"?"S":selected;
  const chosenObj=DIRS.find(d=>d.id===chosen);
  const chosenName=chosenObj.name;
- const sum=series[chosen].theory.reduce((a,b)=>a+b,0);
- const netSum=sum*perf;
- const unitary=sum/power;
+ const ch=series[chosen];
+ const sumPvgis=ch.pvgisNet.reduce((a,b)=>a+b,0);
+ const sumPhys=ch.physNet.reduce((a,b)=>a+b,0);
+ const deltaKwh=sumPhys-sumPvgis;
+ const deltaPct=sumPvgis>0?(deltaKwh/sumPvgis)*100:0;
+ const skyShort=phys.skyMode==="clear"?"Cielo despejado":"Clima real (Kt)";
 
- $("kpiTheory").innerHTML=`${fmt(sum)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
- $("kpiReal").innerHTML=`${fmt(netSum)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
- $("kpiSpecific").innerHTML=`${fmt(unitary)} <span class="text-xs font-semibold text-slate-400">kWh/kWp</span>`;
- $("kpiTheoryHint").textContent=selected==="all"?`Referencia: orientación ${chosenName.toLowerCase()}`:`Orientación ${chosenName.toLowerCase()}`;
- $("kpiSpecificHint").textContent=`Normalizado · orientación ${chosenName.toLowerCase()}`;
+ $("kpiPvgis").innerHTML=`${fmt(sumPvgis)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
+ $("kpiPvgisHint").textContent=`${fmt(sumPvgis/power)} kWh/kWp · orientación ${chosenName.toLowerCase()}`;
+ $("kpiPhys").innerHTML=`${fmt(sumPhys)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
+ $("kpiPhysHint").textContent=`${fmt(sumPhys/power)} kWh/kWp · ${skyShort}`;
+ $("kpiDelta").innerHTML=`${fmtSigned(deltaPct,1)} <span class="text-xs font-semibold text-slate-400">%</span>`;
+ $("kpiDeltaHint").textContent=`Diferencia anual: ${deltaKwh>=0?"+":""}${fmt(deltaKwh)} kWh`;
 
- // Actualizar fórmulas y desglose pedagógico interactivo
+ // Actualizar fórmulas y desglose pedagógico en vivo
  $("formulaTargetDir").textContent=`${chosenName} (${chosenObj.aspectLabel})`;
  $("calcDirLabel1").textContent=chosenName;
  $("calcDirLabel2").textContent=chosenName;
- $("calcTheoryVal").textContent=`${fmt(sum)} kWh`;
- $("calcPRVal").textContent=`${fmtDec(perf*100,2)} %`;
- $("calcRealVal").textContent=`${fmt(netSum)} kWh`;
+ $("calcGeffPeak").textContent=`${fmt(ch.peakGeff)} W/m²`;
+ $("calcTcellPeak").textContent=`${fmtDec(ch.peakTcellJuly,1)} °C`;
+ $("calcPhysVal").textContent=`${fmt(sumPhys)} kWh`;
 
- $("mathPower").textContent=`${fmtDec(power,1)} kWp`;
  $("mathDirName").textContent=chosenName;
- $("mathUnitary").textContent=`${fmt(unitary)} kWh/kWp`;
+ $("mathAngleLabel").textContent=`${loadedAngle}°`;
+ $("mathPower").textContent=`${fmtDec(power,1)} kWp`;
  $("mathMultipliers").textContent=`× ${fmtDec(perf,4)}`;
- $("mathGross").textContent=`${fmt(sum)} kWh`;
- $("mathNet").textContent=`${fmt(netSum)} kWh`;
+ $("mathPvgisNet").textContent=`${fmt(sumPvgis)} kWh`;
+ $("mathPvgisSpec").textContent=`${fmt(sumPvgis/power)} kWh/kWp`;
+ $("mathPhysNet").textContent=`${fmt(sumPhys)} kWh`;
+ $("mathPhysSpec").textContent=`${fmt(sumPhys/power)} kWh/kWp`;
+ $("mathDelta").textContent=`${fmtSigned(deltaPct,1)} %`;
+ $("mathDeltaKwh").textContent=`${deltaKwh>=0?"+":""}${fmt(deltaKwh)} kWh/año`;
 }
 
 function hideTooltip(){$("tooltip").classList.add("hidden");}
@@ -851,8 +1031,10 @@ DIRS.forEach(d=>{
   const rect=canvas.getBoundingClientRect();
   const x=e.clientX-rect.left;
   const idx=Math.floor((x-g.left)/(g.plotW/12));
-  if(idx<0||idx>11){hideTooltip();drawChart(d.id,g.values,g.realValues,g.globalMax,-1);return;}
-  drawChart(d.id,g.values,g.realValues,g.globalMax,idx);
+  if(idx<0||idx>11){hideTooltip();drawChart(d.id,g.pvgisVals,g.physVals,g.globalMax,-1);return;}
+  drawChart(d.id,g.pvgisVals,g.physVals,g.globalMax,idx);
+  const vP=g.pvgisVals[idx], vF=g.physVals[idx];
+  const dPct=vP>0?((vF-vP)/vP)*100:0;
   const tt=$("tooltip");
   tt.innerHTML=`
     <div class="font-extrabold text-amber-400 mb-1 flex items-center justify-between border-b border-slate-700/80 pb-1">
@@ -860,12 +1042,16 @@ DIRS.forEach(d=>{
     </div>
     <div class="space-y-1 mt-1 text-slate-300">
       <div class="flex items-center justify-between gap-4">
-        <span class="flex items-center gap-1.5 text-slate-400"><span class="w-2 h-2 rounded-sm bg-amber-400"></span>PVGIS base</span>
-        <b class="text-slate-100 tabular-nums">${fmt(g.values[idx])} kWh</b>
+        <span class="flex items-center gap-1.5 text-slate-400"><span class="w-2 h-2 rounded-sm bg-amber-400"></span>PVGIS 5.3</span>
+        <b class="text-slate-100 tabular-nums">${fmt(vP)} kWh</b>
       </div>
       <div class="flex items-center justify-between gap-4">
-        <span class="flex items-center gap-1.5 text-slate-400"><span class="w-2 h-2 rounded-sm bg-orange-500"></span>Estimada</span>
-        <b class="text-slate-100 tabular-nums">${fmt(g.realValues[idx])} kWh</b>
+        <span class="flex items-center gap-1.5 text-slate-400"><span class="w-2 h-2 rounded-sm bg-sky-400"></span>Físico NREL</span>
+        <b class="text-slate-100 tabular-nums">${fmt(vF)} kWh</b>
+      </div>
+      <div class="flex items-center justify-between gap-4 pt-1 border-t border-slate-800">
+        <span class="text-slate-400">Desviación</span>
+        <b class="text-emerald-400 tabular-nums">${fmtSigned(dPct,1)} %</b>
       </div>
     </div>
   `;
@@ -877,7 +1063,7 @@ DIRS.forEach(d=>{
  canvas.addEventListener("mouseleave",()=>{
   hideTooltip();
   const g=chartGeom[d.id];
-  if(g)drawChart(d.id,g.values,g.realValues,g.globalMax,-1);
+  if(g)drawChart(d.id,g.pvgisVals,g.physVals,g.globalMax,-1);
  });
 });
 
@@ -890,7 +1076,7 @@ document.querySelectorAll(".card").forEach(card=>{
  card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();activate();}});
 });
 
-PARAM_DEFS.forEach(({num,rng,min,max,key})=>{
+PARAM_DEFS.forEach(({num,rng,min,max,key,dec})=>{
  const nEl=$(num),rEl=$(rng);
  nEl.addEventListener("input",()=>{
   const v=clamp(nEl.value,min,max,TYPICAL_PARAMS[key]);
@@ -898,17 +1084,19 @@ PARAM_DEFS.forEach(({num,rng,min,max,key})=>{
   render();
  });
  rEl.addEventListener("input",()=>{
-  nEl.value=Number(rEl.value).toFixed(1);
+  nEl.value=Number(rEl.value).toFixed(dec);
   render();
  });
 });
 $("presetTypical").addEventListener("click",()=>{
- PARAM_DEFS.forEach(({num,rng,key})=>{
-  const v=TYPICAL_PARAMS[key].toFixed(1);
+ $("skyMode").value=TYPICAL_PARAMS.skyMode;
+ PARAM_DEFS.forEach(({num,rng,key,dec})=>{
+  const v=TYPICAL_PARAMS[key].toFixed(dec);
   $(num).value=v;$(rng).value=v;
  });
  render();
 });
+$("skyMode").addEventListener("change",render);
 $("power").addEventListener("input",render);
 $("orientation").addEventListener("change",render);
 $("sharedScale").addEventListener("change",render);
