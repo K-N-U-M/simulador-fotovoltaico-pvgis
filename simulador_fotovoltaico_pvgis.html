@@ -57,7 +57,186 @@ input[type=number] {
 input[type=range] {
   accent-color: #f59e0b;
 }
+
+/* ==================== LIGHT THEME OVERRIDES ==================== */
+html.light {
+  color-scheme: light;
+}
+html.light body {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+html.light .glass-panel {
+  background: rgba(255, 255, 255, 0.90) !important;
+  border-color: rgba(148, 163, 184, 0.35) !important;
+  box-shadow: 0 8px 26px -8px rgba(15, 23, 42, 0.08);
+}
+html.light .glass-panel-hover:hover {
+  border-color: rgba(217, 119, 6, 0.55) !important;
+  box-shadow: 0 12px 28px -8px rgba(217, 119, 6, 0.18) !important;
+}
+html.light .gradient-border-active {
+  border-color: rgba(217, 119, 6, 0.9) !important;
+  box-shadow: 0 0 0 1px rgba(217, 119, 6, 0.3), 0 12px 28px -8px rgba(217, 119, 6, 0.22) !important;
+}
+html.light input[type=range] {
+  accent-color: #d97706;
+  background-color: #cbd5e1 !important;
+}
+
+/* Main dark gradient panels -> Crisp white elevated cards */
+html.light .from-slate-900\/90,
+html.light .from-slate-900\/95 {
+  background-image: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  box-shadow: 0 10px 26px -10px rgba(15, 23, 42, 0.08) !important;
+}
+html.light .bg-slate-950\/60,
+html.light .bg-slate-950\/70,
+html.light .bg-slate-950\/80 {
+  background-color: #f8fafc !important;
+}
+html.light .bg-slate-950 {
+  background-color: #ffffff !important;
+}
+html.light .bg-slate-900,
+html.light .bg-slate-900\/80,
+html.light .bg-slate-900\/90 {
+  background-color: #ffffff !important;
+}
+html.light .bg-slate-800,
+html.light .bg-slate-800\/80,
+html.light .bg-slate-800\/90 {
+  background-color: #f1f5f9 !important;
+}
+html.light .bg-sky-950\/25 {
+  background-color: #f0f9ff !important;
+}
+html.light .bg-red-950\/40 {
+  background-color: #fef2f2 !important;
+}
+html.light .from-emerald-500\/10 {
+  background-image: linear-gradient(135deg, #ecfdf5 0%, #f0f9ff 100%) !important;
+}
+html.light select option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Borders */
+html.light .border-slate-700,
+html.light .border-slate-700\/80,
+html.light .border-slate-800,
+html.light .border-slate-800\/60,
+html.light .border-slate-800\/80,
+html.light .border-slate-800\/90,
+html.light .border-slate-900 {
+  border-color: #e2e8f0 !important;
+}
+html.light .border-sky-900\/50 {
+  border-color: #bae6fd !important;
+}
+html.light .border-sky-500\/40 {
+  border-color: #7dd3fc !important;
+}
+html.light .border-sky-500\/25,
+html.light .border-sky-500\/20 {
+  border-color: #bae6fd !important;
+}
+html.light .border-amber-500\/20,
+html.light .border-amber-500\/30 {
+  border-color: #fcd34d !important;
+}
+html.light .border-emerald-500\/20,
+html.light .border-emerald-500\/30 {
+  border-color: #6ee7b7 !important;
+}
+html.light .border-red-800\/80 {
+  border-color: #fecaca !important;
+}
+
+/* Text colors (high-contrast on light surfaces) */
+html.light .text-white,
+html.light .text-slate-100,
+html.light .text-slate-200 {
+  color: #0f172a !important;
+}
+html.light .text-slate-300 {
+  color: #334155 !important;
+}
+html.light .text-slate-400 {
+  color: #475569 !important;
+}
+html.light .text-slate-500 {
+  color: #64748b !important;
+}
+html.light .text-amber-300,
+html.light .text-amber-400,
+html.light .text-amber-400\/90 {
+  color: #b45309 !important;
+}
+html.light .text-sky-200,
+html.light .text-sky-300,
+html.light .text-sky-400 {
+  color: #0369a1 !important;
+}
+html.light .text-emerald-200,
+html.light .text-emerald-300,
+html.light .text-emerald-300\/80,
+html.light .text-emerald-400 {
+  color: #047857 !important;
+}
+html.light .text-orange-200,
+html.light .text-orange-300,
+html.light .text-orange-400 {
+  color: #c2410c !important;
+}
+html.light .text-red-200 {
+  color: #991b1b !important;
+}
+html.light .group:hover .group-hover\:text-amber-300 {
+  color: #b45309 !important;
+}
+html.light .group:hover .group-hover\:text-slate-950 {
+  color: #ffffff !important;
+}
+
+/* Gradient text headlines & KPI numbers on light background */
+html.light .bg-clip-text.text-transparent {
+  color: transparent !important;
+}
+html.light .from-white.bg-clip-text {
+  background-image: linear-gradient(to right, #0f172a, #1e293b, #475569) !important;
+}
+html.light .from-amber-200.bg-clip-text,
+html.light .from-amber-300.bg-clip-text {
+  background-image: linear-gradient(to right, #b45309, #d97706, #ea580c) !important;
+}
+html.light .from-sky-200.bg-clip-text {
+  background-image: linear-gradient(to right, #0369a1, #0284c7, #0891b2) !important;
+}
+html.light .from-emerald-200.bg-clip-text {
+  background-image: linear-gradient(to right, #047857, #059669, #0d9488) !important;
+}
+
+/* Legend dots & chart bar swatch clarity on light background */
+html.light .bg-amber-400 {
+  background-color: #d97706 !important;
+}
+html.light .bg-sky-400 {
+  background-color: #0284c7 !important;
+}
+html.light #refresh {
+  color: #0f172a !important;
+}
 </style>
+<script>
+try {
+  if (localStorage.getItem("ra_theme") === "light") {
+    document.documentElement.classList.remove("dark");
+    document.documentElement.classList.add("light");
+  }
+} catch (e) {}
+</script>
 </head>
 <body class="bg-[#0b0f14] text-slate-100 font-sans min-h-screen antialiased selection:bg-amber-500 selection:text-black relative overflow-x-hidden">
 
@@ -123,6 +302,20 @@ input[type=range] {
         <span class="block px-4 py-2 rounded-[11px] bg-gradient-to-r from-amber-400 via-amber-300 to-orange-400 group-hover:from-amber-300 group-hover:to-orange-300 transition font-bold shadow-md shadow-amber-500/20">
           ACTUALIZAR PVGIS
         </span>
+      </button>
+
+      <button type="button" id="themeToggle" aria-label="Cambiar entre tema oscuro y claro" title="Cambiar entre tema oscuro y claro" class="flex items-center gap-1.5 bg-slate-900/90 hover:border-amber-400/70 border border-slate-700/80 rounded-xl px-3 py-2 text-xs font-bold text-slate-200 transition active:scale-95 cursor-pointer">
+        <svg id="iconSun" class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2"/><path d="M12 20v2"/>
+          <path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/>
+          <path d="M2 12h2"/><path d="M20 12h2"/>
+          <path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+        </svg>
+        <svg id="iconMoon" class="w-4 h-4 text-sky-400 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <span id="themeLabel">Claro</span>
       </button>
     </div>
   </div>
@@ -1070,6 +1263,8 @@ async function loadPVGIS(){
  }
 }
 
+function isLightTheme(){return document.documentElement.classList.contains("light");}
+
 function drawChart(dirId,pvgisVals,physVals,globalMax,hoverIdx=-1){
  const canvas=$("chart"+dirId);
  if(!canvas)return;
@@ -1083,6 +1278,14 @@ function drawChart(dirId,pvgisVals,physVals,globalMax,hoverIdx=-1){
  }
  const ctx=canvas.getContext("2d");
  ctx.clearRect(0,0,w,h);
+
+ const light=isLightTheme();
+ const gridColor=light?"rgba(148, 163, 184, 0.38)":"rgba(51, 65, 85, 0.45)";
+ const labelColor=light?"#475569":"#94a3b8";
+ const hoverLabelColor=light?"#0f172a":"#f8fafc";
+ const hoverBandColor=light?"rgba(2, 132, 199, 0.10)":"rgba(56, 189, 248, 0.14)";
+ const barPvgisColor=light?"#d97706":"#f59e0b";
+ const barPhysColor=light?"#0284c7":"#38bdf8";
 
  const rawMax = globalMax ?? Math.max(...pvgisVals, ...physVals);
  const max = Math.max(1, rawMax) * 1.14;
@@ -1101,13 +1304,13 @@ function drawChart(dirId,pvgisVals,physVals,globalMax,hoverIdx=-1){
  ctx.textBaseline="middle";
  for(let i=0;i<=4;i++){
   const y=top+plotH-(i/4)*plotH;
-  ctx.strokeStyle="rgba(51, 65, 85, 0.45)";
+  ctx.strokeStyle=gridColor;
   ctx.lineWidth=1;
   ctx.beginPath();
   ctx.moveTo(left,y);
   ctx.lineTo(w-right,y);
   ctx.stroke();
-  ctx.fillStyle="#94a3b8";
+  ctx.fillStyle=labelColor;
   ctx.fillText(fmt(step*i),left-6,y);
  }
 
@@ -1123,19 +1326,19 @@ function drawChart(dirId,pvgisVals,physVals,globalMax,hoverIdx=-1){
   const y2=top+plotH-barH2;
 
   if(i===hoverIdx){
-   ctx.fillStyle="rgba(56, 189, 248, 0.14)";
+   ctx.fillStyle=hoverBandColor;
    ctx.fillRect(left+group*i,top,group,plotH);
   }
 
-  // Barra 1: PVGIS 5.3 satelital (Ámbar dorado)
-  ctx.fillStyle="#f59e0b";
+  // Barra 1: PVGIS 5.3 satelital
+  ctx.fillStyle=barPvgisColor;
   ctx.fillRect(cx-bw-1.5, y1, bw, barH1);
 
-  // Barra 2: Modelo Físico Teórico NREL (Cian solar)
-  ctx.fillStyle="#38bdf8";
+  // Barra 2: Modelo Físico Teórico
+  ctx.fillStyle=barPhysColor;
   ctx.fillRect(cx+1.5, y2, bw, barH2);
 
-  ctx.fillStyle=i===hoverIdx?"#f8fafc":"#94a3b8";
+  ctx.fillStyle=i===hoverIdx?hoverLabelColor:labelColor;
   ctx.textAlign="center";
   ctx.textBaseline="top";
   ctx.fillText(MONTHS[i],cx,h-bottom+9);
@@ -1413,6 +1616,24 @@ $("orientation").addEventListener("change",render);
 $("sharedScale").addEventListener("change",render);
 $("angle").addEventListener("change",loadPVGIS);
 $("refresh").addEventListener("click",loadPVGIS);
+
+function syncThemeUI(){
+ const light=isLightTheme();
+ $("iconSun").classList.toggle("hidden",light);
+ $("iconMoon").classList.toggle("hidden",!light);
+ $("themeLabel").textContent=light?"Oscuro":"Claro";
+ $("themeToggle").setAttribute("aria-pressed",String(light));
+}
+$("themeToggle").addEventListener("click",()=>{
+ const goLight=!isLightTheme();
+ document.documentElement.classList.toggle("light",goLight);
+ document.documentElement.classList.toggle("dark",!goLight);
+ try{localStorage.setItem("ra_theme",goLight?"light":"dark");}catch(e){}
+ syncThemeUI();
+ render();
+});
+syncThemeUI();
+
 let resizeTimer;
 window.addEventListener("resize",()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(render,120);});
 window.addEventListener("load",()=>{setTimeout(render,50);});
