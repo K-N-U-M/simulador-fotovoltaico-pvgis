@@ -122,6 +122,72 @@ html.light select option {
   color: #0f172a !important;
 }
 
+/* Nav controls & Power card crystal clarity in Light theme */
+html.light #navPowerCard {
+  background: linear-gradient(135deg, #fffbeb 0%, #ffffff 65%, #fef3c7 100%) !important;
+  border: 1.5px solid #d97706 !important;
+  box-shadow: 0 4px 18px -2px rgba(217, 119, 6, 0.24), 0 2px 6px rgba(15, 23, 42, 0.06) !important;
+}
+html.light #navPowerCard label[for="power"] {
+  color: #92400e !important;
+  font-weight: 900 !important;
+}
+html.light #navPowerCard .sublabel-power,
+html.light #navPowerCard span.text-slate-300 {
+  color: #334155 !important;
+  font-weight: 600 !important;
+}
+html.light #navPowerCard .power-divider,
+html.light #navPowerCard .border-slate-700\/80 {
+  border-color: #fcd34d !important;
+}
+html.light #navPowerCard input#power {
+  color: #0f172a !important;
+  font-weight: 900 !important;
+  background: transparent !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+html.light #navPowerCard .power-unit,
+html.light #navPowerCard .text-amber-400 {
+  color: #b45309 !important;
+  font-weight: 900 !important;
+}
+html.light #mathPowerCard {
+  background: linear-gradient(135deg, #fffbeb 0%, #ffffff 70%, #fef3c7 100%) !important;
+  border: 1.5px solid #d97706 !important;
+  box-shadow: 0 4px 16px -3px rgba(217, 119, 6, 0.20) !important;
+}
+html.light #mathPowerCard span.text-amber-400 {
+  color: #92400e !important;
+  font-weight: 900 !important;
+}
+html.light #mathPowerCard #mathPower {
+  background-image: none !important;
+  -webkit-text-fill-color: #0f172a !important;
+  color: #0f172a !important;
+  font-weight: 900 !important;
+  filter: none !important;
+}
+html.light #mathPowerCard span.text-slate-400 {
+  color: #334155 !important;
+  font-weight: 600 !important;
+}
+html.light .bg-slate-900\/90,
+html.light .bg-slate-900\/95 {
+  background-color: #ffffff !important;
+}
+html.light input#angle,
+html.light select#orientation {
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+html.light label[for="angle"],
+html.light label[for="orientation"] {
+  color: #475569 !important;
+  font-weight: 700 !important;
+}
+
 /* Borders */
 html.light .border-slate-700,
 html.light .border-slate-700\/80,
@@ -588,15 +654,26 @@ html.light #refresh {
 
 /* Navbar Brand Emblem (always obsidian-gold so golden RA logo pops cleanly in both dark & light themes) */
 #replayBootBtn {
+  height: 42px !important;
+  padding: 0 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   background: linear-gradient(135deg, #060a12 0%, #111827 100%) !important;
   border: 1px solid rgba(245, 158, 11, 0.48) !important;
   box-shadow: 0 0 20px -4px rgba(245, 158, 11, 0.34), inset 0 1px 0 rgba(254, 240, 138, 0.16) !important;
+  border-radius: 12px !important;
 }
 #replayBootBtn:hover {
   border-color: rgba(251, 191, 36, 0.9) !important;
   box-shadow: 0 0 28px -3px rgba(245, 158, 11, 0.58), inset 0 1px 0 rgba(254, 240, 138, 0.28) !important;
 }
 #navLogoImg {
+  height: 24px !important;
+  max-height: 24px !important;
+  width: auto !important;
+  display: block !important;
+  object-fit: contain !important;
   filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.45));
 }
 
@@ -912,15 +989,23 @@ html.light #solarViz .viz-arc-guide {
 }
 
 html.light .power-beacon {
+  background: linear-gradient(135deg, #fffbeb 0%, #ffffff 65%, #fef3c7 100%) !important;
   animation: powerPulsingGlowLight 2.4s ease-in-out infinite, powerPulsingZoom 2.4s ease-in-out infinite;
+}
+html.light .power-beacon::before {
+  border-color: rgba(217, 119, 6, 0.55) !important;
+}
+html.light .power-glow-text {
+  animation: none !important;
+  filter: none !important;
 }
 @keyframes powerPulsingGlowLight {
   0%, 100% {
-    box-shadow: 0 0 0 1px rgba(217, 119, 6, 0.45), 0 0 14px -2px rgba(217, 119, 6, 0.22), 0 4px 12px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 0 0 1px rgba(217, 119, 6, 0.35), 0 0 12px -2px rgba(217, 119, 6, 0.18), 0 4px 12px rgba(15, 23, 42, 0.06);
     border-color: rgba(217, 119, 6, 0.65);
   }
   50% {
-    box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.95), 0 0 28px 4px rgba(245, 158, 11, 0.55), 0 0 44px 8px rgba(234, 88, 12, 0.3), 0 8px 20px rgba(15, 23, 42, 0.14);
+    box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.85), 0 0 22px 2px rgba(245, 158, 11, 0.45), 0 0 36px 6px rgba(234, 88, 12, 0.22), 0 8px 18px rgba(15, 23, 42, 0.1);
     border-color: rgba(180, 83, 9, 1);
   }
 }
@@ -1045,20 +1130,20 @@ try {
     <!-- Quick Controls -->
     <div class="flex items-center gap-3 flex-wrap">
       <!-- Power Control Card with Signature Pulsing Glow & Zoom -->
-      <div id="navPowerCard" class="power-beacon flex items-center gap-2.5 bg-slate-900/95 border border-amber-400/70 rounded-xl px-3.5 py-1.5 focus-within:border-amber-300 focus-within:ring-2 focus-within:ring-amber-400/60 transition cursor-text shadow-lg shadow-amber-500/10" title="Potencia pico instalada en cada tejado (simulación)">
+      <div id="navPowerCard" class="power-beacon flex items-center gap-2.5 bg-gradient-to-r from-amber-950/80 via-slate-900/95 to-amber-950/70 border border-amber-400/80 rounded-xl px-3.5 py-1.5 focus-within:border-amber-300 focus-within:ring-2 focus-within:ring-amber-400/60 transition cursor-text shadow-lg shadow-amber-500/15" title="Potencia pico instalada en cada tejado (simulación)">
         <div class="flex items-center gap-2">
           <span class="relative flex h-2.5 w-2.5 shrink-0">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-gradient-to-r from-amber-400 to-yellow-300"></span>
           </span>
           <div class="flex flex-col">
-            <label for="power" class="text-[10px] font-black text-amber-400 uppercase tracking-wider cursor-pointer">POTENCIA</label>
-            <span class="text-[9px] font-semibold text-slate-300 tracking-tight -mt-0.5 whitespace-nowrap">en cada tejado</span>
+            <label for="power" class="text-[10px] font-black text-amber-300 uppercase tracking-wider cursor-pointer">POTENCIA</label>
+            <span class="sublabel-power text-[9px] font-semibold text-slate-200 tracking-tight -mt-0.5 whitespace-nowrap">en cada tejado</span>
           </div>
         </div>
-        <div class="flex items-center pl-1 border-l border-slate-700/80">
-          <input id="power" type="number" min="0.1" max="10000" step="0.1" value="1" class="w-16 bg-transparent text-right font-black text-amber-300 text-sm focus:outline-none power-glow-text tabular-nums">
-          <span class="text-xs font-black text-amber-400 ml-1">kWp</span>
+        <div class="power-divider flex items-center pl-2 border-l border-amber-500/35">
+          <input id="power" type="number" min="0.1" max="10000" step="0.1" value="1" class="w-16 bg-transparent text-right font-black text-white text-sm focus:outline-none power-glow-text tabular-nums">
+          <span class="power-unit text-xs font-black text-amber-300 ml-1">kWp</span>
         </div>
       </div>
 
