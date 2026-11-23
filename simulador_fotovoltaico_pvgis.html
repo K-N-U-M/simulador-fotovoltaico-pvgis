@@ -829,11 +829,107 @@ html.light #solarViz .viz-arc-guide {
   stroke: rgba(100, 116, 139, 0.35);
 }
 
+/* ==================== SIGNATURE POWER BEACON PULSE & ZOOM ==================== */
+@keyframes powerPulsingGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.45), 0 0 18px -2px rgba(245, 158, 11, 0.28), 0 8px 20px -6px rgba(0, 0, 0, 0.5);
+    border-color: rgba(245, 158, 11, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.95), 0 0 34px 4px rgba(245, 158, 11, 0.65), 0 0 54px 10px rgba(249, 115, 22, 0.35), 0 12px 28px -4px rgba(0, 0, 0, 0.65);
+    border-color: rgba(251, 191, 36, 1);
+  }
+}
+@keyframes powerPulsingZoom {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.038);
+  }
+}
+@keyframes powerRingSpread {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.85;
+    border-width: 2px;
+  }
+  100% {
+    transform: scale(1.22);
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+@keyframes powerValuePulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.45));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(251, 191, 36, 0.95)) drop-shadow(0 0 28px rgba(249, 115, 22, 0.65));
+    transform: scale(1.05);
+  }
+}
+@keyframes powerQuickFlash {
+  0% {
+    transform: scale(0.97);
+    filter: brightness(2) drop-shadow(0 0 32px rgba(251, 191, 36, 1));
+  }
+  50% {
+    transform: scale(1.07);
+    filter: brightness(1.5) drop-shadow(0 0 24px rgba(245, 158, 11, 0.9));
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1) drop-shadow(0 0 6px rgba(245, 158, 11, 0.45));
+  }
+}
+
+.power-beacon {
+  position: relative;
+  animation: powerPulsingGlow 2.4s ease-in-out infinite, powerPulsingZoom 2.4s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform, box-shadow, border-color;
+}
+.power-beacon::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1.5px solid rgba(251, 191, 36, 0.65);
+  pointer-events: none;
+  animation: powerRingSpread 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  z-index: 0;
+}
+.power-glow-text {
+  animation: powerValuePulse 2.4s ease-in-out infinite;
+  will-change: transform, filter;
+  display: inline-block;
+  transform-origin: center right;
+}
+.power-updated-flash {
+  animation: powerQuickFlash 0.55s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.light .power-beacon {
+  animation: powerPulsingGlowLight 2.4s ease-in-out infinite, powerPulsingZoom 2.4s ease-in-out infinite;
+}
+@keyframes powerPulsingGlowLight {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(217, 119, 6, 0.45), 0 0 14px -2px rgba(217, 119, 6, 0.22), 0 4px 12px rgba(15, 23, 42, 0.08);
+    border-color: rgba(217, 119, 6, 0.65);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.95), 0 0 28px 4px rgba(245, 158, 11, 0.55), 0 0 44px 8px rgba(234, 88, 12, 0.3), 0 8px 20px rgba(15, 23, 42, 0.14);
+    border-color: rgba(180, 83, 9, 1);
+  }
+}
+
 /* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   #raBootOverlay { display: none !important; }
   html.boot-pending header, html.boot-pending .reveal-block, html.boot-pending .boot-kpi-card, html.boot-pending .boot-chart-card, html.boot-pending #solarVizCard { opacity: 1 !important; }
-  .reveal-block, .ambient-orb, .card.gradient-border-active::after, .eq-morph-flash, .eq-morph-flash::after, .viz-ray, .viz-pulse, .boot-kpi-card, .boot-chart-card, #solarVizCard, .boot-param-panel, header {
+  .reveal-block, .ambient-orb, .card.gradient-border-active::after, .eq-morph-flash, .eq-morph-flash::after, .viz-ray, .viz-pulse, .boot-kpi-card, .boot-chart-card, #solarVizCard, .boot-param-panel, header, .power-beacon, .power-beacon::before, .power-glow-text {
     animation: none !important;
   }
   .tilt-card, .card.glass-panel-hover, #vizPanelGroup, #vizSunGroup {
@@ -948,13 +1044,22 @@ try {
 
     <!-- Quick Controls -->
     <div class="flex items-center gap-3 flex-wrap">
-      <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-1.5 focus-within:border-amber-400 focus-within:ring-1 focus-within:ring-amber-400/50 transition">
-        <div class="flex flex-col">
-          <label for="power" class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Potencia</label>
-          <span class="text-[9px] font-medium text-amber-400/90 tracking-tight -mt-0.5 whitespace-nowrap">en cada tejado</span>
+      <!-- Power Control Card with Signature Pulsing Glow & Zoom -->
+      <div id="navPowerCard" class="power-beacon flex items-center gap-2.5 bg-slate-900/95 border border-amber-400/70 rounded-xl px-3.5 py-1.5 focus-within:border-amber-300 focus-within:ring-2 focus-within:ring-amber-400/60 transition cursor-text shadow-lg shadow-amber-500/10" title="Potencia pico instalada en cada tejado (simulación)">
+        <div class="flex items-center gap-2">
+          <span class="relative flex h-2.5 w-2.5 shrink-0">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-gradient-to-r from-amber-400 to-yellow-300"></span>
+          </span>
+          <div class="flex flex-col">
+            <label for="power" class="text-[10px] font-black text-amber-400 uppercase tracking-wider cursor-pointer">POTENCIA</label>
+            <span class="text-[9px] font-semibold text-slate-300 tracking-tight -mt-0.5 whitespace-nowrap">en cada tejado</span>
+          </div>
         </div>
-        <input id="power" type="number" min="0.1" max="10000" step="0.1" value="1" class="w-16 bg-transparent text-right font-bold text-slate-100 text-sm focus:outline-none">
-        <span class="text-xs font-semibold text-amber-400/90">kWp</span>
+        <div class="flex items-center pl-1 border-l border-slate-700/80">
+          <input id="power" type="number" min="0.1" max="10000" step="0.1" value="1" class="w-16 bg-transparent text-right font-black text-amber-300 text-sm focus:outline-none power-glow-text tabular-nums">
+          <span class="text-xs font-black text-amber-400 ml-1">kWp</span>
+        </div>
       </div>
 
       <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-1.5 focus-within:border-amber-400 focus-within:ring-1 focus-within:ring-amber-400/50 transition">
@@ -1513,10 +1618,14 @@ try {
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 text-xs">
-        <div class="bg-slate-900/90 border border-slate-800/90 rounded-lg p-3">
-          <span class="text-slate-400 block text-[10px] uppercase font-bold">Potencia instalada</span>
-          <span id="mathPower" class="text-base font-bold text-slate-100 tabular-nums">1,0 kWp</span>
-          <span class="text-[10px] text-slate-500 block mt-1">Aplicada en cada tejado</span>
+        <!-- Mathematical Installed Power Card with Synchronized Pulsing Glow & Zoom -->
+        <div id="mathPowerCard" class="power-beacon bg-slate-900/95 border border-amber-500/50 rounded-lg p-3 shadow-md shadow-amber-500/10">
+          <div class="flex items-center justify-between">
+            <span class="text-amber-400 block text-[10px] uppercase font-black tracking-wider">Potencia simulada</span>
+            <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          </div>
+          <span id="mathPower" class="text-base font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-300 to-yellow-300 tabular-nums power-glow-text mt-0.5 block">1,0 kWp</span>
+          <span class="text-[10px] text-slate-400 font-medium block mt-1">Base de cálculo en los 4 tejados</span>
         </div>
         <div class="bg-slate-900/90 border border-slate-800/90 rounded-lg p-3">
           <span class="text-slate-400 block text-[10px] uppercase font-bold">Factor BOS común</span>
@@ -2586,7 +2695,16 @@ $("presetTypical").addEventListener("click",()=>{
  render();
 });
 $("calcMethod").addEventListener("change",render);
-$("power").addEventListener("input",render);
+$("power").addEventListener("input",()=>{
+ render();
+ const navCard=$("navPowerCard"), mathCard=$("mathPowerCard"), inp=$("power");
+ [navCard,mathCard,inp].forEach(el=>{
+  if(!el)return;
+  el.classList.remove("power-updated-flash");
+  void el.offsetWidth;
+  el.classList.add("power-updated-flash");
+ });
+});
 $("orientation").addEventListener("change",render);
 $("sharedScale").addEventListener("change",render);
 $("angle").addEventListener("change",loadPVGIS);
