@@ -171,22 +171,22 @@ input[type=range] {
       <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiPvgisHint">Satelital SARAH-3 · orientación sur</div>
     </div>
 
-    <!-- KPI 2: Modelo Físico NREL -->
+    <!-- KPI 2: Modelo Físico Teórico -->
     <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-sky-500/40 transition">
       <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-sky-500/10 rounded-full blur-2xl group-hover:bg-sky-500/20 transition"></div>
       <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
-        <span>Modelo Físico NREL</span>
+        <span id="kpiPhysTitle">Nivel 3 · Físico NREL</span>
         <svg class="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
       </div>
       <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-200 via-sky-400 to-cyan-300 tabular-nums" id="kpiPhys">— <span class="text-xs font-semibold text-slate-400">kWh/año</span></div>
-      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiPhysHint">Clima real (Kt) · γ −0,35 %/°C</div>
+      <div class="mt-1.5 text-xs text-slate-400 font-medium" id="kpiPhysHint">HDKR + IAM + NOCT · γ −0,35 %/°C</div>
     </div>
 
-    <!-- KPI 3: Desviación Físico vs PVGIS -->
+    <!-- KPI 3: Desviación Teórico vs PVGIS -->
     <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-emerald-500/40 transition">
       <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition"></div>
       <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
-        <span>Desviación Físico vs PVGIS</span>
+        <span>Desviación Teórico vs PVGIS</span>
         <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
       </div>
       <div class="mt-3 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 via-emerald-400 to-teal-300 tabular-nums" id="kpiDelta">— <span class="text-xs font-semibold text-slate-400">%</span></div>
@@ -205,16 +205,16 @@ input[type=range] {
     </div>
   </section>
 
-  <!-- Parameters Card (Physical NREL Model + System Losses) -->
+  <!-- Parameters Card (Physical Theoretical Model + System Losses) -->
   <section class="rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800/90 p-5 sm:p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl space-y-5">
     <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
       <div>
         <div class="flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-sky-400 to-amber-400 shadow-sm shadow-sky-500/50"></span>
-          <h2 class="text-base font-bold text-slate-100">Parámetros físicos (NREL) y pérdidas de sistema</h2>
+          <h2 class="text-base font-bold text-slate-100">Método físico teórico y pérdidas de sistema (BOS)</h2>
         </div>
         <p class="text-xs text-slate-400 mt-1">
-          Motor físico horario independiente vs PVGIS 5.3 · Factor de sistema común: 
+          Motor físico independiente vs PVGIS 5.3 · Factor de sistema común: 
           <b id="paramsGlobal" class="text-amber-400 font-semibold tabular-nums">79,44 %</b> 
           (Pérdidas BOS: <b id="paramsLoss" class="text-orange-400 font-semibold tabular-nums">20,56 %</b>)
         </p>
@@ -230,15 +230,20 @@ input[type=range] {
     <div>
       <div class="text-[11px] font-bold uppercase tracking-wider text-sky-400 mb-2.5 flex items-center gap-2">
         <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
-        Modelo Físico Teórico (NREL · Geometría solar, HDKR, IAM Martin-Ruiz, Térmica NOCT)
+        <span id="physRowTitle">Modelo Físico Teórico · Nivel 3: Horario NREL (HDKR + IAM Martin-Ruiz + NOCT)</span>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-        <!-- Sky Model Selector -->
-        <div class="bg-slate-950/70 border border-sky-900/50 rounded-xl p-3.5 flex flex-col justify-between hover:border-sky-500/50 transition">
-          <label for="skyMode" class="text-xs font-semibold text-slate-300 mb-2">Modelo atmosférico</label>
-          <select id="skyMode" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-bold text-sky-300 cursor-pointer focus:outline-none focus:border-sky-400">
-            <option value="real" class="bg-slate-900">Clima real (Kt Barcelona)</option>
-            <option value="clear" class="bg-slate-900">Cielo despejado (teórico puro)</option>
+        <!-- Theoretical Method Selector -->
+        <div class="bg-slate-950/70 border border-sky-500/40 rounded-xl p-3.5 flex flex-col justify-between hover:border-sky-400/70 transition shadow-sm shadow-sky-950/30">
+          <label for="calcMethod" class="text-xs font-semibold text-sky-200 mb-2 flex items-center justify-between">
+            <span>Método de cálculo teórico</span>
+            <span class="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-300 border border-sky-500/25">4 niveles</span>
+          </label>
+          <select id="calcMethod" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-bold text-sky-300 cursor-pointer focus:outline-none focus:border-sky-400">
+            <option value="level1" class="bg-slate-900">Nivel 1 · Cielo despejado (Hottel)</option>
+            <option value="level2" class="bg-slate-900">Nivel 2 · Analítico (Liu-Jordan)</option>
+            <option value="level3" selected class="bg-slate-900">Nivel 3 · Físico horario NREL</option>
+            <option value="level4" class="bg-slate-900">Nivel 4 · 1 Diodo (De Soto)</option>
           </select>
         </div>
 
@@ -353,8 +358,8 @@ input[type=range] {
   <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
     <div>
       <h2 class="text-xl font-bold text-slate-100 flex items-center gap-2">
-        <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
-        PVGIS 5.3 (satelital) vs. Modelo Físico Teórico (NREL)
+        <svg class="w-5 h-5 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/></svg>
+        <span id="chartsTitle">PVGIS 5.3 (satelital) vs. Nivel 3 · Físico Horario NREL</span>
       </h2>
       <p class="text-xs text-slate-400 mt-0.5">Haz clic en cualquier tarjeta para destacarla y sincronizar el análisis</p>
     </div>
@@ -458,15 +463,15 @@ input[type=range] {
     <!-- Section Header -->
     <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400/20 to-amber-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400/20 to-amber-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 shrink-0">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
         </div>
         <div>
-          <h2 class="text-lg font-bold text-slate-100 flex items-center gap-2">
-            Motor Físico Teórico (NREL) vs. PVGIS 5.3 · Fórmulas y desglose
-            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">Nivel 3 · Horario</span>
+          <h2 class="text-lg font-bold text-slate-100 flex flex-wrap items-center gap-2">
+            <span id="pedagogyTitle">Motor Físico Teórico (NREL) vs. PVGIS 5.3 · Fórmulas y desglose</span>
+            <span id="pedagogyBadge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">Nivel 3 · Horario NREL</span>
           </h2>
-          <p class="text-xs text-slate-400">Cadena física completa ejecutada en tiempo real en el navegador (pasos de 30 min sobre los 12 días tipo de Klein)</p>
+          <p id="pedagogySub" class="text-xs text-slate-400 mt-0.5">Cadena física completa ejecutada en tiempo real en el navegador (pasos de 30 min sobre los 12 días tipo de Klein)</p>
         </div>
       </div>
       <div class="text-xs text-slate-400 bg-slate-950/80 border border-slate-800 px-3.5 py-1.5 rounded-xl">
@@ -474,60 +479,79 @@ input[type=range] {
       </div>
     </div>
 
-    <!-- 3 Core Physics Equation Cards Grid -->
+    <!-- 3 Core Physics Equation Cards Grid (Dynamically updated per method) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <!-- Equation 1: Transposition + IAM -->
-      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-sky-500/30 transition">
-        <div class="flex items-center justify-between text-xs font-bold text-sky-400 uppercase tracking-wider">
-          <span>1. Irradiancia Efectiva (G_eff)</span>
-          <span class="text-[10px] bg-sky-500/10 text-sky-300 px-1.5 py-0.5 rounded border border-sky-500/20">HDKR + IAM</span>
+      <!-- Equation 1 -->
+      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-sky-500/30 transition flex flex-col justify-between">
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-xs font-bold text-sky-400 uppercase tracking-wider gap-2">
+            <span id="eq1Title">1. Irradiancia Efectiva (G_eff)</span>
+            <span id="eq1Tag" class="text-[10px] bg-sky-500/10 text-sky-300 px-1.5 py-0.5 rounded border border-sky-500/20 shrink-0">HDKR + IAM</span>
+          </div>
+          <div id="eq1Formula" class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-[11px] text-sky-200 text-center font-bold overflow-x-auto">
+            G_eff = G_b·IAM(θ) + 0.97·G_d + 0.95·G_r
+          </div>
+          <p id="eq1Desc" class="text-[11px] text-slate-400 leading-relaxed">
+            Calcula la geometría solar exacta (δ, ω, θ), transpone radiación directa, difusa anisotrópica (Hay-Davies) y albedo (0,20) al tejado, y descuenta reflexión del vidrio con Martin-Ruiz.
+          </p>
         </div>
-        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-[11px] text-sky-200 text-center font-bold">
-          G_eff = G_b·IAM(θ) + 0.97·G_d + 0.95·G_r
-        </div>
-        <p class="text-[11px] text-slate-400 leading-relaxed">
-          Calcula la geometría solar exacta (δ, ω, θ), transpone radiación directa, difusa anisotrópica (Hay-Davies) y albedo (<span id="eqAlbedo" class="text-sky-300 font-semibold">0,20</span>) al tejado, y descuenta reflexión del vidrio con <strong class="text-slate-200">Martin-Ruiz</strong>.
-        </p>
         <div class="pt-2 border-t border-slate-900 text-xs text-slate-300 flex justify-between">
-          <span>Irradiancia pico (<span id="calcDirLabel1">Sur</span>):</span>
-          <b id="calcGeffPeak" class="text-sky-400 tabular-nums">— W/m²</b>
+          <span id="calcMetric1Label">Irradiancia pico (Sur):</span>
+          <b id="calcMetric1Val" class="text-sky-400 tabular-nums">— W/m²</b>
         </div>
       </div>
 
-      <!-- Equation 2: Thermal Model -->
-      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-orange-500/30 transition">
-        <div class="flex items-center justify-between text-xs font-bold text-orange-400 uppercase tracking-wider">
-          <span>2. Temperatura de Célula (T_cell)</span>
-          <span class="text-[10px] bg-orange-500/10 text-orange-300 px-1.5 py-0.5 rounded border border-orange-500/20">Ross / NOCT</span>
+      <!-- Equation 2 -->
+      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-orange-500/30 transition flex flex-col justify-between">
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-xs font-bold text-orange-400 uppercase tracking-wider gap-2">
+            <span id="eq2Title">2. Temperatura de Célula (T_cell)</span>
+            <span id="eq2Tag" class="text-[10px] bg-orange-500/10 text-orange-300 px-1.5 py-0.5 rounded border border-orange-500/20 shrink-0">Ross / NOCT</span>
+          </div>
+          <div id="eq2Formula" class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-[11px] text-orange-200 text-center font-bold overflow-x-auto">
+            T_cell(t) = T_amb + ((NOCT − 20) / 800) · G_eff(t)
+          </div>
+          <p id="eq2Desc" class="text-[11px] text-slate-400 leading-relaxed">
+            A partir de la temperatura ambiente diurna mensual de Barcelona y el NOCT (48 °C), estima el calentamiento real de la célula de silicio bajo carga solar.
+          </p>
         </div>
-        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-[11px] text-orange-200 text-center font-bold">
-          T_cell(t) = T_amb + ((NOCT − 20) / 800) · G_eff(t)
-        </div>
-        <p class="text-[11px] text-slate-400 leading-relaxed">
-          A partir de la temperatura ambiente diurna mensual de Barcelona y el <strong class="text-slate-200">NOCT (<span id="eqNoct">48</span> °C)</strong>, estima el calentamiento real de la célula de silicio bajo carga solar.
-        </p>
         <div class="pt-2 border-t border-slate-900 text-xs text-slate-300 flex justify-between">
-          <span>T_cell pico en julio:</span>
-          <b id="calcTcellPeak" class="text-orange-400 tabular-nums">— °C</b>
+          <span id="calcMetric2Label">T_cell pico en julio:</span>
+          <b id="calcMetric2Val" class="text-orange-400 tabular-nums">— °C</b>
         </div>
       </div>
 
-      <!-- Equation 3: NREL Power + System Losses -->
-      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-emerald-500/30 transition">
-        <div class="flex items-center justify-between text-xs font-bold text-emerald-400 uppercase tracking-wider">
-          <span>3. Conversión NREL + BOS</span>
-          <span class="text-[10px] bg-emerald-500/10 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/20">Potencia AC</span>
+      <!-- Equation 3 -->
+      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-emerald-500/30 transition flex flex-col justify-between">
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-xs font-bold text-emerald-400 uppercase tracking-wider gap-2">
+            <span id="eq3Title">3. Conversión NREL + BOS</span>
+            <span id="eq3Tag" class="text-[10px] bg-emerald-500/10 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/20 shrink-0">Potencia AC</span>
+          </div>
+          <div id="eq3Formula" class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-[11px] text-emerald-200 text-center font-bold overflow-x-auto">
+            P(t) = P_STC·(G_eff/1000)·[1+γ(T_cell−25)]·PR_BOS
+          </div>
+          <p id="eq3Desc" class="text-[11px] text-slate-400 leading-relaxed">
+            Aplica el coeficiente térmico γ (−0,35 %/°C), la eficiencia a baja irradiancia y las pérdidas de sistema (79,44 %), idénticas a las aplicadas a PVGIS.
+          </p>
         </div>
-        <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800/90 font-mono text-[11px] text-emerald-200 text-center font-bold">
-          P(t) = P_STC·(G_eff/1000)·[1+γ(T_cell−25)]·PR_BOS
-        </div>
-        <p class="text-[11px] text-slate-400 leading-relaxed">
-          Aplica el coeficiente térmico <strong class="text-slate-200">γ (<span id="eqGamma">−0,35</span> %/°C)</strong>, la caída de eficiencia a baja irradiancia y las pérdidas de sistema (<span id="calcPRVal" class="text-amber-300 font-semibold">79,44 %</span>), idénticas a las aplicadas a PVGIS.
-        </p>
         <div class="pt-2 border-t border-slate-900 text-xs text-slate-300 flex justify-between">
-          <span>NREL anual (<span id="calcDirLabel2">Sur</span>):</span>
-          <b id="calcPhysVal" class="text-emerald-400 tabular-nums">— kWh</b>
+          <span id="calcMetric3Label">Físico anual (Sur):</span>
+          <b id="calcMetric3Val" class="text-emerald-400 tabular-nums">— kWh</b>
         </div>
+      </div>
+    </div>
+
+    <!-- Active Method Engineering Insight Banner -->
+    <div class="rounded-xl bg-sky-950/25 border border-sky-500/25 p-4 flex items-start gap-3 text-xs text-slate-300 leading-relaxed">
+      <div class="w-7 h-7 rounded-lg bg-sky-500/15 border border-sky-400/30 flex items-center justify-center text-sky-300 shrink-0 mt-0.5">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div>
+        <div id="methodInsightTitle" class="font-bold text-sky-300 mb-0.5">Lectura de ingeniería · Nivel 3 (Físico Horario NREL)</div>
+        <p id="methodInsightBody" class="text-slate-400">
+          Equilibrio óptimo de ingeniería: combina cielo anisotrópico HDKR, óptica angular Martin-Ruiz y modelo térmico horario NOCT, logrando una concordancia típica del 1–4 % frente al satélite PVGIS 5.3 (SARAH-3).
+        </p>
       </div>
     </div>
 
@@ -558,12 +582,12 @@ input[type=range] {
           <span id="mathPvgisSpec" class="text-[10px] text-slate-500 block mt-1">0 kWh/kWp</span>
         </div>
         <div class="bg-slate-900/90 border border-sky-500/20 rounded-lg p-3">
-          <span class="text-sky-400 block text-[10px] uppercase font-bold">Físico NREL (neta)</span>
+          <span id="mathPhysTitle" class="text-sky-400 block text-[10px] uppercase font-bold">Físico NREL (neta)</span>
           <span id="mathPhysNet" class="text-base font-bold text-sky-300 tabular-nums">0 kWh</span>
           <span id="mathPhysSpec" class="text-[10px] text-slate-500 block mt-1">0 kWh/kWp</span>
         </div>
         <div class="bg-gradient-to-br from-emerald-500/10 to-sky-500/10 border border-emerald-500/30 rounded-lg p-3">
-          <span class="text-emerald-400 block text-[10px] uppercase font-bold">Desviación NREL vs PVGIS</span>
+          <span id="mathDeltaTitle" class="text-emerald-400 block text-[10px] uppercase font-bold">Desviación vs PVGIS</span>
           <span id="mathDelta" class="text-base font-extrabold text-white tabular-nums">0,0 %</span>
           <span id="mathDeltaKwh" class="text-[10px] text-emerald-300/80 block mt-1">0 kWh/año</span>
         </div>
@@ -574,35 +598,35 @@ input[type=range] {
     <div class="space-y-3 pt-1">
       <div class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
         <svg class="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-        Guía pedagógica de física fotovoltaica
+        Guía comparativa de los 4 niveles de física fotovoltaica
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-slate-400">
         <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
-          <strong class="text-slate-200 text-xs block">Clima real (Kt) vs. Cielo despejado (teórico puro)</strong>
+          <strong class="text-slate-200 text-xs block">Nivel 1 · Cielo despejado (Hottel) y la paradoja del Norte</strong>
           <p class="leading-relaxed">
-            En modo <strong class="text-sky-300">Clima real (Kt)</strong>, el motor físico utiliza el índice de claridad mensual de Barcelona para separar radiación directa y difusa (Erbs + Collares-Pereira), logrando una concordancia de ~1–4 % respecto al satélite PVGIS-SARAH3. En modo <strong class="text-sky-300">Cielo despejado</strong> (modelo atmosférico Hottel), calcula el techo físico máximo sin nubes: la diferencia frente a PVGIS muestra directamente cuánto resta la nubosidad local.
+            Calcula el <strong class="text-sky-300">techo físico sin nubes</strong>. En Sur (37°), superar en ~14 % a PVGIS cuantifica exactamente lo que resta la nubosidad de Barcelona. Sin embargo, observa la tarjeta <strong class="text-amber-300">Norte</strong>: en cielo despejado rinde menos que con nubes suaves porque un tejado norte en invierno depende de la radiación difusa dispersada por la bóveda celeste.
           </p>
         </div>
 
         <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
-          <strong class="text-slate-200 text-xs block">Curiosidad física: ¿por qué el Norte puede rendir más con nubes suaves que en cielo despejado?</strong>
+          <strong class="text-slate-200 text-xs block">Nivel 2 · Liu-Jordan isotrópico: por qué falla en orientaciones no sur</strong>
           <p class="leading-relaxed">
-            Prueba a cambiar a «Cielo despejado» y observa la tarjeta Norte. En un tejado orientado al norte (37°), el sol directo casi no incide en invierno; depende de la luz difusa de la bóveda celeste. Un cielo parcialmente nuboso dispersa mucha más radiación difusa hacia el plano norte que un cielo azul seco completamente despejado.
+            El método analítico clásico de Duffie &amp; Beckman supone que la luz difusa se reparte uniformemente por todo el cielo (<code class="text-sky-300 font-mono">(1+cos β)/2</code>). Al ignorar el halo circunsolar cerca del sol y el ángulo de incidencia (IAM), <strong class="text-orange-300">sobrestima el Norte (+15–20 %)</strong> y subestima ligeramente el Sur frente al modelo anisotrópico HDKR.
           </p>
         </div>
 
         <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
-          <strong class="text-slate-200 text-xs block">Impacto de γ (coeficiente térmico) y NOCT en verano</strong>
+          <strong class="text-slate-200 text-xs block">Nivel 3 · Físico horario NREL (HDKR + IAM + NOCT + γ)</strong>
           <p class="leading-relaxed">
-            Las células de silicio pierden voltaje al calentarse. En julio en Barcelona, un panel coplanar en tejado (NOCT ≈ 48 °C) supera los <strong class="text-orange-300">55–60 °C de célula</strong> a mediodía, lo que con un panel PERC (γ = −0,35 %/°C) resta un ~12 % de potencia instantánea. Compara bajando γ a −0,29 %/°C (módulo TOPCon/HJT) o reduciendo NOCT a 43 °C (estructura ventilada).
+            Integra paso a paso (30 min) la radiación anisotrópica Hay-Davies, reflexión del vidrio Martin-Ruiz y temperatura instantánea de célula. En julio en Barcelona (NOCT = 48 °C), la célula supera los <strong class="text-orange-300">55–58 °C</strong>, restando ~11 % de potencia con γ = −0,35 %/°C. Es el equilibrio estándar de ingeniería (~1–4 % vs PVGIS).
           </p>
         </div>
 
         <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4 space-y-1.5">
-          <strong class="text-slate-200 text-xs block">¿Por qué las pérdidas BOS se multiplican y se aplican a ambos modelos?</strong>
+          <strong class="text-slate-200 text-xs block">Nivel 4 · Circuito 1 Diodo (De Soto) + curva de inversor</strong>
           <p class="leading-relaxed">
-            La energía fluye en cascada: <code class="text-amber-300 font-mono">η_inv × ∏(1 − L_i)</code>. Aplicar exactamente el mismo factor BOS a PVGIS 5.3 y al Modelo Físico NREL garantiza una comparación limpia de física solar y radiación, sin sesgos externos. Las pequeñas diferencias residuales en Este/Oeste reflejan el horizonte montañoso (Collserola) y la brisa marina matutina captadas por el satélite SARAH-3.
+            Resuelve numéricamente la ecuación implícita de Shockley <code class="text-sky-300 font-mono">I(V)</code> en cada paso horario para hallar el punto de máxima potencia real (<strong class="text-emerald-300">V_mp, I_mp</strong>), capturando la caída de tensión térmica, la resistencia serie/paralelo (<code class="text-sky-300 font-mono">R_s, R_sh</code>) y la eficiencia a carga parcial del inversor, manteniendo idéntico el factor BOS común (<code class="text-amber-300 font-mono">η_inv × ∏(1 − L_i)</code>).
           </p>
         </div>
       </div>
@@ -641,8 +665,70 @@ function clamp(v,min,max,fallback){
  return Number.isFinite(n)?Math.min(max,Math.max(min,n)):fallback;
 }
 const TYPICAL_PARAMS={
- gamma:-0.35, noct:48, albedo:0.20, skyMode:"real",
+ gamma:-0.35, noct:48, albedo:0.20, calcMethod:"level3",
  inverter:96.0, wiring:2.0, soiling:3.0, shading:7.0, misc:6.4
+};
+const CALC_METHODS={
+ level1:{
+  id:"level1",
+  kpiTitle:"Nivel 1 · Cielo Despejado",
+  shortLabel:"Cielo Desp.",
+  legendLabel:"Nivel 1 · Cielo despejado (Hottel)",
+  rowTitle:"Modelo Físico Teórico · Nivel 1: Cielo Despejado (Atmósfera Hottel + HDKR + NOCT)",
+  chartsTitle:"PVGIS 5.3 (satelital) vs. Nivel 1 · Cielo Despejado (Hottel)",
+  pedagogyTitle:"Nivel 1 · Cielo Despejado (Hottel) vs. PVGIS 5.3",
+  badge:"Nivel 1 · Techo Físico",
+  sub:"Transmitancia atmosférica pura sin nubes (Hottel 1976) integrada en pasos de 30 min sobre los 12 días tipo de Klein",
+  hintTag:"Sin nubes · Hottel",
+  mathTitle:"Cielo Desp. (neta)",
+  insightTitle:"Lectura de ingeniería · Nivel 1 (Techo físico sin nubes)",
+  insightBody:"Al eliminar la nubosidad, la diferencia positiva en Sur (+14 %) cuantifica exactamente cuánto resta la atmósfera real de Barcelona. En cambio, en Norte el valor cae por debajo de PVGIS porque sin nubes hay menos radiación difusa dispersada hacia planos sin sol directo."
+ },
+ level2:{
+  id:"level2",
+  kpiTitle:"Nivel 2 · Liu-Jordan",
+  shortLabel:"Liu-Jordan",
+  legendLabel:"Nivel 2 · Analítico (Liu-Jordan)",
+  rowTitle:"Modelo Físico Teórico · Nivel 2: Analítico Mensual Clásico (Duffie & Beckman · Isotrópico)",
+  chartsTitle:"PVGIS 5.3 (satelital) vs. Nivel 2 · Analítico Mensual (Liu-Jordan)",
+  pedagogyTitle:"Nivel 2 · Analítico Mensual (Liu-Jordan) vs. PVGIS 5.3",
+  badge:"Nivel 2 · Clásico Mensual",
+  sub:"Transposición isotrópica clásica (Duffie & Beckman) con razón geométrica media mensual R̄_b y corrección térmica media mensual",
+  hintTag:"Isotrópico mensual",
+  mathTitle:"Liu-Jordan (neta)",
+  insightTitle:"Lectura de ingeniería · Nivel 2 (Analítico isotrópico clásico)",
+  insightBody:"Método clásico de referencia en libros de texto. Al suponer cielo difuso isotrópico y factor óptico constante (0,96), ofrece buen ajuste en Sur (−1 % a −3 %), pero sobrestima notablemente el tejado Norte (+18 %) al ignorar el halo circunsolar y el ángulo rasante IAM."
+ },
+ level3:{
+  id:"level3",
+  kpiTitle:"Nivel 3 · Físico NREL",
+  shortLabel:"Físico NREL",
+  legendLabel:"Nivel 3 · Físico horario NREL",
+  rowTitle:"Modelo Físico Teórico · Nivel 3: Horario NREL (HDKR + IAM Martin-Ruiz + NOCT + γ)",
+  chartsTitle:"PVGIS 5.3 (satelital) vs. Nivel 3 · Físico Horario NREL",
+  pedagogyTitle:"Nivel 3 · Motor Físico Horario (NREL) vs. PVGIS 5.3",
+  badge:"Nivel 3 · Horario NREL",
+  sub:"Cadena física completa ejecutada en tiempo real (Erbs + Collares-Pereira + HDKR anisotrópico + IAM Martin-Ruiz + térmica NOCT en pasos de 30 min)",
+  hintTag:"HDKR + IAM + NOCT",
+  mathTitle:"Físico NREL (neta)",
+  insightTitle:"Lectura de ingeniería · Nivel 3 (Estándar de ingeniería de proyectos)",
+  insightBody:"Equilibrio óptimo de precisión y transparencia física: combina radiación difusa anisotrópica (Hay-Davies), reflexión óptica del vidrio (Martin-Ruiz) y temperatura instantánea de célula (Ross/NOCT), logrando una concordancia típica del 1–4 % frente al satélite PVGIS 5.3 (SARAH-3)."
+ },
+ level4:{
+  id:"level4",
+  kpiTitle:"Nivel 4 · 1 Diodo (De Soto)",
+  shortLabel:"1 Diodo",
+  legendLabel:"Nivel 4 · 1 Diodo (De Soto + Inversor)",
+  rowTitle:"Modelo Físico Teórico · Nivel 4: Circuito Equivalente 1 Diodo / 5 Parámetros (De Soto + Curva Inversor)",
+  chartsTitle:"PVGIS 5.3 (satelital) vs. Nivel 4 · 1 Diodo (De Soto)",
+  pedagogyTitle:"Nivel 4 · Circuito 1 Diodo (De Soto) vs. PVGIS 5.3",
+  badge:"Nivel 4 · Circuito I(V)",
+  sub:"Resolución numérica Newton-Raphson de la ecuación implícita de Shockley I(V) para hallar el MPP real + curva de eficiencia a carga parcial del inversor",
+  hintTag:"Shockley I(V) + Inv.",
+  mathTitle:"1 Diodo (neta)",
+  insightTitle:"Lectura de ingeniería · Nivel 4 (Circuito equivalente de 5 parámetros · tipo PVsyst/SAM)",
+  insightBody:"Resuelve la curva eléctrica real I(V) del silicio monocristalino en cada paso de 30 min. Captura el repunte físico de eficiencia a irradiancias intermedias (menor pérdida I²·R_s), el colapso térmico de tensión V_mp en verano y las pérdidas del inversor a baja carga parcial."
+ }
 };
 const PARAM_DEFS=[
  {key:"gamma",num:"pGamma",rng:"rGamma",min:-0.55,max:-0.20,dec:2},
@@ -657,11 +743,13 @@ const PARAM_DEFS=[
 function getPower(){return clamp($("power").value,0.1,10000,1);}
 function getAngle(){return Math.round(clamp($("angle").value,0,90,37));}
 function getPhysParams(){
+ const rawMethod=$("calcMethod").value;
+ const method=CALC_METHODS[rawMethod]?rawMethod:TYPICAL_PARAMS.calcMethod;
  return {
   gammaPct:clamp($("pGamma").value,-0.55,-0.20,TYPICAL_PARAMS.gamma),
   noct:clamp($("pNoct").value,40,55,TYPICAL_PARAMS.noct),
   albedo:clamp($("pAlbedo").value,0.05,0.60,TYPICAL_PARAMS.albedo),
-  skyMode:$("skyMode").value==="clear"?"clear":"real"
+  method
  };
 }
 function getPerformance(){
@@ -673,7 +761,7 @@ function getPerformance(){
  return inv*(1-wiring)*(1-soiling)*(1-shading)*(1-misc);
 }
 
-// --- MOTOR FÍSICO NIVEL 3 (Duffie & Beckman + HDKR + Martin-Ruiz IAM + NOCT + NREL) ---
+// --- MOTOR FÍSICO MULTI-NIVEL (Niveles 1 a 4: Hottel, Liu-Jordan, NREL HDKR y De Soto 1 Diodo) ---
 const PHYS_CONST={
  DEG:Math.PI/180,
  DAYS:[31,28,31,30,31,30,31,31,30,31,30,31],
@@ -686,11 +774,86 @@ const PHYS_CONST={
  AR:0.16
 };
 
-function simulatePhysical({angleDeg,aspectDeg,gammaPct,noct,albedo,skyMode}){
+// Parámetros STC calibrados a 1000,0 Wp (módulo silicio monocristalino 60 células · modelo De Soto)
+const DIODE_STC={
+ IL_ref:33.135,
+ I0_ref:3.0103e-10,
+ Rs_ref:0.07627,
+ Rsh_ref:16.743,
+ a_ref:1.62,
+ alphaIsc:0.00045*33.135,
+ Eg_ref:1.121,
+ kB:8.617333e-5,
+ gammaNat:-0.00379
+};
+
+function solveDiodeI(V,IL,I0,Rs,Rsh,a){
+ let I=Math.max(0,IL-V/Rsh);
+ for(let k=0;k<10;k++){
+  const arg=Math.min(45,(V+I*Rs)/a);
+  const ex=Math.exp(arg);
+  const f=IL-I0*(ex-1)-(V+I*Rs)/Rsh-I;
+  const df=-I0*ex*(Rs/a)-Rs/Rsh-1;
+  const dI=f/df;
+  I-=dI;
+  if(Math.abs(dI)<1e-5)break;
+ }
+ return Math.max(0,I);
+}
+
+function solveDeSotoMPP(Geff,TcellC,gammaPct){
+ if(Geff<=5)return {Pmp:0,Vmp:0,Imp:0};
+ const Tref=298.15, Tc=TcellC+273.15;
+ const {IL_ref,I0_ref,Rs_ref,Rsh_ref,a_ref,alphaIsc,Eg_ref,kB,gammaNat}=DIODE_STC;
+ const Eg=Eg_ref*(1-0.0002677*(Tc-Tref));
+ const a=a_ref*(Tc/Tref);
+ const IL=(Geff/1000)*(IL_ref+alphaIsc*(Tc-Tref));
+ const I0=I0_ref*Math.pow(Tc/Tref,3)*Math.exp((1/kB)*(Eg_ref/Tref-Eg/Tc));
+ const Rsh=Rsh_ref*(1000/Math.max(5,Geff));
+ const Rs=Rs_ref;
+ const Voc=a*Math.log(Math.max(1,IL/I0)+1);
+ if(Voc<=0.5)return {Pmp:0,Vmp:0,Imp:0};
+
+ const phi=0.618033988749895;
+ let lo=0.45*Voc, hi=0.96*Voc;
+ let v1=hi-phi*(hi-lo), v2=lo+phi*(hi-lo);
+ let p1=v1*solveDiodeI(v1,IL,I0,Rs,Rsh,a);
+ let p2=v2*solveDiodeI(v2,IL,I0,Rs,Rsh,a);
+ for(let it=0;it<16;it++){
+  if(p1<p2){
+   lo=v1;v1=v2;p1=p2;
+   v2=lo+phi*(hi-lo);
+   p2=v2*solveDiodeI(v2,IL,I0,Rs,Rsh,a);
+  }else{
+   hi=v2;v2=v1;p2=p1;
+   v1=hi-phi*(hi-lo);
+   p1=v1*solveDiodeI(v1,IL,I0,Rs,Rsh,a);
+  }
+ }
+ const Vmp=0.5*(lo+hi);
+ const Imp=solveDiodeI(Vmp,IL,I0,Rs,Rsh,a);
+ const gammaDiff=(gammaPct/100)-gammaNat;
+ const techAdj=Math.max(0.5,1+gammaDiff*(TcellC-25));
+ return {Pmp:Vmp*Imp*techAdj,Vmp,Imp};
+}
+
+// Curva relativa de rendimiento de inversor a carga parcial (EN 50530 / Sandia normalizada al pico = 1,00)
+function invPartLoadFactor(Pdc_W){
+ if(Pdc_W<=5)return 0;
+ const Pnom=920; // Relación DC/AC típica ≈ 1,09
+ const x=Math.min(1.0,Pdc_W/Pnom);
+ const clipFactor=Pdc_W>Pnom?(Pnom/Pdc_W):1.0;
+ const c0=0.0055, c2=0.022;
+ const minLoss=2*Math.sqrt(c0*c2);
+ const relEff=Math.max(0,1-(c0/x+c2*x-minLoss));
+ return relEff*clipFactor;
+}
+
+function simulatePhysical({angleDeg,aspectDeg,gammaPct,noct,albedo,method}){
  const {DEG,DAYS,KLEIN_DAYS,GHI_MONTHLY,TAMB_MONTHLY,G_SC,AR}=PHYS_CONST;
  const lat=CFG.lat*DEG, beta=angleDeg*DEG, az=aspectDeg*DEG, gamma=gammaPct/100;
  const monthly=[];
- let peakGeff=0, peakTcellJuly=0;
+ let peakGeff=0, peakTcellJuly=0, vmpSumJuly=0, vmpCountJuly=0;
 
  for(let m=0;m<12;m++){
   const n=KLEIN_DAYS[m], days=DAYS[m];
@@ -708,8 +871,51 @@ function simulatePhysical({angleDeg,aspectDeg,gammaPct,noct,albedo,skyMode}){
    :(1.311-3.022*Kt+3.427*Kt*Kt-1.821*Kt*Kt*Kt);
   Kd_month=Math.max(0.15,Math.min(0.95,Kd_month));
   const Hd_day=H_day_real*Kd_month;
-
+  const Hb_day=Math.max(0,H_day_real-Hd_day);
   const dt=0.5, Tamb=TAMB_MONTHLY[m];
+
+  // Nivel 2: Analítico mensual clásico (Duffie & Beckman + Liu-Jordan isotrópico)
+  if(method==="level2"){
+   let numRb=0, denRb=0, sumGt=0, sumGt2=0;
+   for(let step=0;step<48;step++){
+    const w=((step+0.5)*dt-12)*15*DEG;
+    const cosThetaZ=Math.sin(lat)*Math.sin(decl)+Math.cos(lat)*Math.cos(decl)*Math.cos(w);
+    if(cosThetaZ<=0.01)continue;
+    const cosTheta=
+     Math.sin(decl)*Math.sin(lat)*Math.cos(beta)
+     -Math.sin(decl)*Math.cos(lat)*Math.sin(beta)*Math.cos(az)
+     +Math.cos(decl)*Math.cos(lat)*Math.cos(beta)*Math.cos(w)
+     +Math.cos(decl)*Math.sin(lat)*Math.sin(beta)*Math.cos(az)*Math.cos(w)
+     +Math.cos(decl)*Math.sin(beta)*Math.sin(az)*Math.sin(w);
+    const cosThetaPos=Math.max(0,cosTheta);
+    numRb+=cosThetaPos;
+    denRb+=cosThetaZ;
+
+    const a=0.409+0.5016*Math.sin(ws-60*DEG);
+    const b=0.6609-0.4767*Math.sin(ws-60*DEG);
+    const denom=Math.max(0.001,Math.sin(ws)-ws*Math.cos(ws));
+    const rt=(Math.PI/24)*(a+b*Math.cos(w))*(Math.cos(w)-Math.cos(ws))/denom;
+    const rd=(Math.PI/24)*(Math.cos(w)-Math.cos(ws))/denom;
+    const Gh=Math.max(0,H_day_real*rt);
+    const Gd=Math.min(Gh,Math.max(0,Hd_day*rd));
+    const Gb_h=Math.max(0,Gh-Gd);
+    const Rb_h=cosThetaPos/Math.max(0.087,cosThetaZ);
+    const Gt_iso=Gb_h*Rb_h+Gd*((1+Math.cos(beta))/2)+Gh*albedo*((1-Math.cos(beta))/2);
+    if(Gt_iso>peakGeff)peakGeff=Gt_iso;
+    sumGt+=Gt_iso;
+    sumGt2+=Gt_iso*Gt_iso;
+   }
+   const Rb_bar=denRb>0?numRb/denRb:0;
+   const Ht_day=Hb_day*Rb_bar+Hd_day*((1+Math.cos(beta))/2)+H_day_real*albedo*((1-Math.cos(beta))/2);
+   const Gt_mean_m=sumGt>0?(sumGt2/sumGt):0;
+   const Tcell_mean_m=Tamb+((noct-20)/800)*Gt_mean_m;
+   if(m===6)peakTcellJuly=Tcell_mean_m;
+   const tempFactor_m=Math.max(0,1+gamma*(Tcell_mean_m-25));
+   const E_day_Wh=Ht_day*0.96*tempFactor_m;
+   monthly.push(Number(((E_day_Wh*days)/1000).toFixed(2)));
+   continue;
+  }
+
   let E_day_Wh=0;
   for(let step=0;step<48;step++){
    const w=((step+0.5)*dt-12)*15*DEG;
@@ -721,7 +927,7 @@ function simulatePhysical({angleDeg,aspectDeg,gammaPct,noct,albedo,skyMode}){
    const AM=1/(cosThetaZ+0.50572*Math.pow(Math.max(0.5,96.07995-zenithDeg),-1.6364));
 
    let Gh,Gd,Gb_h;
-   if(skyMode==="clear"){
+   if(method==="level1"){
     const tau_b=0.128+0.756*Math.exp(-0.357*AM);
     const tau_d=0.271-0.294*tau_b;
     Gb_h=G0h*tau_b;
@@ -764,15 +970,24 @@ function simulatePhysical({angleDeg,aspectDeg,gammaPct,noct,albedo,skyMode}){
    if(Geff>peakGeff)peakGeff=Geff;
    if(m===6&&Tcell>peakTcellJuly)peakTcellJuly=Tcell;
 
-   // Conversión NREL + eficiencia a baja irradiancia (silicio cristalino)
-   const tempFactor=Math.max(0,1+gamma*(Tcell-25));
-   const lowIrrFactor=Geff>10?Math.min(1.005,Math.max(0,1+0.025*Math.log(Geff/1000))):0;
-   const P_W=1000*(Geff/1000)*tempFactor*lowIrrFactor;
+   let P_W=0;
+   if(method==="level4"){
+    // Nivel 4: Circuito equivalente 1 Diodo (De Soto) + curva carga parcial inversor
+    const mpp=solveDeSotoMPP(Geff,Tcell,gammaPct);
+    if(m===6&&Geff>200){vmpSumJuly+=mpp.Vmp;vmpCountJuly++;}
+    P_W=mpp.Pmp*invPartLoadFactor(mpp.Pmp);
+   }else{
+    // Niveles 1 y 3: Conversión NREL + eficiencia a baja irradiancia (silicio cristalino)
+    const tempFactor=Math.max(0,1+gamma*(Tcell-25));
+    const lowIrrFactor=Geff>10?Math.min(1.005,Math.max(0,1+0.025*Math.log(Geff/1000))):0;
+    P_W=1000*(Geff/1000)*tempFactor*lowIrrFactor;
+   }
    E_day_Wh+=P_W*dt;
   }
   monthly.push(Number(((E_day_Wh*days)/1000).toFixed(2)));
  }
- return {monthly,peakGeff,peakTcellJuly};
+ const avgVmpJuly=vmpCountJuly>0?(vmpSumJuly/vmpCountJuly):0;
+ return {monthly,peakGeff,peakTcellJuly,avgVmpJuly};
 }
 
 function setStatus(msg,state="loading"){
@@ -930,19 +1145,118 @@ function drawChart(dirId,pvgisVals,physVals,globalMax,hoverIdx=-1){
 
 function fmtSigned(n,d=1){return (n>=0?"+":"")+fmtDec(n,d);}
 
+function updatePedagogyEquations(perf,phys,chosenName,ch,sumPhys){
+ const m=CALC_METHODS[phys.method];
+ const alb=fmtDec(phys.albedo,2), noct=String(Math.round(phys.noct));
+ const gam=fmtDec(phys.gammaPct,2), pct=fmtDec(perf*100,2);
+
+ $("pedagogyTitle").textContent=m.pedagogyTitle;
+ $("pedagogyBadge").textContent=m.badge;
+ $("pedagogySub").textContent=m.sub;
+ $("methodInsightTitle").textContent=m.insightTitle;
+ $("methodInsightBody").textContent=m.insightBody;
+
+ if(phys.method==="level1"){
+  $("eq1Title").textContent="1. Atmósfera Clara (Hottel)";
+  $("eq1Tag").textContent="Clear-Sky";
+  $("eq1Formula").textContent="τ_b = 0.128 + 0.756·e^(−0.357·AM) → G_eff";
+  $("eq1Desc").textContent=`Calcula la transmitancia atmosférica sin nubes (Hottel 1976), transpone con HDKR y albedo (${alb}) y descuenta reflexión angular con Martin-Ruiz.`;
+  $("calcMetric1Label").textContent=`G_eff pico sin nubes (${chosenName}):`;
+  $("calcMetric1Val").textContent=`${fmt(ch.peakGeff)} W/m²`;
+
+  $("eq2Title").textContent="2. Temperatura de Célula (T_cell)";
+  $("eq2Tag").textContent="Ross / NOCT";
+  $("eq2Formula").textContent="T_cell(t) = T_amb + ((NOCT − 20) / 800) · G_eff(t)";
+  $("eq2Desc").textContent=`Estima el calentamiento máximo bajo cielo despejado con NOCT = ${noct} °C y la temperatura ambiente diurna mensual de Barcelona.`;
+  $("calcMetric2Label").textContent="T_cell pico en julio:";
+  $("calcMetric2Val").textContent=`${fmtDec(ch.peakTcellJuly,1)} °C`;
+
+  $("eq3Title").textContent="3. Techo Físico NREL + BOS";
+  $("eq3Tag").textContent="Máximo AC";
+  $("eq3Formula").textContent="P(t) = P_STC·(G_eff/1000)·[1+γ(T_cell−25)]·PR_BOS";
+  $("eq3Desc").textContent=`Aplica γ = ${gam} %/°C, eficiencia a baja irradiancia y el factor BOS común (${pct} %). La brecha frente a PVGIS mide la pérdida por nubosidad.`;
+  $("calcMetric3Label").textContent=`Cielo despejado (${chosenName}):`;
+  $("calcMetric3Val").textContent=`${fmt(sumPhys)} kWh`;
+ }else if(phys.method==="level2"){
+  $("eq1Title").textContent="1. Transposición Isotrópica";
+  $("eq1Tag").textContent="Liu-Jordan";
+  $("eq1Formula").textContent="H_T = H_b·R̄_b + H_d·(1+cos β)/2 + H·ρ·(1−cos β)/2";
+  $("eq1Desc").textContent=`Método analítico clásico (Duffie & Beckman): descompone GHI mensual con Erbs y reparte la luz difusa de forma uniforme en el cielo con albedo ρ = ${alb}.`;
+  $("calcMetric1Label").textContent=`Irradiancia isotrópica pico (${chosenName}):`;
+  $("calcMetric1Val").textContent=`${fmt(ch.peakGeff)} W/m²`;
+
+  $("eq2Title").textContent="2. Térmica Media Mensual";
+  $("eq2Tag").textContent="Estático";
+  $("eq2Formula").textContent="T̄_cell,m = T_amb,m + ((NOCT − 20) / 800) · Ḡ_T,m";
+  $("eq2Desc").textContent=`Calcula una única temperatura media ponderada mensual T̄_cell,m con NOCT = ${noct} °C en lugar de resolver paso a paso cada media hora.`;
+  $("calcMetric2Label").textContent="T̄_cell media diurna (julio):";
+  $("calcMetric2Val").textContent=`${fmtDec(ch.peakTcellJuly,1)} °C`;
+
+  $("eq3Title").textContent="3. Balance Mensual + BOS";
+  $("eq3Tag").textContent="Analítico";
+  $("eq3Formula").textContent="E_m = H_T,m · 0.96 · [1 + γ(T̄_cell,m − 25)] · PR_BOS";
+  $("eq3Desc").textContent=`Aplica una transmitancia óptica media fija (0,96), el factor térmico mensual con γ = ${gam} %/°C y las pérdidas BOS comunes (${pct} %).`;
+  $("calcMetric3Label").textContent=`Liu-Jordan anual (${chosenName}):`;
+  $("calcMetric3Val").textContent=`${fmt(sumPhys)} kWh`;
+ }else if(phys.method==="level4"){
+  $("eq1Title").textContent="1. Circuito 1 Diodo (Shockley)";
+  $("eq1Tag").textContent="5 Parámetros";
+  $("eq1Formula").textContent="I = I_L − I_0[exp((V+I·R_s)/a)−1] − (V+I·R_s)/R_sh";
+  $("eq1Desc").textContent=`Resuelve por Newton-Raphson la curva I(V) de silicio monocristalino (R_s, R_sh) sobre G_eff anisotrópica HDKR (albedo ${alb}) y IAM Martin-Ruiz.`;
+  $("calcMetric1Label").textContent=`Tensión V_mp media julio (STC 33,8 V):`;
+  $("calcMetric1Val").textContent=ch.avgVmpJuly>0?`${fmtDec(ch.avgVmpJuly,1)} V`:`${fmt(ch.peakGeff)} W/m²`;
+
+  $("eq2Title").textContent="2. Traslación De Soto (G, T_c)";
+  $("eq2Tag").textContent="Banda Prohibida";
+  $("eq2Formula").textContent="I_0(T_c) ∝ (T_c/T_r)³·exp[(E_g0/T_r − E_g/T_c)/k_B]";
+  $("eq2Desc").textContent=`Actualiza I_L, I_0, R_sh y la banda prohibida E_g(T_c) en cada paso de 30 min con NOCT = ${noct} °C y sensibilidad térmica γ = ${gam} %/°C.`;
+  $("calcMetric2Label").textContent="T_cell pico en julio:";
+  $("calcMetric2Val").textContent=`${fmtDec(ch.peakTcellJuly,1)} °C`;
+
+  $("eq3Title").textContent="3. MPP I(V) + Curva Inversor";
+  $("eq3Tag").textContent="Carga Parcial";
+  $("eq3Formula").textContent="P_ac(t) = max(V·I(V)) · η_rel(P_dc/P_nom) · PR_BOS";
+  $("eq3Desc").textContent=`Halla el punto de máxima potencia real P_mp, aplica la curva de eficiencia a carga parcial del inversor (EN 50530) y el factor BOS común (${pct} %).`;
+  $("calcMetric3Label").textContent=`1 Diodo anual (${chosenName}):`;
+  $("calcMetric3Val").textContent=`${fmt(sumPhys)} kWh`;
+ }else{
+  $("eq1Title").textContent="1. Irradiancia Efectiva (G_eff)";
+  $("eq1Tag").textContent="HDKR + IAM";
+  $("eq1Formula").textContent="G_eff = G_b·IAM(θ) + 0.97·G_d + 0.95·G_r";
+  $("eq1Desc").textContent=`Calcula la geometría solar exacta (δ, ω, θ), transpone radiación directa, difusa anisotrópica (Hay-Davies) y albedo (${alb}), y descuenta reflexión del vidrio con Martin-Ruiz.`;
+  $("calcMetric1Label").textContent=`Irradiancia pico (${chosenName}):`;
+  $("calcMetric1Val").textContent=`${fmt(ch.peakGeff)} W/m²`;
+
+  $("eq2Title").textContent="2. Temperatura de Célula (T_cell)";
+  $("eq2Tag").textContent="Ross / NOCT";
+  $("eq2Formula").textContent="T_cell(t) = T_amb + ((NOCT − 20) / 800) · G_eff(t)";
+  $("eq2Desc").textContent=`A partir de la temperatura ambiente diurna mensual de Barcelona y el NOCT (${noct} °C), estima el calentamiento instantáneo de la célula de silicio.`;
+  $("calcMetric2Label").textContent="T_cell pico en julio:";
+  $("calcMetric2Val").textContent=`${fmtDec(ch.peakTcellJuly,1)} °C`;
+
+  $("eq3Title").textContent="3. Conversión NREL + BOS";
+  $("eq3Tag").textContent="Potencia AC";
+  $("eq3Formula").textContent="P(t) = P_STC·(G_eff/1000)·[1+γ(T_cell−25)]·PR_BOS";
+  $("eq3Desc").textContent=`Aplica el coeficiente térmico γ (${gam} %/°C), la corrección logarítmica a baja irradiancia y las pérdidas de sistema (${pct} %), idénticas a PVGIS.`;
+  $("calcMetric3Label").textContent=`Físico NREL anual (${chosenName}):`;
+  $("calcMetric3Val").textContent=`${fmt(sumPhys)} kWh`;
+ }
+}
+
 function syncLabels(perf,phys){
  const pct=fmtDec(perf*100,2),lossPct=fmtDec((1-perf)*100,2);
- const skyLabel=phys.skyMode==="clear"?"Cielo despejado":"Clima real (Kt)";
+ const m=CALC_METHODS[phys.method];
  $("kpiFactor").innerHTML=`${pct} <span class="text-xs font-semibold text-slate-400">%</span>`;
  $("kpiLossHint").textContent=`Aplicado a ambos modelos · pérdidas ${lossPct} %`;
+ $("kpiPhysTitle").textContent=m.kpiTitle;
  $("paramsGlobal").textContent=`${pct} %`;
  $("paramsLoss").textContent=`${lossPct} %`;
- $("legendPhys").textContent=`Físico NREL · ${skyLabel}`;
- $("eqAlbedo").textContent=fmtDec(phys.albedo,2);
- $("eqNoct").textContent=String(Math.round(phys.noct));
- $("eqGamma").textContent=fmtDec(phys.gammaPct,2);
- $("calcPRVal").textContent=`${pct} %`;
- $("subtitle").textContent=`Comparativa mensual entre datos satelitales PVGIS 5.3 y el motor físico teórico horario (NREL) para ${loadedAngle}° de inclinación.`;
+ $("physRowTitle").textContent=m.rowTitle;
+ $("chartsTitle").textContent=m.chartsTitle;
+ $("legendPhys").textContent=m.legendLabel;
+ $("mathPhysTitle").textContent=m.mathTitle;
+ $("mathDeltaTitle").textContent=`Desviación ${m.shortLabel} vs PVGIS`;
+ $("subtitle").textContent=`Comparativa mensual entre datos satelitales PVGIS 5.3 y ${m.legendLabel} para ${loadedAngle}° de inclinación.`;
  DIRS.forEach(d=>{
   const meta=document.querySelector(`[data-meta="${d.id}"]`);
   if(meta)meta.textContent=`Azimut PVGIS: ${d.aspectLabel} · Inclinación: ${loadedAngle}°`;
@@ -952,6 +1266,7 @@ function syncLabels(perf,phys){
 function render(){
  if(!baseData)return;
  const power=getPower(),perf=getPerformance(),phys=getPhysParams();
+ const m=CALC_METHODS[phys.method];
  const selected=$("orientation").value,shared=$("sharedScale").checked;
  syncLabels(perf,phys);
 
@@ -966,7 +1281,7 @@ function render(){
   const pvgisNet=baseData[d.id].map(v=>v*power*perf);
   const sim=simulatePhysical({angleDeg:loadedAngle,aspectDeg:d.aspect,...phys});
   const physNet=sim.monthly.map(v=>v*power*perf);
-  return [d.id,{pvgisNet,physNet,peakGeff:sim.peakGeff,peakTcellJuly:sim.peakTcellJuly}];
+  return [d.id,{pvgisNet,physNet,peakGeff:sim.peakGeff,peakTcellJuly:sim.peakTcellJuly,avgVmpJuly:sim.avgVmpJuly}];
  }));
  const globalMax=shared
   ?Math.max(1,...DIRS.flatMap(d=>[...series[d.id].pvgisNet,...series[d.id].physNet]))
@@ -979,7 +1294,7 @@ function render(){
   const diffPct=tPvgis>0?((tPhys-tPvgis)/tPvgis)*100:0;
   $("totals"+d.id).innerHTML=`
     <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>PVGIS 5.3: <b class="text-slate-100 font-bold ml-0.5">${fmt(tPvgis)} kWh</b></span>
-    <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>Físico NREL: <b class="text-slate-100 font-bold ml-0.5">${fmt(tPhys)} kWh</b></span>
+    <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>${m.shortLabel}: <b class="text-slate-100 font-bold ml-0.5">${fmt(tPhys)} kWh</b></span>
     <span class="text-emerald-400 font-semibold tabular-nums">Δ ${fmtSigned(diffPct,1)} %</span>
   `;
  });
@@ -992,22 +1307,17 @@ function render(){
  const sumPhys=ch.physNet.reduce((a,b)=>a+b,0);
  const deltaKwh=sumPhys-sumPvgis;
  const deltaPct=sumPvgis>0?(deltaKwh/sumPvgis)*100:0;
- const skyShort=phys.skyMode==="clear"?"Cielo despejado":"Clima real (Kt)";
 
  $("kpiPvgis").innerHTML=`${fmt(sumPvgis)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
  $("kpiPvgisHint").textContent=`${fmt(sumPvgis/power)} kWh/kWp · orientación ${chosenName.toLowerCase()}`;
  $("kpiPhys").innerHTML=`${fmt(sumPhys)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
- $("kpiPhysHint").textContent=`${fmt(sumPhys/power)} kWh/kWp · ${skyShort}`;
+ $("kpiPhysHint").textContent=`${fmt(sumPhys/power)} kWh/kWp · ${m.hintTag}`;
  $("kpiDelta").innerHTML=`${fmtSigned(deltaPct,1)} <span class="text-xs font-semibold text-slate-400">%</span>`;
  $("kpiDeltaHint").textContent=`Diferencia anual: ${deltaKwh>=0?"+":""}${fmt(deltaKwh)} kWh`;
 
- // Actualizar fórmulas y desglose pedagógico en vivo
+ // Actualizar fórmulas dinámicas y desglose pedagógico en vivo
  $("formulaTargetDir").textContent=`${chosenName} (${chosenObj.aspectLabel})`;
- $("calcDirLabel1").textContent=chosenName;
- $("calcDirLabel2").textContent=chosenName;
- $("calcGeffPeak").textContent=`${fmt(ch.peakGeff)} W/m²`;
- $("calcTcellPeak").textContent=`${fmtDec(ch.peakTcellJuly,1)} °C`;
- $("calcPhysVal").textContent=`${fmt(sumPhys)} kWh`;
+ updatePedagogyEquations(perf,phys,chosenName,ch,sumPhys);
 
  $("mathDirName").textContent=chosenName;
  $("mathAngleLabel").textContent=`${loadedAngle}°`;
@@ -1035,6 +1345,7 @@ DIRS.forEach(d=>{
   drawChart(d.id,g.pvgisVals,g.physVals,g.globalMax,idx);
   const vP=g.pvgisVals[idx], vF=g.physVals[idx];
   const dPct=vP>0?((vF-vP)/vP)*100:0;
+  const m=CALC_METHODS[getPhysParams().method];
   const tt=$("tooltip");
   tt.innerHTML=`
     <div class="font-extrabold text-amber-400 mb-1 flex items-center justify-between border-b border-slate-700/80 pb-1">
@@ -1046,7 +1357,7 @@ DIRS.forEach(d=>{
         <b class="text-slate-100 tabular-nums">${fmt(vP)} kWh</b>
       </div>
       <div class="flex items-center justify-between gap-4">
-        <span class="flex items-center gap-1.5 text-slate-400"><span class="w-2 h-2 rounded-sm bg-sky-400"></span>Físico NREL</span>
+        <span class="flex items-center gap-1.5 text-slate-400"><span class="w-2 h-2 rounded-sm bg-sky-400"></span>${m.shortLabel}</span>
         <b class="text-slate-100 tabular-nums">${fmt(vF)} kWh</b>
       </div>
       <div class="flex items-center justify-between gap-4 pt-1 border-t border-slate-800">
@@ -1089,14 +1400,14 @@ PARAM_DEFS.forEach(({num,rng,min,max,key,dec})=>{
  });
 });
 $("presetTypical").addEventListener("click",()=>{
- $("skyMode").value=TYPICAL_PARAMS.skyMode;
+ $("calcMethod").value=TYPICAL_PARAMS.calcMethod;
  PARAM_DEFS.forEach(({num,rng,key,dec})=>{
   const v=TYPICAL_PARAMS[key].toFixed(dec);
   $(num).value=v;$(rng).value=v;
  });
  render();
 });
-$("skyMode").addEventListener("change",render);
+$("calcMethod").addEventListener("change",render);
 $("power").addEventListener("input",render);
 $("orientation").addEventListener("change",render);
 $("sharedScale").addEventListener("change",render);
