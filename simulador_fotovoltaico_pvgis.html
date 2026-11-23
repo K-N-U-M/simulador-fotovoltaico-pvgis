@@ -228,6 +228,208 @@ html.light .bg-sky-400 {
 html.light #refresh {
   color: #0f172a !important;
 }
+
+/* ==================== DISRUPTIVE KINETIC & GLOW SYSTEM ==================== */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spinBeam {
+  to { --beam-angle: 360deg; }
+}
+@keyframes revealUp {
+  0% { opacity: 0; transform: translateY(18px) scale(0.985); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+@keyframes shimmerSweep {
+  0% { transform: translateX(-140%) skewX(-18deg); opacity: 0; }
+  35% { opacity: 0.9; }
+  100% { transform: translateX(240%) skewX(-18deg); opacity: 0; }
+}
+@keyframes eqMorphIn {
+  0% { opacity: 0.45; filter: blur(3px); transform: translateY(3px) scale(0.992); }
+  100% { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
+}
+@keyframes rayFlow {
+  0% { stroke-dashoffset: 28; opacity: 0.35; }
+  50% { opacity: 0.95; }
+  100% { stroke-dashoffset: 0; opacity: 0.35; }
+}
+@keyframes energyPulse {
+  0% { stroke-dashoffset: 36; opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0.2; }
+}
+@keyframes orbFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(18px, -14px, 0) scale(1.06); }
+}
+
+/* Staggered Cinematic Reveal */
+.reveal-block {
+  animation: revealUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+/* Smooth Theme Cross-Fade */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.36s ease, color 0.32s ease, border-color 0.34s ease, box-shadow 0.36s ease !important;
+}
+
+/* Chromatic Method-Reactive Ambient Orbs */
+.ambient-orb {
+  transition: background-color 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s ease, transform 0.9s ease;
+  animation: orbFloat 14s ease-in-out infinite;
+}
+#orb2 { animation-delay: -5s; animation-duration: 18s; }
+#orb3 { animation-delay: -9s; animation-duration: 21s; }
+
+html[data-method="level1"] #orb1 { background-color: rgba(251, 191, 36, 0.18); }
+html[data-method="level1"] #orb2 { background-color: rgba(249, 115, 22, 0.14); }
+html[data-method="level1"] #orb3 { background-color: rgba(245, 158, 11, 0.08); }
+
+html[data-method="level2"] #orb1 { background-color: rgba(148, 163, 184, 0.14); }
+html[data-method="level2"] #orb2 { background-color: rgba(245, 158, 11, 0.10); }
+html[data-method="level2"] #orb3 { background-color: rgba(99, 102, 241, 0.08); }
+
+html[data-method="level3"] #orb1 { background-color: rgba(245, 158, 11, 0.13); }
+html[data-method="level3"] #orb2 { background-color: rgba(56, 189, 248, 0.13); }
+html[data-method="level3"] #orb3 { background-color: rgba(249, 115, 22, 0.08); }
+
+html[data-method="level4"] #orb1 { background-color: rgba(16, 185, 129, 0.14); }
+html[data-method="level4"] #orb2 { background-color: rgba(6, 182, 212, 0.15); }
+html[data-method="level4"] #orb3 { background-color: rgba(245, 158, 11, 0.09); }
+
+html.light .ambient-orb {
+  opacity: 0.55;
+}
+
+/* Cursor-Reactive Spotlight Cards */
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(245, 158, 11, 0.13), rgba(56, 189, 248, 0.06) 42%, transparent 72%);
+  z-index: 0;
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+html.light .spotlight-card::before {
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgba(217, 119, 6, 0.09), rgba(2, 132, 199, 0.05) 42%, transparent 72%);
+}
+.spotlight-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 3D Magnetic Tilt & Tactile Hover Elevation */
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease, box-shadow 0.32s ease;
+}
+.card.glass-panel-hover {
+  transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+}
+.card.glass-panel-hover:hover {
+  transform: translateY(-4px) scale(1.006);
+}
+
+/* Orbital Conic Light Beam on Active/Highlighted Orientation Card */
+.card.gradient-border-active {
+  overflow: visible;
+}
+.card.gradient-border-active::after {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  padding: 1.5px;
+  pointer-events: none;
+  background: conic-gradient(from var(--beam-angle), transparent 0deg, transparent 220deg, rgba(251, 191, 36, 0.95) 290deg, rgba(56, 189, 248, 0.85) 330deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: spinBeam 5.5s linear infinite;
+  z-index: 2;
+}
+html.light .card.gradient-border-active::after {
+  background: conic-gradient(from var(--beam-angle), transparent 0deg, transparent 210deg, rgba(217, 119, 6, 0.95) 285deg, rgba(2, 132, 199, 0.85) 330deg, transparent 360deg);
+}
+
+/* Equation Card Morph + Shimmer Sweep */
+.eq-card {
+  position: relative;
+  overflow: hidden;
+}
+.eq-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 55%;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.14), rgba(251, 191, 36, 0.12), transparent);
+}
+.eq-morph-flash {
+  animation: eqMorphIn 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.eq-morph-flash::after {
+  animation: shimmerSweep 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Live Solar Geometry Visualizer SVG */
+#vizPanelGroup {
+  transform-box: view-box;
+  transform-origin: 130px 92px;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+#vizSunGroup {
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+}
+.viz-ray {
+  stroke-dasharray: 6 8;
+  animation: rayFlow 1.6s linear infinite;
+}
+.viz-pulse {
+  stroke-dasharray: 8 10;
+  animation: energyPulse 1.2s linear infinite;
+}
+html.light #solarViz .viz-panel-surface {
+  fill: url(#vizPanelGradLight);
+}
+html.light #solarViz .viz-base-line {
+  stroke: #94a3b8;
+}
+html.light #solarViz .viz-arc-guide {
+  stroke: rgba(100, 116, 139, 0.35);
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-block, .ambient-orb, .card.gradient-border-active::after, .eq-morph-flash, .eq-morph-flash::after, .viz-ray, .viz-pulse {
+    animation: none !important;
+  }
+  .tilt-card, .card.glass-panel-hover, #vizPanelGroup, #vizSunGroup {
+    transition: none !important;
+    transform: none !important;
+  }
+}
 </style>
 <script>
 try {
@@ -240,10 +442,10 @@ try {
 </head>
 <body class="bg-[#0b0f14] text-slate-100 font-sans min-h-screen antialiased selection:bg-amber-500 selection:text-black relative overflow-x-hidden">
 
-<!-- Ambient Background Glows -->
-<div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
-<div class="fixed top-1/3 right-10 w-[450px] h-[450px] bg-orange-600/10 rounded-full blur-[130px] pointer-events-none -z-10"></div>
-<div class="fixed bottom-10 left-1/3 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+<!-- Ambient Background Glows (Chromatic & Method-Reactive) -->
+<div id="orb1" class="ambient-orb fixed top-0 left-1/4 w-[520px] h-[520px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+<div id="orb2" class="ambient-orb fixed top-1/3 right-10 w-[460px] h-[460px] bg-sky-500/10 rounded-full blur-[130px] pointer-events-none -z-10"></div>
+<div id="orb3" class="ambient-orb fixed bottom-10 left-1/3 w-[600px] h-[600px] bg-orange-600/10 rounded-full blur-[160px] pointer-events-none -z-10"></div>
 
 <!-- Top Sticky Navbar -->
 <header class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 transition-all">
@@ -323,9 +525,9 @@ try {
 
 <main class="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-7">
 
-  <!-- Hero Header & Status -->
-  <div class="flex flex-wrap items-end justify-between gap-4 pb-2">
-    <div>
+  <!-- Hero Header, Status & Live Solar Geometry Visualizer -->
+  <div class="reveal-block flex flex-wrap items-center justify-between gap-6 pb-2" style="--delay:0ms">
+    <div class="flex-1 min-w-[280px]">
       <div class="flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-amber-400 mb-1.5">
         <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
         <span>Simulación energética solar · Barcelona</span>
@@ -336,25 +538,103 @@ try {
       <p id="subtitle" class="text-sm text-slate-400 mt-1 max-w-3xl leading-relaxed">
         Comparativa de energía mensual para una instalación fija de la potencia indicada, con cuatro orientaciones y 37° de inclinación.
       </p>
+
+      <!-- Live Status Pill -->
+      <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 mt-3.5 rounded-full bg-slate-900/90 border border-emerald-500/30 text-xs text-slate-300 shadow-inner">
+        <span class="relative flex h-2.5 w-2.5">
+          <span id="statusPing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span id="statusDot" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+        </span>
+        <span id="statusText" class="font-medium text-emerald-300">Conectado a PVGIS 5.3 · Datos oficiales</span>
+      </div>
     </div>
 
-    <!-- Live Status Pill -->
-    <div class="flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 text-xs text-slate-300 shadow-inner">
-      <span class="relative flex h-2.5 w-2.5">
-        <span id="statusPing" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span id="statusDot" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
-      </span>
-      <span id="statusText" class="font-medium text-emerald-300">Conectado a PVGIS 5.3 · Datos oficiales</span>
+    <!-- Signature Interactive Solar Geometry Visualizer Widget -->
+    <div class="spotlight-card glass-panel rounded-2xl px-4 py-3 border border-slate-800/80 shadow-xl flex items-center gap-4 min-w-[290px] sm:min-w-[330px]">
+      <svg id="solarViz" viewBox="0 0 220 112" class="w-[180px] sm:w-[205px] h-[94px] shrink-0 overflow-visible" role="img" aria-label="Visor geométrico interactivo del panel solar">
+        <defs>
+          <radialGradient id="vizSunGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fef08a" stop-opacity="1"/>
+            <stop offset="45%" stop-color="#f59e0b" stop-opacity="0.75"/>
+            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="vizPanelGradDark" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0284c7"/>
+            <stop offset="50%" stop-color="#38bdf8"/>
+            <stop offset="100%" stop-color="#0369a1"/>
+          </linearGradient>
+          <linearGradient id="vizPanelGradLight" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0369a1"/>
+            <stop offset="50%" stop-color="#0284c7"/>
+            <stop offset="100%" stop-color="#0c4a6e"/>
+          </linearGradient>
+          <radialGradient id="vizSkyDiffuse" cx="50%" cy="100%" r="75%">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Sky Dome Diffuse Aura -->
+        <path id="vizDiffuseDome" d="M 16 96 A 94 82 0 0 1 204 96 Z" fill="url(#vizSkyDiffuse)" opacity="0.65"/>
+        <!-- Heliodon Solar Arc Guide -->
+        <path class="viz-arc-guide" d="M 22 96 A 88 76 0 0 1 198 96" fill="none" stroke="rgba(148,163,184,0.28)" stroke-width="1.2" stroke-dasharray="3 4"/>
+
+        <!-- Animated Sun Orb & Beams -->
+        <g id="vizSunGroup" style="transform: translate(172px, 26px)">
+          <circle cx="0" cy="0" r="20" fill="url(#vizSunGlow)"/>
+          <circle cx="0" cy="0" r="6.5" fill="#fde047" stroke="#f59e0b" stroke-width="1.5"/>
+          <g id="vizRaysGroup" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round">
+            <line class="viz-ray" x1="-10" y1="9" x2="-40" y2="42"/>
+            <line class="viz-ray" x1="-2" y1="13" x2="-30" y2="47" style="animation-delay:-0.5s"/>
+            <line class="viz-ray" x1="-14" y1="2" x2="-46" y2="33" style="animation-delay:-1.0s"/>
+          </g>
+        </g>
+
+        <!-- Roof Horizontal Reference Line -->
+        <line class="viz-base-line" x1="20" y1="96" x2="200" y2="96" stroke="#475569" stroke-width="1.6" stroke-linecap="round"/>
+
+        <!-- Angle Arc Indicator -->
+        <path id="vizAngleArc" d="M 98 92 A 32 32 0 0 1 104.4 72.7" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="2.5 2"/>
+
+        <!-- Mounting Strut & Pivot Base -->
+        <line x1="130" y1="92" x2="130" y2="96" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="130" cy="92" r="3" fill="#f59e0b"/>
+
+        <!-- Rotating PV Module Assembly (rotates clockwise around pivot 130,92) -->
+        <g id="vizPanelGroup" style="transform: rotate(37deg)">
+          <!-- Panel Backframe -->
+          <rect x="76" y="88" width="58" height="7" rx="2.5" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+          <!-- Active Silicon Surface -->
+          <rect class="viz-panel-surface" x="77" y="86.5" width="56" height="4.5" rx="1.8" fill="url(#vizPanelGradDark)"/>
+          <!-- Cell Division Ticks -->
+          <line x1="91" y1="86.5" x2="91" y2="91" stroke="rgba(255,255,255,0.45)" stroke-width="0.9"/>
+          <line x1="105" y1="86.5" x2="105" y2="91" stroke="rgba(255,255,255,0.45)" stroke-width="0.9"/>
+          <line x1="119" y1="86.5" x2="119" y2="91" stroke="rgba(255,255,255,0.45)" stroke-width="0.9"/>
+          <!-- Specular Glass Highlight -->
+          <line x1="80" y1="87.3" x2="130" y2="87.3" stroke="rgba(255,255,255,0.75)" stroke-width="0.9" stroke-linecap="round"/>
+        </g>
+
+        <!-- Level 4 MPP Energy Flow Pulse (visible/accented on active circuit flow) -->
+        <path id="vizPulsePath" class="viz-pulse" d="M 130 92 L 130 105 L 195 105" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round" opacity="0.45"/>
+      </svg>
+
+      <!-- Live Telemetry Readout beside SVG -->
+      <div class="text-right space-y-1.5 min-w-[92px]">
+        <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Geometría viva</div>
+        <div class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-orange-400 tabular-nums leading-none" id="vizReadoutAngle">37°</div>
+        <div class="text-xs font-bold text-sky-400" id="vizReadoutDir">Sur (0°)</div>
+        <div class="text-[10px] font-semibold text-emerald-400 tabular-nums" id="vizReadoutIrr">878 W/m²</div>
+      </div>
     </div>
   </div>
 
   <!-- Error banner -->
   <div id="error" role="alert" class="hidden rounded-2xl bg-red-950/40 border border-red-800/80 text-red-200 px-5 py-3.5 text-xs sm:text-sm backdrop-blur-md shadow-lg shadow-red-950/20"></div>
 
-  <!-- KPI Cards Grid (Tailwind gradients + modern stats) -->
-  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  <!-- KPI Cards Grid (Tailwind gradients + 3D Spotlight Tilt) -->
+  <section class="reveal-block grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" style="--delay:70ms">
     <!-- KPI 1: PVGIS 5.3 -->
-    <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-amber-500/40 transition">
+    <div class="spotlight-card tilt-card relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-amber-500/40">
       <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
       <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
         <span>PVGIS 5.3 (neta anual)</span>
@@ -365,7 +645,7 @@ try {
     </div>
 
     <!-- KPI 2: Modelo Físico Teórico -->
-    <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-sky-500/40 transition">
+    <div class="spotlight-card tilt-card relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-sky-500/40">
       <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-sky-500/10 rounded-full blur-2xl group-hover:bg-sky-500/20 transition"></div>
       <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
         <span id="kpiPhysTitle">Nivel 3 · Físico NREL</span>
@@ -376,7 +656,7 @@ try {
     </div>
 
     <!-- KPI 3: Desviación Teórico vs PVGIS -->
-    <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-emerald-500/40 transition">
+    <div class="spotlight-card tilt-card relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-emerald-500/40">
       <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition"></div>
       <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
         <span>Desviación Teórico vs PVGIS</span>
@@ -387,7 +667,7 @@ try {
     </div>
 
     <!-- KPI 4: Factor de sistema -->
-    <div class="relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-amber-500/40 transition">
+    <div class="spotlight-card tilt-card relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-slate-950/90 border border-slate-800/80 shadow-xl group hover:border-amber-500/40">
       <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition"></div>
       <div class="flex items-center justify-between text-slate-400 text-xs font-bold uppercase tracking-wider">
         <span>Rendimiento de sistema</span>
@@ -399,7 +679,7 @@ try {
   </section>
 
   <!-- Parameters Card (Physical Theoretical Model + System Losses) -->
-  <section class="rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800/90 p-5 sm:p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl space-y-5">
+  <section class="reveal-block rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800/90 p-5 sm:p-6 shadow-2xl relative overflow-hidden backdrop-blur-xl space-y-5" style="--delay:140ms">
     <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
       <div>
         <div class="flex items-center gap-2">
@@ -577,9 +857,9 @@ try {
   </div>
 
   <!-- Charts Cards Grid -->
-  <section class="grid grid-cols-1 lg:grid-cols-2 gap-5" id="charts">
+  <section class="reveal-block grid grid-cols-1 lg:grid-cols-2 gap-5" id="charts" style="--delay:210ms">
     <!-- North -->
-    <article class="card rounded-2xl glass-panel glass-panel-hover p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="N" tabindex="0">
+    <article class="card spotlight-card rounded-2xl glass-panel glass-panel-hover p-5 border cursor-pointer group relative" data-dir="N" tabindex="0">
       <div class="flex items-center justify-between gap-3 mb-3">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-lg bg-slate-800/90 border border-slate-700/80 flex items-center justify-center font-black text-xs text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition">N</div>
@@ -597,7 +877,7 @@ try {
     </article>
 
     <!-- East -->
-    <article class="card rounded-2xl glass-panel glass-panel-hover p-4 sm:p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="E" tabindex="0">
+    <article class="card spotlight-card rounded-2xl glass-panel glass-panel-hover p-4 sm:p-5 border cursor-pointer group relative" data-dir="E" tabindex="0">
       <div class="flex items-center justify-between gap-3 mb-3">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-lg bg-slate-800/90 border border-slate-700/80 flex items-center justify-center font-black text-xs text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition">E</div>
@@ -615,7 +895,7 @@ try {
     </article>
 
     <!-- South -->
-    <article class="card rounded-2xl glass-panel glass-panel-hover p-4 sm:p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="S" tabindex="0">
+    <article class="card spotlight-card rounded-2xl glass-panel glass-panel-hover p-4 sm:p-5 border cursor-pointer group relative" data-dir="S" tabindex="0">
       <div class="flex items-center justify-between gap-3 mb-3">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-lg bg-slate-800/90 border border-slate-700/80 flex items-center justify-center font-black text-xs text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition">S</div>
@@ -633,7 +913,7 @@ try {
     </article>
 
     <!-- West -->
-    <article class="card rounded-2xl glass-panel glass-panel-hover p-4 sm:p-5 border transition-all duration-300 cursor-pointer group relative" data-dir="O" tabindex="0">
+    <article class="card spotlight-card rounded-2xl glass-panel glass-panel-hover p-4 sm:p-5 border cursor-pointer group relative" data-dir="O" tabindex="0">
       <div class="flex items-center justify-between gap-3 mb-3">
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-lg bg-slate-800/90 border border-slate-700/80 flex items-center justify-center font-black text-xs text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition">O</div>
@@ -652,7 +932,7 @@ try {
   </section>
 
   <!-- Formulas & Pedagogical Explanation Section (Interactive) -->
-  <section class="rounded-2xl bg-gradient-to-b from-slate-900/95 via-slate-900/80 to-slate-950/95 border border-slate-800/90 p-5 sm:p-7 shadow-2xl relative overflow-hidden backdrop-blur-xl space-y-6" id="pedagogy">
+  <section class="reveal-block rounded-2xl bg-gradient-to-b from-slate-900/95 via-slate-900/80 to-slate-950/95 border border-slate-800/90 p-5 sm:p-7 shadow-2xl relative overflow-hidden backdrop-blur-xl space-y-6" id="pedagogy" style="--delay:280ms">
     <!-- Section Header -->
     <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
       <div class="flex items-center gap-3">
@@ -675,7 +955,7 @@ try {
     <!-- 3 Core Physics Equation Cards Grid (Dynamically updated per method) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <!-- Equation 1 -->
-      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-sky-500/30 transition flex flex-col justify-between">
+      <div class="eq-card rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-sky-500/30 transition flex flex-col justify-between">
         <div class="space-y-2">
           <div class="flex items-center justify-between text-xs font-bold text-sky-400 uppercase tracking-wider gap-2">
             <span id="eq1Title">1. Irradiancia Efectiva (G_eff)</span>
@@ -695,7 +975,7 @@ try {
       </div>
 
       <!-- Equation 2 -->
-      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-orange-500/30 transition flex flex-col justify-between">
+      <div class="eq-card rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-orange-500/30 transition flex flex-col justify-between">
         <div class="space-y-2">
           <div class="flex items-center justify-between text-xs font-bold text-orange-400 uppercase tracking-wider gap-2">
             <span id="eq2Title">2. Temperatura de Célula (T_cell)</span>
@@ -715,7 +995,7 @@ try {
       </div>
 
       <!-- Equation 3 -->
-      <div class="rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-emerald-500/30 transition flex flex-col justify-between">
+      <div class="eq-card rounded-xl bg-slate-950/70 border border-slate-800/80 p-4 space-y-2 hover:border-emerald-500/30 transition flex flex-col justify-between">
         <div class="space-y-2">
           <div class="flex items-center justify-between text-xs font-bold text-emerald-400 uppercase tracking-wider gap-2">
             <span id="eq3Title">3. Conversión NREL + BOS</span>
@@ -736,7 +1016,7 @@ try {
     </div>
 
     <!-- Active Method Engineering Insight Banner -->
-    <div class="rounded-xl bg-sky-950/25 border border-sky-500/25 p-4 flex items-start gap-3 text-xs text-slate-300 leading-relaxed">
+    <div class="eq-card rounded-xl bg-sky-950/25 border border-sky-500/25 p-4 flex items-start gap-3 text-xs text-slate-300 leading-relaxed">
       <div class="w-7 h-7 rounded-lg bg-sky-500/15 border border-sky-400/30 flex items-center justify-center text-sky-300 shrink-0 mt-0.5">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </div>
@@ -1264,6 +1544,15 @@ async function loadPVGIS(){
 }
 
 function isLightTheme(){return document.documentElement.classList.contains("light");}
+function prefersReducedMotion(){
+ try{return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);}
+ catch(e){return false;}
+}
+
+const chartAnim={};
+let chartRafId=null;
+const kpiAnim={};
+let lastRenderedMethod=null;
 
 function drawChart(dirId,pvgisVals,physVals,globalMax,hoverIdx=-1){
  const canvas=$("chart"+dirId);
@@ -1280,12 +1569,14 @@ function drawChart(dirId,pvgisVals,physVals,globalMax,hoverIdx=-1){
  ctx.clearRect(0,0,w,h);
 
  const light=isLightTheme();
- const gridColor=light?"rgba(148, 163, 184, 0.38)":"rgba(51, 65, 85, 0.45)";
+ const gridColor=light?"rgba(148, 163, 184, 0.36)":"rgba(51, 65, 85, 0.42)";
  const labelColor=light?"#475569":"#94a3b8";
  const hoverLabelColor=light?"#0f172a":"#f8fafc";
- const hoverBandColor=light?"rgba(2, 132, 199, 0.10)":"rgba(56, 189, 248, 0.14)";
- const barPvgisColor=light?"#d97706":"#f59e0b";
- const barPhysColor=light?"#0284c7":"#38bdf8";
+ const hoverBandColor=light?"rgba(2, 132, 199, 0.09)":"rgba(56, 189, 248, 0.12)";
+ const barPvgisFlat=light?"#d97706":"#f59e0b";
+ const barPhysFlat=light?"#0284c7":"#38bdf8";
+ const crownPvgis=light?"#fef3c7":"#fef08a";
+ const crownPhys=light?"#e0f2fe":"#bae6fd";
 
  const rawMax = globalMax ?? Math.max(...pvgisVals, ...physVals);
  const max = Math.max(1, rawMax) * 1.14;
@@ -1316,6 +1607,9 @@ function drawChart(dirId,pvgisVals,physVals,globalMax,hoverIdx=-1){
 
  const group=plotW/12;
  const bw=Math.max(3.5, Math.min(12, group*0.35));
+ const hasGrad=typeof ctx.createLinearGradient==="function";
+ const hasHover=hoverIdx>=0 && hoverIdx<=11;
+
  for(let i=0;i<12;i++){
   const cx=left+group*(i+0.5);
   const v1=pvgisVals[i] || 0;
@@ -1324,26 +1618,199 @@ function drawChart(dirId,pvgisVals,physVals,globalMax,hoverIdx=-1){
   const barH2=Math.max(2, (v2/max)*plotH);
   const y1=top+plotH-barH1;
   const y2=top+plotH-barH2;
+  const isHovered=(i===hoverIdx);
+  const bwDraw=isHovered ? bw+1.2 : bw;
 
-  if(i===hoverIdx){
+  if(isHovered){
    ctx.fillStyle=hoverBandColor;
    ctx.fillRect(left+group*i,top,group,plotH);
   }
 
-  // Barra 1: PVGIS 5.3 satelital
-  ctx.fillStyle=barPvgisColor;
-  ctx.fillRect(cx-bw-1.5, y1, bw, barH1);
+  ctx.globalAlpha = hasHover ? (isHovered ? 1 : 0.36) : 1;
 
-  // Barra 2: Modelo Físico Teórico
-  ctx.fillStyle=barPhysColor;
-  ctx.fillRect(cx+1.5, y2, bw, barH2);
+  // Barra 1: PVGIS 5.3 satelital (gradiente energético + corona luminosa)
+  if(hasGrad){
+   const g1=ctx.createLinearGradient(0,y1,0,top+plotH);
+   g1.addColorStop(0,light?"#f59e0b":"#fbbf24");
+   g1.addColorStop(1,light?"rgba(217, 119, 6, 0.52)":"rgba(217, 119, 6, 0.30)");
+   ctx.fillStyle=g1;
+  }else{
+   ctx.fillStyle=barPvgisFlat;
+  }
+  if(isHovered && "shadowBlur" in ctx){
+   ctx.shadowColor=light?"rgba(217,119,6,0.45)":"rgba(251,191,36,0.65)";
+   ctx.shadowBlur=12;
+  }
+  ctx.fillRect(cx-bwDraw-1.5, y1, bwDraw, barH1);
+  if("shadowBlur" in ctx) ctx.shadowBlur=0;
+  ctx.fillStyle=crownPvgis;
+  ctx.fillRect(cx-bwDraw-1.5, y1, bwDraw, Math.min(2, barH1));
 
-  ctx.fillStyle=i===hoverIdx?hoverLabelColor:labelColor;
+  // Barra 2: Modelo Físico Teórico (gradiente cian solar + corona luminosa)
+  if(hasGrad){
+   const g2=ctx.createLinearGradient(0,y2,0,top+plotH);
+   g2.addColorStop(0,light?"#0ea5e9":"#38bdf8");
+   g2.addColorStop(1,light?"rgba(2, 132, 199, 0.52)":"rgba(2, 132, 199, 0.30)");
+   ctx.fillStyle=g2;
+  }else{
+   ctx.fillStyle=barPhysFlat;
+  }
+  if(isHovered && "shadowBlur" in ctx){
+   ctx.shadowColor=light?"rgba(2,132,199,0.45)":"rgba(56,189,248,0.65)";
+   ctx.shadowBlur=12;
+  }
+  ctx.fillRect(cx+1.5, y2, bwDraw, barH2);
+  if("shadowBlur" in ctx) ctx.shadowBlur=0;
+  ctx.fillStyle=crownPhys;
+  ctx.fillRect(cx+1.5, y2, bwDraw, Math.min(2, barH2));
+
+  ctx.globalAlpha=1;
+  ctx.fillStyle=isHovered?hoverLabelColor:labelColor;
   ctx.textAlign="center";
   ctx.textBaseline="top";
   ctx.fillText(MONTHS[i],cx,h-bottom+9);
  }
  chartGeom[dirId]={left,right,top,bottom,plotW,plotH,pvgisVals,physVals,globalMax};
+}
+
+function scheduleChartAnimation(series,globalMax){
+ const canAnimate = typeof requestAnimationFrame==="function" && !prefersReducedMotion();
+ const now = (typeof performance!=="undefined" && performance.now) ? performance.now() : Date.now();
+ DIRS.forEach(d=>{
+  const {pvgisNet,physNet}=series[d.id];
+  const prev=chartAnim[d.id];
+  const startPvgis=prev ? prev.currPvgis.slice() : pvgisNet.map(()=>0);
+  const startPhys=prev ? prev.currPhys.slice() : physNet.map(()=>0);
+  chartAnim[d.id]={
+   startPvgis, startPhys,
+   currPvgis:pvgisNet.slice(), currPhys:physNet.slice(),
+   targetPvgis:pvgisNet.slice(), targetPhys:physNet.slice(),
+   globalMax, startTime:now
+  };
+  if(!canAnimate){
+   drawChart(d.id,pvgisNet,physNet,globalMax);
+  }
+ });
+ if(!canAnimate)return;
+
+ if(chartRafId && typeof cancelAnimationFrame==="function") cancelAnimationFrame(chartRafId);
+ const dur=440, stagger=16;
+ const step=(ts)=>{
+  let active=false;
+  DIRS.forEach(d=>{
+   const st=chartAnim[d.id];
+   if(!st)return;
+   const cP=[], cF=[];
+   for(let i=0;i<12;i++){
+    const elapsed=ts-st.startTime-i*stagger;
+    const u=Math.max(0,Math.min(1,elapsed/dur));
+    if(u<1) active=true;
+    const e=u>=1?1:(1-Math.pow(2,-10*u));
+    cP.push(st.startPvgis[i]+(st.targetPvgis[i]-st.startPvgis[i])*e);
+    cF.push(st.startPhys[i]+(st.targetPhys[i]-st.startPhys[i])*e);
+   }
+   st.currPvgis=cP;
+   st.currPhys=cF;
+   drawChart(d.id,cP,cF,st.globalMax,-1);
+  });
+  if(active){
+   chartRafId=requestAnimationFrame(step);
+  }else{
+   chartRafId=null;
+   DIRS.forEach(d=>{
+    const st=chartAnim[d.id];
+    if(st) drawChart(d.id,st.targetPvgis,st.targetPhys,st.globalMax,-1);
+   });
+  }
+ };
+ chartRafId=requestAnimationFrame(step);
+}
+
+function animateKpiValue(id,targetVal,formatter){
+ const el=$(id);
+ if(!el)return;
+ const prev=kpiAnim[id];
+ const canAnimate = typeof requestAnimationFrame==="function" && !prefersReducedMotion() && prev && Number.isFinite(prev.val);
+ if(!canAnimate){
+  kpiAnim[id]={val:targetVal,raf:null};
+  el.innerHTML=formatter(targetVal);
+  return;
+ }
+ if(prev.raf && typeof cancelAnimationFrame==="function") cancelAnimationFrame(prev.raf);
+ const startVal=prev.val;
+ if(Math.abs(targetVal-startVal)<0.001){
+  kpiAnim[id]={val:targetVal,raf:null};
+  el.innerHTML=formatter(targetVal);
+  return;
+ }
+ const t0=(typeof performance!=="undefined"&&performance.now)?performance.now():Date.now();
+ const dur=340;
+ const tick=(ts)=>{
+  const u=Math.min(1,Math.max(0,(ts-t0)/dur));
+  const e=1-Math.pow(1-u,3);
+  const cur=startVal+(targetVal-startVal)*e;
+  kpiAnim[id].val=cur;
+  el.innerHTML=formatter(cur);
+  if(u<1){
+   kpiAnim[id].raf=requestAnimationFrame(tick);
+  }else{
+   kpiAnim[id]={val:targetVal,raf:null};
+   el.innerHTML=formatter(targetVal);
+  }
+ };
+ kpiAnim[id]={val:startVal,raf:requestAnimationFrame(tick)};
+}
+
+function updateSolarViz(angleDeg,chosenObj,phys,peakGeff){
+ const panel=$("vizPanelGroup");
+ const sun=$("vizSunGroup");
+ const diffuse=$("vizDiffuseDome");
+ const rays=$("vizRaysGroup");
+ const pulse=$("vizPulsePath");
+ const arc=$("vizAngleArc");
+ if(!panel||!sun)return;
+
+ // Inclinación física del panel (0° horizontal -> 90° vertical, pivote 130,92)
+ panel.style.transform=`rotate(${angleDeg}deg)`;
+
+ // Arco de ángulo dinámico entre la horizontal izquierda y el panel elevado
+ if(arc){
+  const r=32, rad=angleDeg*Math.PI/180;
+  const sx=130-r, sy=92;
+  const ex=130-r*Math.cos(rad), ey=92-r*Math.sin(rad);
+  arc.setAttribute("d", angleDeg>2 ? `M ${sx.toFixed(1)} ${sy} A ${r} ${r} 0 0 1 ${ex.toFixed(1)} ${ey.toFixed(1)}` : "");
+ }
+
+ // Posición solar en el arco heliocéntrico según orientación
+ const sunPos={
+  S:{x:172,y:26,rayOp:1},
+  E:{x:64,y:34,rayOp:0.88},
+  O:{x:184,y:44,rayOp:0.88},
+  N:{x:38,y:66,rayOp:0.30}
+ }[chosenObj.id] || {x:172,y:26,rayOp:1};
+ sun.style.transform=`translate(${sunPos.x}px, ${sunPos.y}px)`;
+
+ // Atmósfera y pulso energético según método físico
+ const diffuseOp = phys.method==="level1" ? 0.16 : (phys.method==="level2" ? 0.85 : (chosenObj.id==="N" ? 0.92 : 0.58));
+ if(diffuse) diffuse.setAttribute("opacity",String(diffuseOp));
+ if(rays) rays.setAttribute("opacity",String(phys.method==="level1" ? Math.min(1,sunPos.rayOp+0.15) : sunPos.rayOp));
+ if(pulse){
+  pulse.setAttribute("opacity", phys.method==="level4" ? "1" : "0.42");
+  pulse.setAttribute("stroke", phys.method==="level4" ? "#10b981" : "#38bdf8");
+ }
+
+ $("vizReadoutAngle").textContent=`${angleDeg}°`;
+ $("vizReadoutDir").textContent=`${chosenObj.name} (${chosenObj.aspectLabel})`;
+ $("vizReadoutIrr").textContent=`${fmt(peakGeff)} W/m² pico`;
+}
+
+function flashEquationCards(){
+ if(prefersReducedMotion())return;
+ document.querySelectorAll(".eq-card").forEach(card=>{
+  card.classList.remove("eq-morph-flash");
+  void card.offsetWidth;
+  card.classList.add("eq-morph-flash");
+ });
 }
 
 function fmtSigned(n,d=1){return (n>=0?"+":"")+fmtDec(n,d);}
@@ -1449,7 +1916,8 @@ function updatePedagogyEquations(perf,phys,chosenName,ch,sumPhys){
 function syncLabels(perf,phys){
  const pct=fmtDec(perf*100,2),lossPct=fmtDec((1-perf)*100,2);
  const m=CALC_METHODS[phys.method];
- $("kpiFactor").innerHTML=`${pct} <span class="text-xs font-semibold text-slate-400">%</span>`;
+ if(document.documentElement.setAttribute) document.documentElement.setAttribute("data-method",phys.method);
+ animateKpiValue("kpiFactor",perf*100,v=>`${fmtDec(v,2)} <span class="text-xs font-semibold text-slate-400">%</span>`);
  $("kpiLossHint").textContent=`Aplicado a ambos modelos · pérdidas ${lossPct} %`;
  $("kpiPhysTitle").textContent=m.kpiTitle;
  $("paramsGlobal").textContent=`${pct} %`;
@@ -1471,6 +1939,8 @@ function render(){
  const power=getPower(),perf=getPerformance(),phys=getPhysParams();
  const m=CALC_METHODS[phys.method];
  const selected=$("orientation").value,shared=$("sharedScale").checked;
+ const methodChanged = lastRenderedMethod !== null && lastRenderedMethod !== phys.method;
+ lastRenderedMethod = phys.method;
  syncLabels(perf,phys);
 
  document.querySelectorAll(".card").forEach(card=>{
@@ -1490,9 +1960,10 @@ function render(){
   ?Math.max(1,...DIRS.flatMap(d=>[...series[d.id].pvgisNet,...series[d.id].physNet]))
   :null;
 
+ scheduleChartAnimation(series,globalMax);
+
  DIRS.forEach(d=>{
   const {pvgisNet,physNet}=series[d.id];
-  drawChart(d.id,pvgisNet,physNet,globalMax);
   const tPvgis=pvgisNet.reduce((a,b)=>a+b,0), tPhys=physNet.reduce((a,b)=>a+b,0);
   const diffPct=tPvgis>0?((tPhys-tPvgis)/tPvgis)*100:0;
   $("totals"+d.id).innerHTML=`
@@ -1511,16 +1982,20 @@ function render(){
  const deltaKwh=sumPhys-sumPvgis;
  const deltaPct=sumPvgis>0?(deltaKwh/sumPvgis)*100:0;
 
- $("kpiPvgis").innerHTML=`${fmt(sumPvgis)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
+ animateKpiValue("kpiPvgis",sumPvgis,v=>`${fmt(v)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`);
  $("kpiPvgisHint").textContent=`${fmt(sumPvgis/power)} kWh/kWp · orientación ${chosenName.toLowerCase()}`;
- $("kpiPhys").innerHTML=`${fmt(sumPhys)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`;
+ animateKpiValue("kpiPhys",sumPhys,v=>`${fmt(v)} <span class="text-xs font-semibold text-slate-400">kWh/año</span>`);
  $("kpiPhysHint").textContent=`${fmt(sumPhys/power)} kWh/kWp · ${m.hintTag}`;
- $("kpiDelta").innerHTML=`${fmtSigned(deltaPct,1)} <span class="text-xs font-semibold text-slate-400">%</span>`;
+ animateKpiValue("kpiDelta",deltaPct,v=>`${fmtSigned(v,1)} <span class="text-xs font-semibold text-slate-400">%</span>`);
  $("kpiDeltaHint").textContent=`Diferencia anual: ${deltaKwh>=0?"+":""}${fmt(deltaKwh)} kWh`;
+
+ // Actualizar visor geométrico solar SVG en tiempo real
+ updateSolarViz(loadedAngle,chosenObj,phys,ch.peakGeff);
 
  // Actualizar fórmulas dinámicas y desglose pedagógico en vivo
  $("formulaTargetDir").textContent=`${chosenName} (${chosenObj.aspectLabel})`;
  updatePedagogyEquations(perf,phys,chosenName,ch,sumPhys);
+ if(methodChanged) flashEquationCards();
 
  $("mathDirName").textContent=chosenName;
  $("mathAngleLabel").textContent=`${loadedAngle}°`;
@@ -1544,9 +2019,12 @@ DIRS.forEach(d=>{
   const rect=canvas.getBoundingClientRect();
   const x=e.clientX-rect.left;
   const idx=Math.floor((x-g.left)/(g.plotW/12));
-  if(idx<0||idx>11){hideTooltip();drawChart(d.id,g.pvgisVals,g.physVals,g.globalMax,-1);return;}
-  drawChart(d.id,g.pvgisVals,g.physVals,g.globalMax,idx);
-  const vP=g.pvgisVals[idx], vF=g.physVals[idx];
+  const st=chartAnim[d.id];
+  const pVals=st?st.targetPvgis:g.pvgisVals;
+  const fVals=st?st.targetPhys:g.physVals;
+  if(idx<0||idx>11){hideTooltip();drawChart(d.id,pVals,fVals,g.globalMax,-1);return;}
+  drawChart(d.id,pVals,fVals,g.globalMax,idx);
+  const vP=pVals[idx], vF=fVals[idx];
   const dPct=vP>0?((vF-vP)/vP)*100:0;
   const m=CALC_METHODS[getPhysParams().method];
   const tt=$("tooltip");
@@ -1577,9 +2055,32 @@ DIRS.forEach(d=>{
  canvas.addEventListener("mouseleave",()=>{
   hideTooltip();
   const g=chartGeom[d.id];
-  if(g)drawChart(d.id,g.pvgisVals,g.physVals,g.globalMax,-1);
+  const st=chartAnim[d.id];
+  if(g)drawChart(d.id,st?st.targetPvgis:g.pvgisVals,st?st.targetPhys:g.physVals,g.globalMax,-1);
  });
 });
+
+// Cursor-reactive Spotlight & subtle 3D Magnetic Tilt (desktop hover pointers only)
+(function initSpatialMicroInteractions(){
+ const canHover = typeof window.matchMedia==="function" ? window.matchMedia("(hover: hover) and (pointer: fine)").matches : false;
+ if(!canHover || prefersReducedMotion())return;
+ document.querySelectorAll(".spotlight-card").forEach(el=>{
+  el.addEventListener("pointermove",e=>{
+   const r=el.getBoundingClientRect();
+   const px=e.clientX-r.left, py=e.clientY-r.top;
+   el.style.setProperty("--mx",px+"px");
+   el.style.setProperty("--my",py+"px");
+   if(el.classList.contains("tilt-card")){
+    const nx=(px/Math.max(1,r.width)-0.5)*2;
+    const ny=(py/Math.max(1,r.height)-0.5)*2;
+    el.style.transform=`perspective(900px) rotateX(${(-ny*2.4).toFixed(2)}deg) rotateY(${(nx*2.4).toFixed(2)}deg) translateY(-3px)`;
+   }
+  });
+  el.addEventListener("pointerleave",()=>{
+   if(el.classList.contains("tilt-card")) el.style.transform="";
+  });
+ });
+})();
 
 document.querySelectorAll(".card").forEach(card=>{
  const activate=()=>{
@@ -1624,10 +2125,14 @@ function syncThemeUI(){
  $("themeLabel").textContent=light?"Oscuro":"Claro";
  $("themeToggle").setAttribute("aria-pressed",String(light));
 }
+let themeFadeTimer;
 $("themeToggle").addEventListener("click",()=>{
  const goLight=!isLightTheme();
+ document.documentElement.classList.add("theme-transitioning");
  document.documentElement.classList.toggle("light",goLight);
  document.documentElement.classList.toggle("dark",!goLight);
+ clearTimeout(themeFadeTimer);
+ themeFadeTimer=setTimeout(()=>document.documentElement.classList.remove("theme-transitioning"),380);
  try{localStorage.setItem("ra_theme",goLight?"light":"dark");}catch(e){}
  syncThemeUI();
  render();
