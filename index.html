@@ -2416,14 +2416,14 @@ function buildPhysicalBaseData(angle){
 const climateCache={};
 async function fetchLocationClimate(lat,lon){
  if(isNearBarcelona(lat,lon)){
-  SOLAR_CONST.GHI_MONTHLY=[...BCN_REF.ghi];
-  SOLAR_CONST.TAMB_MONTHLY=[...BCN_REF.tamb];
+  PHYS_CONST.GHI_MONTHLY=[...BCN_REF.ghi];
+  PHYS_CONST.TAMB_MONTHLY=[...BCN_REF.tamb];
   return "bcn";
  }
  const key=`${lat.toFixed(2)},${lon.toFixed(2)}`;
  if(climateCache[key]){
-  SOLAR_CONST.GHI_MONTHLY=[...climateCache[key].ghi];
-  SOLAR_CONST.TAMB_MONTHLY=[...climateCache[key].tamb];
+  PHYS_CONST.GHI_MONTHLY=[...climateCache[key].ghi];
+  PHYS_CONST.TAMB_MONTHLY=[...climateCache[key].tamb];
   return "nasa";
  }
  try{
@@ -2437,11 +2437,11 @@ async function fetchLocationClimate(lat,lon){
    const p=j?.properties?.parameter;
    const keys=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
    if(p?.ALLSKY_SFC_SW_DWN && p?.T2M){
-    const ghi=keys.map((k,i)=>Number(Math.max(10,(p.ALLSKY_SFC_SW_DWN[k]||3)*SOLAR_CONST.DAYS[i]).toFixed(2)));
+    const ghi=keys.map((k,i)=>Number(Math.max(10,(p.ALLSKY_SFC_SW_DWN[k]||3)*PHYS_CONST.DAYS[i]).toFixed(2)));
     const tamb=keys.map(k=>Number((p.T2M[k]??18).toFixed(1)));
     climateCache[key]={ghi,tamb};
-    SOLAR_CONST.GHI_MONTHLY=[...ghi];
-    SOLAR_CONST.TAMB_MONTHLY=[...tamb];
+    PHYS_CONST.GHI_MONTHLY=[...ghi];
+    PHYS_CONST.TAMB_MONTHLY=[...tamb];
     return "nasa";
    }
   }
@@ -2457,8 +2457,8 @@ async function loadPVGIS(){
  loadedAngle=angle;
 
  if(isBcn){
-  SOLAR_CONST.GHI_MONTHLY=[...BCN_REF.ghi];
-  SOLAR_CONST.TAMB_MONTHLY=[...BCN_REF.tamb];
+  PHYS_CONST.GHI_MONTHLY=[...BCN_REF.ghi];
+  PHYS_CONST.TAMB_MONTHLY=[...BCN_REF.tamb];
   baseData=getInterpolatedPVGIS(angle);
   render();
   setStatus(`Datos PVGIS 5.3 oficiales · ${shortLoc} · ${angle}°`,"ok");
@@ -3093,6 +3093,7 @@ $("power").addEventListener("input",()=>{
 });
 $("orientation").addEventListener("change",render);
 $("sharedScale").addEventListener("change",render);
+$("angle").addEventListener("input",loadPVGIS);
 $("angle").addEventListener("change",loadPVGIS);
 $("refresh").addEventListener("click",loadPVGIS);
 
