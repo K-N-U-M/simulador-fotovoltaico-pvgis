@@ -1153,14 +1153,22 @@ try {
         <span class="text-xs font-semibold text-amber-400/90">°</span>
       </div>
 
+      <div class="flex items-center gap-2 bg-slate-900/90 border border-emerald-500/40 rounded-xl px-3 py-1.5 focus-within:border-emerald-400 focus-within:ring-1 focus-within:ring-emerald-400/50 transition" title="Orientación geográfica en grados (0° Norte, 90° Este, 180° Sur, 270° Oeste)">
+        <label for="customGeo" class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Orientación</label>
+        <input id="customGeo" type="number" min="0" max="359" step="1" value="135" class="w-12 bg-transparent text-right font-bold text-slate-100 text-sm focus:outline-none tabular-nums">
+        <span class="text-xs font-semibold text-emerald-400/90">°</span>
+        <span id="customGeoCompass" class="text-[10px] font-black px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 min-w-[28px] text-center">SE</span>
+      </div>
+
       <div class="flex items-center gap-2 bg-slate-900/90 border border-slate-700/80 rounded-xl px-3 py-1.5 focus-within:border-amber-400 focus-within:ring-1 focus-within:ring-amber-400/50 transition">
         <label for="orientation" class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Destacar</label>
         <select id="orientation" class="bg-transparent text-slate-100 text-xs font-medium cursor-pointer focus:outline-none pr-1">
           <option value="all" class="bg-slate-900 text-slate-200">Todas las orientaciones</option>
-          <option value="N" class="bg-slate-900 text-slate-200">Norte (180°)</option>
-          <option value="E" class="bg-slate-900 text-slate-200">Este (-90°)</option>
-          <option value="S" selected class="bg-slate-900 text-slate-200">Sur (0°)</option>
-          <option value="O" class="bg-slate-900 text-slate-200">Oeste (+90°)</option>
+          <option value="N" class="bg-slate-900 text-slate-200">Norte (0° geo · 180°)</option>
+          <option value="E" class="bg-slate-900 text-slate-200">Este (90° geo · -90°)</option>
+          <option value="S" selected class="bg-slate-900 text-slate-200">Sur (180° geo · 0°)</option>
+          <option value="O" class="bg-slate-900 text-slate-200">Oeste (270° geo · +90°)</option>
+          <option value="C" id="optCustomDir" class="bg-slate-900 text-emerald-300">Personalizada (135° · SE)</option>
         </select>
       </div>
 
@@ -1593,6 +1601,37 @@ try {
       </div>
       <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsO"></div>
     </article>
+
+    <!-- Custom Geographic Orientation -->
+    <article class="card boot-chart-card spotlight-card rounded-2xl glass-panel glass-panel-hover p-4 sm:p-5 border cursor-pointer group relative lg:col-span-2" data-dir="C" tabindex="0" style="--boot-delay:820ms;--boot-glow:rgba(16,185,129,0.45);--boot-border:rgba(16,185,129,0.75)">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <div class="flex items-center gap-3">
+          <div id="customDirBadge" class="w-9 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center font-black text-xs text-emerald-300 group-hover:bg-emerald-400 group-hover:text-slate-950 transition">SE</div>
+          <div>
+            <h3 id="customDirTitle" class="font-bold text-base text-slate-100 group-hover:text-emerald-300 transition">Orientación Geográfica · 135° (SE)</h3>
+            <div class="text-[11px] text-slate-400" data-meta="C">Geográfica: 135° (SE) · Azimut PVGIS: −45° · Inclinación: 37°</div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2" id="customGeoControls">
+          <div class="flex items-center gap-2 bg-slate-950/70 border border-slate-700/70 rounded-xl px-3 py-1.5">
+            <label for="customGeoRange" class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Grados</label>
+            <input id="customGeoRange" type="range" min="0" max="359" step="1" value="135" aria-label="Selector de grados de orientación geográfica" class="w-28 sm:w-40 accent-emerald-400 cursor-pointer">
+            <span id="customGeoValueLabel" class="text-xs font-black text-slate-100 tabular-nums min-w-[36px] text-right">135°</span>
+          </div>
+          <div class="flex items-center gap-1 text-[10px] font-bold">
+            <button type="button" data-geo-preset="45" class="px-2 py-1 rounded-lg bg-slate-900/90 border border-slate-700/80 text-slate-300 hover:border-emerald-400 hover:text-emerald-300 transition cursor-pointer">NE 45°</button>
+            <button type="button" data-geo-preset="135" class="px-2 py-1 rounded-lg bg-slate-900/90 border border-slate-700/80 text-slate-300 hover:border-emerald-400 hover:text-emerald-300 transition cursor-pointer">SE 135°</button>
+            <button type="button" data-geo-preset="225" class="px-2 py-1 rounded-lg bg-slate-900/90 border border-slate-700/80 text-slate-300 hover:border-emerald-400 hover:text-emerald-300 transition cursor-pointer">SO 225°</button>
+            <button type="button" data-geo-preset="315" class="px-2 py-1 rounded-lg bg-slate-900/90 border border-slate-700/80 text-slate-300 hover:border-emerald-400 hover:text-emerald-300 transition cursor-pointer">NO 315°</button>
+          </div>
+          <span class="focus text-[10px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 shadow-md shadow-emerald-500/20 hidden">DESTACADA</span>
+        </div>
+      </div>
+      <div class="w-full overflow-x-auto pb-1 -mx-1 px-1">
+        <canvas id="chartC" role="img" aria-label="Producción mensual orientación geográfica personalizada" class="w-full min-w-[320px] h-[245px] block"></canvas>
+      </div>
+      <div class="totals flex flex-wrap gap-4 pt-3 mt-1 border-t border-slate-800 text-xs text-slate-400" id="totalsC"></div>
+    </article>
   </section>
 
   <!-- Formulas & Pedagogical Explanation Section (Interactive) -->
@@ -1791,7 +1830,54 @@ try {
 
 <script>
 const CFG={lat:41.3851,lon:2.1734,loss:0,periodStart:2005,periodEnd:2023,timeoutMs:15000};
-const DIRS=[{id:"N",name:"Norte",aspect:180,aspectLabel:"180°"},{id:"E",name:"Este",aspect:-90,aspectLabel:"−90°"},{id:"S",name:"Sur",aspect:0,aspectLabel:"0°"},{id:"O",name:"Oeste",aspect:90,aspectLabel:"+90°"}];
+const COMPASS_16=["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSO","SO","OSO","O","ONO","NO","NNO"];
+function normalizeGeoDeg(deg){
+ const n=Math.round(Number(deg));
+ if(!Number.isFinite(n))return 135;
+ return ((n%360)+360)%360;
+}
+function geoToCompass(deg){
+ const g=normalizeGeoDeg(deg);
+ return COMPASS_16[Math.round(g/22.5)%16];
+}
+function geoToPvgisAspect(deg){
+ const g=normalizeGeoDeg(deg);
+ const a=g-180;
+ return a===-180?180:a;
+}
+function formatAspectLabel(aspect){
+ if(aspect===0)return "0°";
+ if(aspect===180||aspect===-180)return "180°";
+ return aspect>0?`+${aspect}°`:`−${Math.abs(aspect)}°`;
+}
+const DIRS=[
+ {id:"N",name:"Norte",aspect:180,aspectLabel:"180°",geoDeg:0},
+ {id:"E",name:"Este",aspect:-90,aspectLabel:"−90°",geoDeg:90},
+ {id:"S",name:"Sur",aspect:0,aspectLabel:"0°",geoDeg:180},
+ {id:"O",name:"Oeste",aspect:90,aspectLabel:"+90°",geoDeg:270},
+ {id:"C",name:"Geográfica 135° (SE)",aspect:-45,aspectLabel:"−45°",geoDeg:135,isCustom:true}
+];
+function getCustomDir(){return DIRS.find(d=>d.id==="C");}
+function syncCustomDirState(rawDeg){
+ const g=normalizeGeoDeg(rawDeg);
+ const comp=geoToCompass(g);
+ const asp=geoToPvgisAspect(g);
+ const aspLabel=formatAspectLabel(asp);
+ const c=getCustomDir();
+ c.geoDeg=g;
+ c.aspect=asp;
+ c.aspectLabel=aspLabel;
+ c.name=`Geográfica ${g}° (${comp})`;
+ const numEl=$("customGeo"), rngEl=$("customGeoRange");
+ if(numEl && Number(numEl.value)!==g) numEl.value=String(g);
+ if(rngEl && Number(rngEl.value)!==g) rngEl.value=String(g);
+ if($("customGeoCompass")) $("customGeoCompass").textContent=comp;
+ if($("customGeoValueLabel")) $("customGeoValueLabel").textContent=`${g}°`;
+ if($("customDirBadge")) $("customDirBadge").textContent=comp;
+ if($("customDirTitle")) $("customDirTitle").textContent=`Orientación Geográfica · ${g}° (${comp})`;
+ if($("optCustomDir")) $("optCustomDir").textContent=`Personalizada (${g}° · ${comp})`;
+ return c;
+}
 const MONTHS=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
 let baseData=null;
 let loadedAngle=37;
@@ -2160,23 +2246,79 @@ function apiUrl(dir,angle){
 
 const PVGIS_ANGLES_DB={"0":{"N":[61.18,77.93,121.52,146.54,180.12,189.66,192.22,166.66,124.23,91.38,61.89,53.41],"E":[61.19,77.93,121.53,146.54,180.12,189.66,192.22,166.66,124.23,91.38,61.89,53.41],"S":[61.19,77.94,121.53,146.54,180.12,189.66,192.22,166.66,124.23,91.38,61.89,53.41],"O":[61.19,77.93,121.53,146.54,180.12,189.66,192.22,166.66,124.23,91.38,61.89,53.41]},"15":{"N":[28.51,48.98,94.66,128.48,168.05,181.08,181.12,149.48,101.98,64.72,33.85,22.86],"E":[60.6,76.55,118.76,142.48,175.09,184.14,186.01,160.92,121.1,88.79,61.06,53.44],"S":[90.84,100.93,140.57,156.69,183.45,189.15,193.78,174.94,139.01,111.66,86.02,82.31],"O":[62.2,77.81,120.59,144.82,177.37,186.4,189.36,165.28,122.89,91.55,62.28,53.38]},"20":{"N":[20.17,39.05,84.09,120.69,162.05,176.15,175.25,141.77,92.94,54.9,25.79,16.09],"E":[60.6,75.92,117.38,140.21,172.3,180.59,182.21,158.18,119.48,87.53,61.0,53.42],"S":[99.13,107.09,145.21,158.41,182.83,187.27,192.38,175.85,142.35,116.94,92.7,90.42],"O":[62.3,77.65,119.56,143.22,175.38,184.16,187.17,163.28,122.06,91.0,62.48,53.18]},"25":{"N":[16.27,29.99,72.87,112.0,155.01,170.15,168.26,133.03,83.1,45.08,20.33,15.44],"E":[60.48,75.1,115.92,137.61,168.96,177.37,178.85,154.61,117.75,86.39,60.46,53.18],"S":[106.57,112.5,149.0,159.31,181.31,184.41,189.98,175.86,144.88,121.49,98.66,97.72],"O":[62.74,76.99,118.49,141.49,172.27,180.67,183.71,161.52,120.41,90.48,62.34,53.17]},"30":{"N":[17.22,23.47,61.24,102.38,146.9,163.03,160.09,123.22,72.55,36.23,19.74,16.37],"E":[59.98,74.6,113.7,135.03,165.19,172.77,174.04,151.28,115.49,85.07,60.08,53.34],"S":[113.16,117.14,151.92,159.34,178.94,180.71,186.62,174.96,146.61,125.28,103.9,104.21],"O":[62.78,76.52,117.11,138.92,169.54,177.48,180.68,158.61,118.67,89.81,62.05,53.15]},"35":{"N":[16.79,21.7,49.88,91.86,137.68,154.75,150.71,112.31,61.51,30.17,20.0,15.71],"E":[59.63,73.47,111.99,131.49,161.31,168.82,170.0,147.32,113.3,83.38,59.74,53.12],"S":[118.89,121.02,153.96,158.52,175.54,176.19,182.54,173.12,147.52,128.3,108.4,109.89],"O":[62.43,75.81,115.14,136.41,165.42,172.95,176.1,155.64,116.89,88.48,61.87,52.65]},"37":{"N":[16.49,21.66,45.67,87.41,133.66,151.1,146.61,107.64,57.06,28.98,19.65,15.43],"E":[59.49,72.93,111.19,130.2,159.37,166.76,167.87,145.48,112.39,82.78,59.41,52.9],"S":[120.95,122.35,154.53,157.95,173.91,174.07,180.55,172.11,147.66,129.3,110.0,111.94],"O":[62.23,75.34,114.42,135.35,163.66,170.95,174.18,154.61,115.86,87.9,61.73,52.4]},"40":{"N":[16.03,21.76,40.2,80.52,127.3,145.26,140.06,100.33,50.52,27.93,19.1,14.99],"E":[59.18,72.09,109.57,128.56,156.37,163.46,164.47,142.97,110.65,81.83,58.83,52.52],"S":[123.77,124.12,155.12,156.84,171.2,170.6,177.28,170.31,147.61,130.56,112.18,114.77],"O":[61.92,74.56,113.22,133.27,161.46,167.88,172.03,152.25,114.19,87.18,61.28,51.99]},"45":{"N":[15.2,20.77,34.83,68.68,115.76,134.53,128.12,87.38,40.82,27.4,18.14,14.21],"E":[58.22,70.92,106.59,124.6,152.08,157.99,158.92,138.77,107.64,79.96,57.72,51.75],"S":[127.79,126.44,155.38,154.3,165.93,164.07,171.04,166.54,146.87,132.04,115.21,118.83],"O":[61.61,73.24,110.8,129.66,156.79,163.37,166.65,147.88,111.62,85.71,60.33,51.44]},"50":{"N":[14.34,19.62,32.2,57.09,103.13,122.54,114.88,73.85,35.02,26.05,17.13,13.4],"E":[57.03,69.34,103.89,120.23,146.49,152.59,153.49,133.55,104.59,77.6,56.66,51.0],"S":[130.97,127.99,154.74,150.89,159.76,156.66,163.88,161.82,145.29,132.75,117.51,122.09],"O":[60.67,71.89,107.78,126.04,151.37,157.41,160.87,143.81,108.64,83.6,59.22,50.64]},"60":{"N":[12.53,17.23,28.56,40.95,76.22,95.25,85.58,49.86,29.49,22.92,15.01,11.71],"E":[54.23,65.17,96.85,111.25,134.81,139.84,140.65,122.98,97.06,72.53,53.73,48.73],"S":[134.76,128.75,150.74,141.48,144.72,139.25,146.58,149.49,139.59,131.79,119.87,126.2],"O":[57.95,67.86,101.18,116.82,139.9,145.03,148.41,133.1,101.15,78.61,56.46,48.07]},"90":{"N":[7.31,10.27,17.31,22.1,32.96,38.12,33.29,23.63,17.59,13.79,8.86,6.82],"E":[40.19,47.24,68.32,76.4,91.13,93.42,94.12,83.15,68.11,51.73,39.79,36.54],"S":[125.71,112.06,116.5,92.31,78.51,67.21,73.12,89.62,101.77,109.77,109.07,119.16],"O":[44.64,50.49,73.24,81.59,95.58,97.94,101.08,92.56,71.67,57.22,42.33,35.95]}};
 
+function estimateCustomPVGIS(cardinals,targetAngle,geoDeg){
+ const g=normalizeGeoDeg(geoDeg);
+ if(g===0) return [...cardinals.N];
+ if(g===90) return [...cardinals.E];
+ if(g===180) return [...cardinals.S];
+ if(g===270) return [...cardinals.O];
+ const sectors=[
+  {g0:0,g1:90,k0:"N",k1:"E",a0:180,a1:-90},
+  {g0:90,g1:180,k0:"E",k1:"S",a0:-90,a1:0},
+  {g0:180,g1:270,k0:"S",k1:"O",a0:0,a1:90},
+  {g0:270,g1:360,k0:"O",k1:"N",a0:90,a1:180}
+ ];
+ const sec=sectors.find(s=>g>=s.g0 && g<=s.g1) || sectors[1];
+ const t=(g-sec.g0)/(sec.g1-sec.g0);
+ const basePhys={gammaPct:TYPICAL_PARAMS.gamma,noct:TYPICAL_PARAMS.noct,albedo:TYPICAL_PARAMS.albedo,method:"level3"};
+ const sim0=simulatePhysical({angleDeg:targetAngle,aspectDeg:sec.a0,...basePhys}).monthly;
+ const sim1=simulatePhysical({angleDeg:targetAngle,aspectDeg:sec.a1,...basePhys}).monthly;
+ const simC=simulatePhysical({angleDeg:targetAngle,aspectDeg:geoToPvgisAspect(g),...basePhys}).monthly;
+ const p0=cardinals[sec.k0], p1=cardinals[sec.k1];
+ return simC.map((vC,idx)=>{
+  const r0=sim0[idx]>0.01 ? p0[idx]/sim0[idx] : 1;
+  const r1=sim1[idx]>0.01 ? p1[idx]/sim1[idx] : 1;
+  const rC=r0+t*(r1-r0);
+  return Number(Math.max(0,vC*rC).toFixed(2));
+ });
+}
+
 function getInterpolatedPVGIS(targetAngle){
  const knownAngles=Object.keys(PVGIS_ANGLES_DB).map(Number).sort((a,b)=>a-b);
- if(PVGIS_ANGLES_DB[String(targetAngle)]) return PVGIS_ANGLES_DB[String(targetAngle)];
- let lower=knownAngles[0], upper=knownAngles[knownAngles.length-1];
- for(let i=0; i<knownAngles.length-1; i++){
-  if(targetAngle >= knownAngles[i] && targetAngle <= knownAngles[i+1]){
-   lower=knownAngles[i]; upper=knownAngles[i+1]; break;
+ const result={};
+ const cardinals=["N","E","S","O"];
+ if(PVGIS_ANGLES_DB[String(targetAngle)]){
+  cardinals.forEach(id=>{result[id]=[...PVGIS_ANGLES_DB[String(targetAngle)][id]];});
+ }else{
+  let lower=knownAngles[0], upper=knownAngles[knownAngles.length-1];
+  for(let i=0; i<knownAngles.length-1; i++){
+   if(targetAngle >= knownAngles[i] && targetAngle <= knownAngles[i+1]){
+    lower=knownAngles[i]; upper=knownAngles[i+1]; break;
+   }
   }
+  const factor = (targetAngle - lower) / (upper - lower);
+  cardinals.forEach(id=>{
+   const dLower = PVGIS_ANGLES_DB[String(lower)][id];
+   const dUpper = PVGIS_ANGLES_DB[String(upper)][id];
+   result[id] = dLower.map((val, idx) => Number((val + factor * (dUpper[idx] - val)).toFixed(2)));
+  });
  }
- const factor = (targetAngle - lower) / (upper - lower);
- const result = {};
- DIRS.forEach(d=>{
-  const dLower = PVGIS_ANGLES_DB[String(lower)][d.id];
-  const dUpper = PVGIS_ANGLES_DB[String(upper)][d.id];
-  result[d.id] = dLower.map((val, idx) => Number((val + factor * (dUpper[idx] - val)).toFixed(2)));
- });
+ result.C=estimateCustomPVGIS(result,targetAngle,getCustomDir().geoDeg);
  return result;
+}
+
+let customFetchTimer=null;
+function refreshCustomOrientationPVGIS(){
+ if(!baseData)return;
+ const c=getCustomDir();
+ baseData.C=estimateCustomPVGIS(baseData,loadedAngle,c.geoDeg);
+ render();
+ if(window.location.protocol==="http:"||window.location.protocol==="https:"){
+  clearTimeout(customFetchTimer);
+  const reqGeo=c.geoDeg, reqAngle=loadedAngle;
+  customFetchTimer=setTimeout(async()=>{
+   try{
+    const r=await fetch(apiUrl(c,reqAngle));
+    if(!r.ok)return;
+    const j=await r.json();
+    const rows=j?.outputs?.monthly?.fixed;
+    if(Array.isArray(rows)&&rows.length===12 && getCustomDir().geoDeg===reqGeo && loadedAngle===reqAngle){
+     baseData.C=rows.sort((a,b)=>a.month-b.month).map(row=>Number(row["E_m"]));
+     render();
+    }
+   }catch(e){}
+  },350);
+ }
 }
 
 async function loadPVGIS(){
@@ -2450,12 +2592,22 @@ function updateSolarViz(angleDeg,chosenObj,phys,peakGeff){
  }
 
  // Posición solar en el arco heliocéntrico según orientación
- const sunPos={
+ const sunPosMap={
   S:{x:172,y:26,rayOp:1},
   E:{x:64,y:34,rayOp:0.88},
   O:{x:184,y:44,rayOp:0.88},
   N:{x:38,y:66,rayOp:0.30}
- }[chosenObj.id] || {x:172,y:26,rayOp:1};
+ };
+ let sunPos=sunPosMap[chosenObj.id];
+ if(!sunPos){
+  const a=chosenObj.aspect; // -180..180 (0=S, -90=E, +90=O, ±180=N)
+  const rad=a*Math.PI/180;
+  const southness=(Math.cos(rad)+1)/2; // 1 at S, 0 at N
+  const x=120 + 62*Math.sin(rad) + 18*southness;
+  const y=66 - 40*southness;
+  const rayOp=0.30 + 0.70*southness;
+  sunPos={x:Number(x.toFixed(1)),y:Number(y.toFixed(1)),rayOp:Number(rayOp.toFixed(2))};
+ }
  sun.style.transform=`translate(${sunPos.x}px, ${sunPos.y}px)`;
 
  // Atmósfera y pulso energético según método físico
@@ -2598,7 +2750,11 @@ function syncLabels(perf,phys){
  $("subtitle").textContent=`Comparativa mensual entre datos satelitales PVGIS 5.3 y ${m.legendLabel} para ${loadedAngle}° de inclinación.`;
  DIRS.forEach(d=>{
   const meta=document.querySelector(`[data-meta="${d.id}"]`);
-  if(meta)meta.textContent=`Azimut PVGIS: ${d.aspectLabel} · Inclinación: ${loadedAngle}°`;
+  if(meta){
+   meta.textContent=d.isCustom
+    ? `Geográfica: ${d.geoDeg}° (${geoToCompass(d.geoDeg)}) · Azimut PVGIS: ${d.aspectLabel} · Inclinación: ${loadedAngle}°`
+    : `Azimut PVGIS: ${d.aspectLabel} · Inclinación: ${loadedAngle}°`;
+  }
  });
 }
 
@@ -2794,6 +2950,30 @@ $("orientation").addEventListener("change",render);
 $("sharedScale").addEventListener("change",render);
 $("angle").addEventListener("change",loadPVGIS);
 $("refresh").addEventListener("click",loadPVGIS);
+
+function handleCustomGeoChange(rawDeg, autoSelect){
+ syncCustomDirState(rawDeg);
+ if(autoSelect) $("orientation").value="C";
+ refreshCustomOrientationPVGIS();
+}
+if($("customGeoControls")){
+ $("customGeoControls").addEventListener("click",e=>e.stopPropagation());
+ $("customGeoControls").addEventListener("keydown",e=>e.stopPropagation());
+}
+if($("customGeo")){
+ $("customGeo").addEventListener("input",e=>handleCustomGeoChange(e.target.value,true));
+ $("customGeo").addEventListener("change",e=>handleCustomGeoChange(e.target.value,true));
+}
+if($("customGeoRange")){
+ $("customGeoRange").addEventListener("input",e=>handleCustomGeoChange(e.target.value,true));
+}
+document.querySelectorAll("[data-geo-preset]").forEach(btn=>{
+ btn.addEventListener("click",e=>{
+  e.stopPropagation();
+  handleCustomGeoChange(btn.dataset.geoPreset,true);
+ });
+});
+syncCustomDirState($("customGeo")?$("customGeo").value:135);
 
 function syncThemeUI(){
  const light=isLightTheme();
